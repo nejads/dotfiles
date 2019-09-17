@@ -1,16 +1,9 @@
-# [My macOS Empire](https://medium.com/@sam_hosseini/build-a-macos-empire-a0c83879ac24) 👑
-[![my macOS empire](https://i.imgur.com/dSbidA6.png)](https://vimeo.com/samhosseini/my-macos-empire "Watch a sample executation of my macOS bootstrapping script")
+# dotfiles
+My configuration files and settings
 
+### Command to install all packages
+    ``` curl --silent https://raw.githubusercontent.com/nejads/dotfiles/master/bootstrap.sh | bash ```
 
-* On a fresh macOS:
-
-  * Setup for a software development environment entirely with a one-liner 🔥
-    ```
-    curl --silent https://raw.githubusercontent.com/sam-hosseini/dotfiles/master/setup-mac-os.sh | bash
-    ```
-
-  * Open a Fish shell and execute `compile_vim_plugins` and `install_oh_my_fish` functions.
-  * Enter licesne information of purchased applications.
-  * Manually set [un-automatable shortcuts](https://github.com/sam-hosseini/dotfiles/blob/master/shortcuts/shortcuts.md#un-automatable-shortcuts)
-
-* Execute `bootstrap` function freely which in turn executes the bootstrapping script.
+### Inspiration and credits:
+* [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)
+* [Sam's dotfiles](https://github.com/sam-hosseini/dotfiles)

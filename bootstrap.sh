@@ -5,12 +5,14 @@ main() {
     ask_for_sudo
     # Installing Homebrew, the basis of anything and everything
     install_homebrew
-    # Cloning Dotfiles repository for install_packages_with_brewfile to have access to Brewfile
+    # Cloning Dotfiles repository for install_homebrew_formulae to have access to Brewfile
     clone_dotfiles_repo
     # Installing all packages in Dotfiles repository's Brewfile
-    install_packages_with_brewfile
-    # Changing default shell to Fish
-    change_shell_to_fish
+    install_homebrew_formulae
+    # Change default shcell to zsh
+    change_default_shell_to_zsh
+    # install oh-my-zsh
+    install_oh_my_zsh
     # Installing pip packages so that setup_symlinks can setup the symlinks
     install_pip_packages
     # Installing yarn packages
@@ -29,7 +31,7 @@ main() {
     update_login_items
 }
 
-DOTFILES_REPO=~/personal/dotfiles
+DOTFILES_REPO=~/dotfiles
 
 function ask_for_sudo() {
     info "Prompting for sudo password"
@@ -49,7 +51,7 @@ function install_homebrew() {
     if hash brew 2>/dev/null; then
         success "Homebrew already exists"
     else
-url=https://raw.githubusercontent.com/sam-hosseini/dotfiles/master/installers/homebrew_installer
+        url=https://raw.githubusercontent.com/sam-hosseini/dotfiles/master/installers/homebrew_installer
         if /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
             success "Homebrew installation succeeded"
         else
@@ -59,7 +61,25 @@ url=https://raw.githubusercontent.com/sam-hosseini/dotfiles/master/installers/ho
     fi
 }
 
-function install_packages_with_brewfile() {
+function clone_dotfiles_repo() {
+    info "Cloning dotfiles repository into ${DOTFILES_REPO}"
+    if test -e $DOTFILES_REPO; then
+        substep "${DOTFILES_REPO} already exists"
+        pull_latest $DOTFILES_REPO
+        success "Pull successful in ${DOTFILES_REPO} repository"
+    else
+        url=https://github.com/nejads/dotfiles.git
+        if git clone "$url" $DOTFILES_REPO && \
+           git -C $DOTFILES_REPO remote set-url origin git@github.com:nejads/dotfiles.git; then
+            success "Dotfiles repository cloned into ${DOTFILES_REPO}"
+        else
+            error "Dotfiles repository cloning failed"
+            exit 1
+        fi
+    fi
+}
+
+function install_homebrew_formulae() {
     BREW_FILE_PATH="${DOTFILES_REPO}/brew/macOS.Brewfile"
     info "Installing packages within ${BREW_FILE_PATH}"
     if brew bundle check --file="$BREW_FILE_PATH" &> /dev/null; then
@@ -74,36 +94,32 @@ function install_packages_with_brewfile() {
     fi
 }
 
-function change_shell_to_fish() {
-    info "Fish shell setup"
-    if grep --quiet fish <<< "$SHELL"; then
-        success "Fish shell already exists"
+function change_default_shell_to_zsh() {
+    user=$(whoami)
+    if sudo chsh -s /bin/zsh "$user"; then
+        success "Zsh shell successfully set for \"${user}\""
     else
-        user=$(whoami)
-        substep "Adding Fish executable to /etc/shells"
-        if grep --fixed-strings --line-regexp --quiet \
-            "/usr/local/bin/fish" /etc/shells; then
-            substep "Fish executable already exists in /etc/shells"
+        error "Please try setting Zsh shell again"
+    fi
+}
+
+function install_oh_my_zsh() {
+    info "Installing Oh-my-zsh"
+    if [ -f "/Users/$(whoami)/.oh-my-zsh/oh-my-zsh.sh" ]; then
+            success "Oh-my-zsh already exists"
+    else
+        url=https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+        if /bin/sh -c "$(curl -fsSL ${url})"; then
+            success "Oh-my-zsh installation succeeded"
         else
-            if echo /usr/local/bin/fish | sudo tee -a /etc/shells > /dev/null;
-            then
-                substep "Fish executable successfully added to /etc/shells"
-            else
-                error "Failed to add Fish executable to /etc/shells"
-                exit 1
-            fi
-        fi
-        substep "Switching shell to Fish for \"${user}\""
-        if sudo chsh -s /usr/local/bin/fish "$user"; then
-            success "Fish shell successfully set for \"${user}\""
-        else
-            error "Please try setting Fish shell again"
+            error "Oh-my-zsh installation failed"
+            exit 1
         fi
     fi
 }
 
 function install_pip_packages() {
-    pip_packages=(powerline-status requests tmuxp virtualenv django mypy)
+    pip_packages=(powerline-status requests tmuxp virtualenv mypy)
     info "Installing pip packages \"${pip_packages[*]}\""
 
     pip3_list_outcome=$(pip3 list)
@@ -126,9 +142,6 @@ function install_pip_packages() {
 }
 
 function install_yarn_packages() {
-    # Installing typescript for YouCompleteMe and prettier for Neoformat to auto-format files
-    # json for auto-formatting of json responses in terminal
-    # vmd for previewing markdown files
     yarn_packages=(prettier typescript json vmd create-react-app gatsby-cli netlify-cli)
     info "Installing yarn packages \"${yarn_packages[*]}\""
 
@@ -151,31 +164,20 @@ function install_yarn_packages() {
     success "yarn packages successfully installed"
 }
 
-function clone_dotfiles_repo() {
-    info "Cloning dotfiles repository into ${DOTFILES_REPO}"
-    if test -e $DOTFILES_REPO; then
-        substep "${DOTFILES_REPO} already exists"
-        pull_latest $DOTFILES_REPO
-        success "Pull successful in ${DOTFILES_REPO} repository"
-    else
-        url=https://github.com/sam-hosseini/dotfiles.git
-        if git clone "$url" $DOTFILES_REPO && \
-           git -C $DOTFILES_REPO remote set-url origin git@github.com:sam-hosseini/dotfiles.git; then
-            success "Dotfiles repository cloned into ${DOTFILES_REPO}"
-        else
-            error "Dotfiles repository cloning failed"
-            exit 1
-        fi
-    fi
-}
+function setup_symlinks() {
+    APPLICATION_SUPPORT=~/Library/Application\ Support
+    POWERLINE_ROOT_REPO=/usr/local/lib/python3.7/site-packages
 
-function pull_latest() {
-    substep "Pulling latest changes in ${1} repository"
-    if git -C $1 pull origin master &> /dev/null; then
-        return
-    else
-        error "Please pull latest changes in ${1} repository manually"
-    fi
+    info "Setting up symlinks"
+    symlink "git" ${DOTFILES_REPO}/git/gitconfig ~/.gitconfig
+    symlink "gitignore" ${DOTFILES_REPO}/git/gitignore_global ~/.gitignore_global
+    symlink "iterm2" ${DOTFILES_REPO}/iTerm2/iterm_startup_script.scpt "${APPLICATION_SUPPORT}"/iTerm2/Scripts/AutoLaunch.scpt
+    symlink "powerline" ${DOTFILES_REPO}/powerline ${POWERLINE_ROOT_REPO}/powerline/config_files
+    symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
+    symlink "vim" ${DOTFILES_REPO}/vim/vimrc ~/.vimrc
+    # symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
+
+    success "Symlinks successfully setup"
 }
 
 function setup_vim() {
@@ -233,47 +235,6 @@ function setup_tmux() {
         exit 1
     fi
     success "tmux successfully setup"
-}
-
-function setup_symlinks() {
-    APPLICATION_SUPPORT=~/Library/Application\ Support
-    POWERLINE_ROOT_REPO=/usr/local/lib/python3.7/site-packages
-
-    info "Setting up symlinks"
-    symlink "git" ${DOTFILES_REPO}/git/gitconfig ~/.gitconfig
-    symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
-    symlink "karabiner" ${DOTFILES_REPO}/karabiner ~/.config/karabiner
-    symlink "powerline" ${DOTFILES_REPO}/powerline ${POWERLINE_ROOT_REPO}/powerline/config_files
-    symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
-    symlink "vim" ${DOTFILES_REPO}/vim/vimrc ~/.vimrc
-
-    # Disable shell login message
-    symlink "hushlogin" /dev/null ~/.hushlogin
-
-    symlink "fish:completions" ${DOTFILES_REPO}/fish/completions ~/.config/fish/completions
-    symlink "fish:functions"   ${DOTFILES_REPO}/fish/functions   ~/.config/fish/functions
-    symlink "fish:config.fish" ${DOTFILES_REPO}/fish/config.fish ~/.config/fish/config.fish
-    symlink "fish:oh_my_fish"  ${DOTFILES_REPO}/fish/oh_my_fish  ~/.config/omf
-
-    success "Symlinks successfully setup"
-}
-
-function symlink() {
-    application=$1
-    point_to=$2
-    destination=$3
-    destination_dir=$(dirname "$destination")
-
-    if test ! -e "$destination_dir"; then
-        substep "Creating ${destination_dir}"
-        mkdir -p "$destination_dir"
-    fi
-    if rm -rf "$destination" && ln -s "$point_to" "$destination"; then
-        substep "Symlinking for \"${application}\" done"
-    else
-        error "Symlinking for \"${application}\" failed"
-        exit 1
-    fi
 }
 
 function update_hosts_file() {
@@ -338,6 +299,37 @@ function update_login_items() {
         success "Login items updated successfully "
     else
         error "Login items update failed"
+        exit 1
+    fi
+}
+
+################################
+# Help functions
+################################
+
+function pull_latest() {
+    substep "Pulling latest changes in ${1} repository"
+    if git -C $1 pull origin master &> /dev/null; then
+        return
+    else
+        error "Please pull latest changes in ${1} repository manually"
+    fi
+}
+
+function symlink() {
+    application=$1
+    point_to=$2
+    destination=$3
+    destination_dir=$(dirname "$destination")
+
+    if test ! -e "$destination_dir"; then
+        substep "Creating ${destination_dir}"
+        mkdir -p "$destination_dir"
+    fi
+    if rm -rf "$destination" && ln -s "$point_to" "$destination"; then
+        substep "Symlinking for \"${application}\" done"
+    else
+        error "Symlinking for \"${application}\" failed"
         exit 1
     fi
 }

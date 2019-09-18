@@ -171,11 +171,12 @@ function setup_symlinks() {
     info "Setting up symlinks"
     symlink "git" ${DOTFILES_REPO}/git/gitconfig ~/.gitconfig
     symlink "gitignore" ${DOTFILES_REPO}/git/gitignore_global ~/.gitignore_global
-    symlink "iterm2" ${DOTFILES_REPO}/iTerm2/iterm_startup_script.scpt "${APPLICATION_SUPPORT}"/iTerm2/Scripts/AutoLaunch.scpt
     symlink "powerline" ${DOTFILES_REPO}/powerline ${POWERLINE_ROOT_REPO}/powerline/config_files
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
     symlink "vim" ${DOTFILES_REPO}/vim/vimrc ~/.vimrc
-    # symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
+    symlink "zshrc" ${DOTFILES_REPO}/zsh/zshrc.zsh ~/.zshrc
+    symlink "zshenv" ${DOTFILES_REPO}/zsh/env.zsh ~/.zshenv
+    # TODO: symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
 
     success "Symlinks successfully setup"
 }

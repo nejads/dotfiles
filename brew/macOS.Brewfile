@@ -7,6 +7,7 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
+tap "homebrew/cask-versions"
 
 ############################################################################
 # brew
@@ -68,8 +69,8 @@ cask "hammerspoon"
 cask "insomnia"
 cask "intellij-idea"
 cask "iterm2"
-cask "java"
-cask "java8"
+cask "java11"
+cask "homebrew/cask-versions/adoptopenjdk8"
 cask "nordvpn"
 cask "numi"
 cask "osxfuse"

@@ -12,10 +12,8 @@ Some application settings are backuped with [Mackup](https://github.com/lra/mack
 ` mackup restore `
 
 ### Todo
-* cryptomator install
 * Mackup
 * Intellij settings
-* Keybase installation
 * move scripts from home to the project
 * Router settings in cryptomator
 * Perian installation

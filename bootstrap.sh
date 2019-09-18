@@ -29,6 +29,10 @@ main() {
     setup_macOS_defaults
     # Updating login items
     update_login_items
+    # Install Cryptomator
+    install_cryptomator
+    # Install Keybase
+    install_keybase
 }
 
 DOTFILES_REPO=~/dotfiles
@@ -305,24 +309,11 @@ function update_login_items() {
 }
 
 function install_cryptomator() {
-    cryptomator_app=/Applications/Cryptomator.app
-    downloaded_file=~/Downloads/Cryptomator.dmg
-    mounted_file=/Volumes/Cryptomator
-    url=https://dl.bintray.com/cryptomator/cryptomator/1.4.15/Cryptomator-1.4.15.dmg
+    install_dmg "Cryptomator" "https://dl.bintray.com/cryptomator/cryptomator/1.4.15/Cryptomator-1.4.15.dmg"
+}
 
-    info "Installing Cryptomator"
-
-    check_existence "${cryptomator_app}"
-
-    info "Downloading Cryptomator"
-
-    run "Download Cryptomator" "$(curl --location --silent --output ${downloaded_file} ${url})"
-    run "Mount Cryptomator" "hdiutil attach ${downloaded_file}"
-    run "Install Cryptomator" "cp -R ${mounted_file}/Cryptomator.app /Applications"
-    run "Unmount Cryptomator" "hdiutil unmount ${mounted_file}"
-    run "Delete downloaded Cryptomator" "rm -rf ${downloaded_file}"
-
-    success "Cryptomator installed successfully."
+function install_keybase() {
+    install_dmg "Keybase" "https://prerelease.keybase.io/Keybase.dmg"
 }
 
 ################################
@@ -356,21 +347,38 @@ function symlink() {
     fi
 }
 
-function check_existence() {
-    file=$1
-    if test -e $file; then
-        success "${file} already exists"
-        exit 1
+function install_dmg() {
+    name=$1
+    url=$2
+    applications_folder=/Applications
+    application=/Applications/$name.app
+    downloaded_file=~/Downloads/$name.dmg
+    mounted_file=/Volumes/$name/${name}.app
+
+    echo "Installing ${name}"
+
+    if test -e $application; then
+        echo "${application} already exists"
+    else
+        echo "Downloading ${name}"
+
+        run "Download ${name}" "$(curl --location --silent --output ${downloaded_file} ${url})"
+        run "Mount ${name}" "hdiutil attach ${downloaded_file}"
+        run "Install ${name}" "cp -R ${mounted_file} ${applications_folder}"
+        run "Unmount ${name}" "hdiutil unmount ${mounted_file}"
+        run "Delete downloaded ${name}" "rm -rf ${downloaded_file}"
+
+        echo "${name} installed successfully."
     fi
 }
 
 function run() {
-    name=$1
+    command_name=$1
     command=$2
     if eval $command; then
-        success "${name} succeeded"
+        echo "${command_name} succeeded"
     else
-        error "${name} failed"
+        echo "${command_name} failed"
         exit 1
     fi
 }

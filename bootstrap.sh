@@ -33,6 +33,8 @@ main() {
     install_cryptomator
     # Install Keybase
     install_keybase
+    # Install Keka
+    install_keka
 }
 
 DOTFILES_REPO=~/dotfiles
@@ -309,11 +311,15 @@ function update_login_items() {
 }
 
 function install_cryptomator() {
-    install_dmg "Cryptomator" "https://dl.bintray.com/cryptomator/cryptomator/1.4.15/Cryptomator-1.4.15.dmg"
+    install_application "Cryptomator" "https://dl.bintray.com/cryptomator/cryptomator/1.4.15/Cryptomator-1.4.15.dmg"
 }
 
 function install_keybase() {
-    install_dmg "Keybase" "https://prerelease.keybase.io/Keybase.dmg"
+    install_application "Keybase" "https://prerelease.keybase.io/Keybase.dmg"
+}
+
+function install_keka() {
+    install_application "Keka" "https://d.keka.io/"
 }
 
 ################################
@@ -347,28 +353,27 @@ function symlink() {
     fi
 }
 
-function install_dmg() {
+function install_application() {
     name=$1
     url=$2
     applications_folder=/Applications
     application=/Applications/$name.app
     downloaded_file=~/Downloads/$name.dmg
-    mounted_file=/Volumes/$name/${name}.app
+    mount_folder=/Volumes/$name
+    mounted_file=$mount_folder/${name}.app
 
-    echo "Installing ${name}"
+    info "Installing ${name}"
 
     if test -e $application; then
-        echo "${application} already exists"
+        success "${application} already exists"
     else
-        echo "Downloading ${name}"
-
         run "Download ${name}" "$(curl --location --silent --output ${downloaded_file} ${url})"
-        run "Mount ${name}" "hdiutil attach ${downloaded_file}"
+        run "Mount ${name}" "hdiutil attach -mountpoint ${mount_folder} ${downloaded_file}"
         run "Install ${name}" "cp -R ${mounted_file} ${applications_folder}"
         run "Unmount ${name}" "hdiutil unmount ${mounted_file}"
         run "Delete downloaded ${name}" "rm -rf ${downloaded_file}"
 
-        echo "${name} installed successfully."
+        success "${name} installed successfully."
     fi
 }
 
@@ -376,9 +381,9 @@ function run() {
     command_name=$1
     command=$2
     if eval $command; then
-        echo "${command_name} succeeded"
+        success "${command_name} succeeded"
     else
-        echo "${command_name} failed"
+        error "${command_name} failed"
         exit 1
     fi
 }

@@ -297,11 +297,32 @@ function update_login_items() {
     info "Updating login items"
 
     if osascript ${DOTFILES_REPO}/macOS/login_items.applescript &> /dev/null; then
-        success "Login items updated successfully "
+        success "Login items updated successfully"
     else
         error "Login items update failed"
         exit 1
     fi
+}
+
+function install_cryptomator() {
+    cryptomator_app=/Applications/Cryptomator.app
+    downloaded_file=~/Downloads/Cryptomator.dmg
+    mounted_file=/Volumes/Cryptomator
+    url=https://dl.bintray.com/cryptomator/cryptomator/1.4.15/Cryptomator-1.4.15.dmg
+
+    info "Installing Cryptomator"
+
+    check_existence "${cryptomator_app}"
+
+    info "Downloading Cryptomator"
+
+    run "Download Cryptomator" "$(curl --location --silent --output ${downloaded_file} ${url})"
+    run "Mount Cryptomator" "hdiutil attach ${downloaded_file}"
+    run "Install Cryptomator" "cp -R ${mounted_file}/Cryptomator.app /Applications"
+    run "Unmount Cryptomator" "hdiutil unmount ${mounted_file}"
+    run "Delete downloaded Cryptomator" "rm -rf ${downloaded_file}"
+
+    success "Cryptomator installed successfully."
 }
 
 ################################
@@ -331,6 +352,25 @@ function symlink() {
         substep "Symlinking for \"${application}\" done"
     else
         error "Symlinking for \"${application}\" failed"
+        exit 1
+    fi
+}
+
+function check_existence() {
+    file=$1
+    if test -e $file; then
+        success "${file} already exists"
+        exit 1
+    fi
+}
+
+function run() {
+    name=$1
+    command=$2
+    if eval $command; then
+        success "${name} succeeded"
+    else
+        error "${name} failed"
         exit 1
     fi
 }

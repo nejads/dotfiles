@@ -16,7 +16,6 @@ Some application settings are backuped with [Mackup](https://github.com/lra/mack
 * Intellij settings
 * move scripts from home to the project
 * Router settings in cryptomator
-* Perian installation
 * activemq
 * hammerspoon settings
 * Beamer licence

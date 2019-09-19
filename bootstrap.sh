@@ -35,6 +35,8 @@ main() {
     install_keybase
     # Install Keka
     install_keka
+    # Install ePubee
+    install_epubee
 }
 
 DOTFILES_REPO=~/dotfiles
@@ -322,6 +324,10 @@ function install_keka() {
     install_application "Keka" "https://d.keka.io/"
 }
 
+function install_epubee() {
+    install_from_zip "ePUBeeDRMRemoval" "http://download.epubee.com/epubee_v3.1.5.2.zip"
+}
+
 ################################
 # Help functions
 ################################
@@ -368,9 +374,30 @@ function install_application() {
         success "${application} already exists"
     else
         run "Download ${name}" "$(curl --location --silent --output ${downloaded_file} ${url})"
-        run "Mount ${name}" "hdiutil attach -mountpoint ${mount_folder} ${downloaded_file}"
+        run "Mount ${name}" "hdiutil attach -quiet -mountpoint ${mount_folder} ${downloaded_file}"
         run "Install ${name}" "cp -R ${mounted_file} ${applications_folder}"
         run "Unmount ${name}" "hdiutil unmount ${mounted_file}"
+        run "Delete downloaded ${name}" "rm -rf ${downloaded_file}"
+
+        success "${name} installed successfully."
+    fi
+}
+
+function install_from_zip() {
+    name=$1
+    url=$2
+    applications_folder=/Applications
+    application=/Applications/$name.app
+    downloaded_file=~/Downloads/$name.zip
+    unziped_file=~/Downloads/$name.app
+
+    info "Installing ${name}"
+
+    if test -e $application; then
+        success "${application} already exists"
+    else
+        run "Download ${name}" "$(curl --location --silent --output ${downloaded_file} ${url})"
+        run "Unzip ${name}" "sudo unzip -oq ${downloaded_file} -d ${applications_folder}"
         run "Delete downloaded ${name}" "rm -rf ${downloaded_file}"
 
         success "${name} installed successfully."

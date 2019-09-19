@@ -8,7 +8,7 @@ This repository includes my configuration files, settings and shows how I setup 
 ``` curl --silent https://raw.githubusercontent.com/nejads/dotfiles/master/bootstrap.sh | bash ```
 
 ### Mackup
-Some application settings are backuped with [Mackup](https://github.com/lra/mackup). To restore this type of application settings, first login to your dropbox then run
+Some application settings are backuped with [Mackup](https://github.com/lra/mackup). To restore this type of application settings, first login to your iCloud then run
 ` mackup restore `
 
 ### Todo

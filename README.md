@@ -12,14 +12,9 @@ Some application settings are backuped with [Mackup](https://github.com/lra/mack
 ` mackup restore `
 
 ### Todo
-* Mackup
-* Intellij settings
-* move scripts from home to the project
-* Router settings in cryptomator
 * activemq
 * hammerspoon settings
-* Beamer licence
-* dropbox login
+* shortcuts
 
 ### Inspiration and credits:
 * [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)

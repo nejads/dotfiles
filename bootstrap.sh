@@ -37,6 +37,8 @@ main() {
     install_keka
     # Install ePubee
     install_epubee
+    # Restore application settings by mackup
+    mackup_restore
 }
 
 DOTFILES_REPO=~/dotfiles
@@ -184,6 +186,7 @@ function setup_symlinks() {
     symlink "vim" ${DOTFILES_REPO}/vim/vimrc ~/.vimrc
     symlink "zshrc" ${DOTFILES_REPO}/zsh/zshrc.zsh ~/.zshrc
     symlink "zshenv" ${DOTFILES_REPO}/zsh/env.zsh ~/.zshenv
+    symlink "mackup" ${DOTFILES_REPO}/mackup/mackup.cfg ~/.mackup.cfg
     # TODO: symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
 
     success "Symlinks successfully setup"
@@ -326,6 +329,10 @@ function install_keka() {
 
 function install_epubee() {
     install_from_zip "ePUBeeDRMRemoval" "http://download.epubee.com/epubee_v3.1.5.2.zip"
+}
+
+function mackup_restore() {
+
 }
 
 ################################

@@ -45,3 +45,6 @@
 ############################################################################
 [core]
 	autocrlf = input  # bit.ly/2RLLxed
+[user]
+	name = Soroush Nejad
+	email = sardabir@gmail.com

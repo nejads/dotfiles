@@ -15,6 +15,7 @@ Some application settings are backuped with [Mackup](https://github.com/lra/mack
 * activemq
 * hammerspoon settings
 * shortcuts
+* virtualbox on brew.
 
 ### Inspiration and credits:
 * [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)

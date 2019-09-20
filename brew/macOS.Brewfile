@@ -79,12 +79,10 @@ cask "teamviewer"
 cask "ticktick"
 cask "transmission"
 cask "tuxera-ntfs"
-cask "virtualbox"
 cask "vagrant"
 cask "visual-studio-code"
 cask "vlc"
 cask "wireshark"
-cask "wireshark-chmodbpf"
 
 ############################################################################
 # brew packages which needs java

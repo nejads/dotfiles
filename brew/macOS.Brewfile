@@ -17,7 +17,6 @@ brew "automake"
 brew "awscli"
 brew "cmake"
 brew "coreutils" # for awesome commands like timeout
-brew "dependency-check"
 brew "diff-so-fancy"
 brew "ffmpeg"
 brew "flac"
@@ -32,7 +31,6 @@ brew "htop"
 brew "httpie"
 brew "mackup"
 brew "magic-wormhole"
-brew "maven"
 brew "nmap"
 brew "node"
 brew "openssh"
@@ -87,3 +85,9 @@ cask "visual-studio-code"
 cask "vlc"
 cask "wireshark"
 cask "wireshark-chmodbpf"
+
+############################################################################
+# brew packages which needs java
+############################################################################
+brew "dependency-check"
+brew "maven"

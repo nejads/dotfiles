@@ -333,15 +333,8 @@ function install_epubee() {
 
 function mackup_restore() {
     info "Mackup using iCloud to restore your settings. Have you logged in iCloud?"
-    select result in Yes No
-    do
-        if [ "$result" = "Yes" ]; then
-            run "Mackup restore" "mackup restore --force"
-            break;
-        else
-            error "Please login to your icloud drive first, then choose Yes"
-        fi
-    done
+    run "Mackup restore" "mackup restore --force"
+    success "Mackup restored."
 }
 
 ################################

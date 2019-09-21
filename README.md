@@ -16,6 +16,7 @@ Some application settings are backuped with [Mackup](https://github.com/lra/mack
 * hammerspoon settings
 * shortcuts
 * virtualbox on brew.
+* cron job for backup with mackup
 
 ### Inspiration and credits:
 * [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)

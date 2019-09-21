@@ -39,6 +39,8 @@ main() {
     install_epubee
     # Restore application settings by mackup
     mackup_restore
+    # Load launchd jobs
+    load_jobs
 }
 
 DOTFILES_REPO=~/dotfiles
@@ -187,6 +189,8 @@ function setup_symlinks() {
     symlink "zshrc" ${DOTFILES_REPO}/zsh/zshrc.zsh ~/.zshrc
     symlink "zshenv" ${DOTFILES_REPO}/zsh/env.zsh ~/.zshenv
     symlink "mackup" ${DOTFILES_REPO}/mackup/mackup.cfg ~/.mackup.cfg
+    symlink "mackup backup job" ${DOTFILES_REPO}/scripts/se.soroush.mackupcron.plist ~/Library/LaunchAgents/se.soroush.mackupcron.plist
+    symlink "pinger job" ${DOTFILES_REPO}/scripts/se.soroush.pinger.plist ~/Library/LaunchAgents/se.soroush.pinger.plist
     # TODO: symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
 
     success "Symlinks successfully setup"
@@ -334,6 +338,11 @@ function install_epubee() {
 function mackup_restore() {
     info "Mackup using iCloud to restore your settings. Have you logged in iCloud?"
     run "Mackup restore" "mackup restore --force"
+}
+
+function load_jobs() {
+    run "Mackup backup job" "launchctl load ~/Library/LaunchAgents/se.soroush.mackupcron.plist"
+    run "Pinger backup job" "launchctl load ~/Library/LaunchAgents/se.soroush.pinger.plist"
 }
 
 ################################

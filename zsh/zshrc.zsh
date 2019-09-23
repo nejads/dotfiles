@@ -18,6 +18,9 @@ zstyle ':completion:*' special-dirs true
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# Enale cmd+back to delete a row
+bindkey "^X\\x7f" backward-kill-line
+
 
 #############################
 # aliases

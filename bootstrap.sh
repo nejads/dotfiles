@@ -191,6 +191,7 @@ function setup_symlinks() {
     symlink "mackup" ${DOTFILES_REPO}/mackup/mackup.cfg ~/.mackup.cfg
     symlink "mackup backup job" ${DOTFILES_REPO}/scripts/se.soroush.mackupcron.plist ~/Library/LaunchAgents/se.soroush.mackupcron.plist
     symlink "pinger job" ${DOTFILES_REPO}/scripts/se.soroush.pinger.plist ~/Library/LaunchAgents/se.soroush.pinger.plist
+    sudo_symlink "touch id in terminal" ${DOTFILES_REPO}/macOS/sudo /etc/pam.d/sudo
     # TODO: symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
 
     success "Symlinks successfully setup"
@@ -369,6 +370,24 @@ function symlink() {
         mkdir -p "$destination_dir"
     fi
     if rm -rf "$destination" && ln -s "$point_to" "$destination"; then
+        substep "Symlinking for \"${application}\" done"
+    else
+        error "Symlinking for \"${application}\" failed"
+        exit 1
+    fi
+}
+
+function sudo_symlink() {
+    application=$1
+    point_to=$2
+    destination=$3
+    destination_dir=$(dirname "$destination")
+
+    if sudo test ! -e "$destination_dir"; then
+        substep "Creating ${destination_dir}"
+        mkdir -p "$destination_dir"
+    fi
+    if sudo rm -rf "$destination" && sudo ln -s "$point_to" "$destination"; then
         substep "Symlinking for \"${application}\" done"
     else
         error "Symlinking for \"${application}\" failed"

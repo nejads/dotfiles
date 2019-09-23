@@ -69,20 +69,6 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf702-0x320000</key>
-		<dict>
-			<key>Action</key>
-			<integer>33</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0xf703-0x280000</key>
-		<dict>
-			<key>Action</key>
-			<integer>48</integer>
-			<key>Text</key>
-			<string>0</string>
-		</dict>
 		<key>0xf703-0x300000</key>
 		<dict>
 			<key>Action</key>
@@ -218,7 +204,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>277 58 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 2560 1440 0 0 2560 1417 </string>
+	<string>0 0 2560 1417 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>594 111 570 452 0 0 1440 877 </string>
 	<key>NeverWarnAboutPossibleOverrides</key>
@@ -611,13 +597,6 @@
 					<key>Text</key>
 					<string>0x1b 0x1b 0x5b 0x44</string>
 				</dict>
-				<key>0xf702-0x320000</key>
-				<dict>
-					<key>Action</key>
-					<integer>45</integer>
-					<key>Text</key>
-					<string>1</string>
-				</dict>
 				<key>0xf703-0x220000</key>
 				<dict>
 					<key>Action</key>
@@ -645,13 +624,6 @@
 					<integer>11</integer>
 					<key>Text</key>
 					<string>0x1b 0x1b 0x5b 0x43</string>
-				</dict>
-				<key>0xf703-0x320000</key>
-				<dict>
-					<key>Action</key>
-					<integer>46</integer>
-					<key>Text</key>
-					<string>1</string>
 				</dict>
 				<key>0xf704-0x20000</key>
 				<dict>
@@ -1472,6 +1444,8 @@
 		<key>topLeft</key>
 		<string>{281, 738}</string>
 	</dict>
+	<key>NoSyncHaveUsedCopyMode</key>
+	<true/>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
@@ -1481,7 +1455,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>589291323.04831505</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>33</integer>
+	<integer>34</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2208,6 +2182,7 @@
 	</dict>
 	<key>NoSyncSearchHistory2</key>
 	<array>
+		<string>git diff iTerm2/com.googlecode.iterm2.plis</string>
 		<string>Gateway</string>
 		<string>monito</string>
 		<string>monitor</string>

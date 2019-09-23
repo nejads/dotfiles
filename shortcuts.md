@@ -8,7 +8,9 @@
 | ⇧⌘å       | LassPass                    | Search in lasspass                  |
 | ⇧⌘ä       | LassPass                    | Open vault                          |
 | ⌘⌫        | iTerm2                      | Deleting a line                     |
-| 
+| ⇧⌘c       | iTerm2                      | Copy mode to use Vim-like shortcuts |
+
+
 ## Firefox and Vimium shortcut
 | Shortcut  | Application                 | Comment                             |
 | --------- | ----------                  | --------------------------          |

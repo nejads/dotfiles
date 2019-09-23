@@ -12,6 +12,8 @@
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
+	<key>BootstrapDaemon</key>
+	<false/>
 	<key>Default Bookmark Guid</key>
 	<string>0FDFE63C-FC28-4145-9365-05BBEA22BD4F</string>
 	<key>DimOnlyText</key>
@@ -24,6 +26,13 @@
 			<integer>39</integer>
 			<key>Text</key>
 			<string></string>
+		</dict>
+		<key>0x7f-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>11</integer>
+			<key>Text</key>
+			<string>0x18 0x7f</string>
 		</dict>
 		<key>0x9-0x40000</key>
 		<dict>
@@ -152,7 +161,7 @@
 	<key>IRMemory</key>
 	<integer>4</integer>
 	<key>LoadPrefsFromCustomFolder</key>
-	<true/>
+	<integer>1</integer>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/iTerm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -209,7 +218,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>277 58 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>54 0 1386 877 0 0 1440 877 </string>
+	<string>0 0 2560 1440 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>594 111 570 452 0 0 1440 877 </string>
 	<key>NeverWarnAboutPossibleOverrides</key>
@@ -511,6 +520,13 @@
 					<key>Text</key>
 					<string>0x7f</string>
 				</dict>
+				<key>0x7f-0x100000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x18 0x7f</string>
+				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
 					<key>Action</key>
@@ -595,6 +611,13 @@
 					<key>Text</key>
 					<string>0x1b 0x1b 0x5b 0x44</string>
 				</dict>
+				<key>0xf702-0x320000</key>
+				<dict>
+					<key>Action</key>
+					<integer>45</integer>
+					<key>Text</key>
+					<string>1</string>
+				</dict>
 				<key>0xf703-0x220000</key>
 				<dict>
 					<key>Action</key>
@@ -622,6 +645,13 @@
 					<integer>11</integer>
 					<key>Text</key>
 					<string>0x1b 0x1b 0x5b 0x43</string>
+				</dict>
+				<key>0xf703-0x320000</key>
+				<dict>
+					<key>Action</key>
+					<integer>46</integer>
+					<key>Text</key>
+					<string>1</string>
 				</dict>
 				<key>0xf704-0x20000</key>
 				<dict>
@@ -1438,9 +1468,9 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1440, 900}}</string>
+		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{425, 710}</string>
+		<string>{281, 738}</string>
 	</dict>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
 	<true/>
@@ -1451,7 +1481,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>589291323.04831505</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>13</integer>
+	<integer>33</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2305,7 +2335,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/soroush/iTerm2</string>
+	<string>/Users/soroush/dotfiles/iTerm2</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -2315,7 +2345,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-09-17T17:48:22Z</date>
+	<date>2019-09-23T08:36:40Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>

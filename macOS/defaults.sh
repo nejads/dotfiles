@@ -2,7 +2,7 @@
 
 main() {
     # configure_plist_apps # Configure all apps whose configurations are plists
-    # configure_iterm2 iterm will configure using mackup. Hold code to reuse for other program that mackup does not support.
+    configure_iterm2
     configure_system
     configure_dock
     configure_finder
@@ -17,7 +17,7 @@ function configure_plist_apps() {
 
 function configure_iterm2() {
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -int 1
-    defaults write com.googlecode.iterm2 PrefsCustomFolder -string ~/personal/dotfiles/iTerm2
+    defaults write com.googlecode.iterm2 PrefsCustomFolder -string ~/dotfiles/iTerm2
 }
 
 function configure_system() {

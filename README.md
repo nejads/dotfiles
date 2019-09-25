@@ -11,13 +11,12 @@ This repository includes my configuration files, settings and shows how I setup 
 Some application settings are backuped with [Mackup](https://github.com/lra/mackup). To restore this type of application settings, first login to your iCloud then run
 ` mackup restore `
 
+### Hammerspoon
+[Hammerspoon](https://www.hammerspoon.org) and [MiroWindowManager](https://github.com/miromannino/miro-windows-manager) for window resize and movements.
+
 ### Todo
 * activemq
-* hammerspoon settings
-* shortcuts
-* virtualbox on brew.
-* cron job for backup with mackup
 
 ### Inspiration and credits:
-* [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)
 * [Sam's dotfiles](https://github.com/sam-hosseini/dotfiles)
+* [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)

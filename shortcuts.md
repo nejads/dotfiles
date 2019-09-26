@@ -31,4 +31,11 @@
 | ⌘⌃→       | Move to the right external screen                 | 
 
 ## xcode
-TODO
+| Shortcut  | Comment                                           |
+| --------- | ------------------------------------------------- |
+| ⌘⌥←       | TAB: Move to the left tab                         |
+| ⌘⌥→       | TAB: Move to the right tab                        | 
+| ⌥↓        | ROW: Move down                                    |
+| ⌥↑        | ROW: Move up                                      |
+| ⇧⌥↓       | ROW: Duplicate                                    |
+| ⌘⌥⌃↑      | SELECT:                                           |

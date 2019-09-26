@@ -192,6 +192,7 @@ function setup_symlinks() {
     symlink "mackup backup job" ${DOTFILES_REPO}/scripts/se.soroush.mackupcron.plist ~/Library/LaunchAgents/se.soroush.mackupcron.plist
     symlink "pinger job" ${DOTFILES_REPO}/scripts/se.soroush.pinger.plist ~/Library/LaunchAgents/se.soroush.pinger.plist
     symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
+    symlink "vscode" ${DOTFILES_REPO}/vscode ~/.vscode
     sudo_symlink "touch id in terminal" ${DOTFILES_REPO}/macOS/sudo /etc/pam.d/sudo
 
     success "Symlinks successfully setup"

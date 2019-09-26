@@ -17,7 +17,7 @@
 | ⌘å        | LassPass                    | Fill credentials                    |
 | ⌘⌃←       | Firefox                     | Jump to left tab                    | 
 
-## MiroWindowManager
+## MiroWindowManager and WindowScreenManagement
 | Shortcut  | Comment                                           |
 | --------- | ------------------------------------------------- |
 | ⌘⌥⌃←      | Move to the left half of the screen               |
@@ -27,6 +27,8 @@
 | ⌘⌥⌃↓↑     | Expand the height to fit the entire screen height |
 | ⌘⌥⌃←→     | Expand the width to fit the entire screen width   |
 | ⌘⌥⌃f      | Expand to be full screen                          |
+| ⌘⌃←       | Move to the left external screen                  |
+| ⌘⌃→       | Move to the right external screen                 | 
 
 ## xcode
 TODO

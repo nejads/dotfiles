@@ -193,7 +193,7 @@ function setup_symlinks() {
     symlink "pinger job" ${DOTFILES_REPO}/scripts/se.soroush.pinger.plist ~/Library/LaunchAgents/se.soroush.pinger.plist
     symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
     symlink "vscode" ${DOTFILES_REPO}/vscode ~/.vscode
-    symlink "totp-secrets" ~/Library/Mobile Documents/com~apple~CloudDocs/Secrets/.otpkeys.des3 ~/.otpkeys.des3
+    symlink "totp-secrets" ~/Library/Mobile\ Documents/com~apple~CloudDocs/Secrets/otpkeys.des3 ~/.otpkeys.des3
     sudo_symlink "touch id in terminal" ${DOTFILES_REPO}/macOS/sudo /etc/pam.d/sudo
 
     success "Symlinks successfully setup"

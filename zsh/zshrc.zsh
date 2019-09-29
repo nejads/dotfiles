@@ -27,22 +27,24 @@ bindkey "^X\\x7f" backward-kill-line
 #############################
 # Shortcuts
 alias c="clear"
-alias copyssh="pbcopy < $HOME/.ssh/id_rsa.pub"
 alias reload="source $HOME/.zshrc"
 alias reloaddns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 alias ll="/usr/local/opt/coreutils/libexec/gnubin/ls -ahlF --color --group-directories-first"
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias shrug="echo '¯\_(ツ)_/¯' | pbcopy"
 alias turtle_wallet='cd /Users/soroush/Coin/turtlecoin/build/src && ./zedwallet --wallet-file MyTurtleWallet.wallet --remote-daemon 192.168.1.100:11898'
+alias totp="sh ~/dotfiles/scripts/totp.sh"
 alias zbundle="antibody bundle < $DOTFILES/zsh_plugins.txt > $DOTFILES/zsh_plugins.sh"
 
 # Pipe public key to my clipboard.
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+alias copyssh="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
 # Directories
 alias dotfiles="cd $DOTFILES"
 alias library="cd $HOME/Library"
-alias www="cd ~/workspace"
+alias workspace="cd ~/workspace"
+alias w="cd ~/workspace"
+alias sc="less $DOTFILES/shortcuts.md"
 
 # Postgres
 alias pstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'

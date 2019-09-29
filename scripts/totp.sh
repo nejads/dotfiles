@@ -1,20 +1,32 @@
 #!/bin/sh
 
-#Install oath-toolkit if it is not installed
-check_oath=`brew list | grep 'oath-toolkit'`
-if [ -z "$check_oath" ]
-then
-   echo "istalling oath-toolkit...";
-   brew install oath-toolkit;
-fi
-
-#Check argument count
+#Check argument
 if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 SECRET" >&2
+  echo "Usage: $0 service_name" >&2
   exit 1
 fi
 
-secret=$1
-oathtool --totp -b $secret | pbcopy
-echo "Your totp has copied to clipboard."
+SERVICE_NAME=$1
+KEY_FILE=~/.otpkeys
+DECRYPT=~/dotfiles/scripts/file-decrypt.sh
+
+#Decrypt the file
+$DECRYPT $KEY_FILE.des3
+
+#Read the file and
+SERVICE_KEY=` grep ^$SERVICE_NAME $KEY_FILE | cut -d"=" -f 2 | sed "s/ //g" `
+
+#Remove plain text key file
+rm -rf $KEY_FILE
+
+# Is service key available?
+if [ -z $SERVICE_KEY ]; then
+    echo "Bad Service Name"
+    exit
+fi
+
+#Calculate totp and copy to clipboard
+/usr/local/bin/oathtool --totp -b $SERVICE_KEY | pbcopy
+
+echo "\nYour "$SERVICE_NAME" 2FA has copied."
 

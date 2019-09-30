@@ -95,6 +95,8 @@ alias wip="commit wip"
 alias resolve="git add . && git commit --no-edit"
 alias glog="git log --oneline --decorate --color"
 alias gnuke="git clean -df && git reset --hard"
+# Remove local branches that does not have remote any longer.
+alias gbpurge="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs -n 1 git branch -d"
 
 function go {
   if [ -z "$1" ]; then

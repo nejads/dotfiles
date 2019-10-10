@@ -8,7 +8,7 @@ file_path=~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Secrets
 # Parameter
 token="$@"
 if [ "$#" -lt 1 ]; then
-  echo "Usage: $0 <service_name=token>" >&2
+  echo "Usage: $0 <username@service=token>" >&2
   exit
 fi
 

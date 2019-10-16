@@ -44,6 +44,7 @@ main() {
 }
 
 DOTFILES_REPO=~/dotfiles
+ICLOUD_REPO=~/Library/Mobile\ Documents/com~apple~CloudDocs
 
 function ask_for_sudo() {
     info "Prompting for sudo password"
@@ -192,8 +193,8 @@ function setup_symlinks() {
     symlink "mackup backup job" ${DOTFILES_REPO}/scripts/se.soroush.mackupcron.plist ~/Library/LaunchAgents/se.soroush.mackupcron.plist
     symlink "pinger job" ${DOTFILES_REPO}/scripts/se.soroush.pinger.plist ~/Library/LaunchAgents/se.soroush.pinger.plist
     symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
-    symlink "vscode" ${DOTFILES_REPO}/vscode ~/.vscode
-    symlink "totp-secrets" ~/Library/Mobile\ Documents/com~apple~CloudDocs/Secrets/otpkeys.des3 ~/.otpkeys.des3
+    symlink "vscode" "${ICLOUD_REPO}"/vscode ~/.vscode
+    symlink "totp-secrets" "${ICLOUD_REPO}"/Secrets/otpkeys.des3 ~/.otpkeys.des3
     sudo_symlink "touch id in terminal" ${DOTFILES_REPO}/macOS/sudo /etc/pam.d/sudo
 
     success "Symlinks successfully setup"

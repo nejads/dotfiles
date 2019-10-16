@@ -16,7 +16,6 @@ Some application settings are backuped with [Mackup](https://github.com/lra/mack
 
 ### Todo
 * activemq
-* Add complex key for keyboard brightness in Karabiner
 
 ### Inspiration and credits:
 * [Sam's dotfiles](https://github.com/sam-hosseini/dotfiles)

@@ -7,7 +7,6 @@
 | ⌘[        | Finder 	                  | Moves back to the previous location |
 | ⇧⌘å       | LassPass                    | Search in lasspass                  |
 | ⇧⌘ä       | LassPass                    | Open vault                          |
-| ⌘⌫        | iTerm2                      | Deleting a line                     |
 | ⇧⌘c       | iTerm2                      | Copy mode to use Vim-like shortcuts |
 | ⌘⌫        | iTerm2                      | Delete back to start                |
 
@@ -16,6 +15,7 @@
 | --------- | ----------                  | --------------------------          |
 | ⌘å        | LassPass                    | Fill credentials                    |
 | ⌘⌃←       | Firefox                     | Jump to left tab                    |
+| ⇧H        | Vimium                      | Back                                |
 
 ## MiroWindowManager and WindowScreenManagement
 | Shortcut  | Comment                                           |
@@ -30,12 +30,20 @@
 | ⌘⌃←       | Move to the left external screen                  |
 | ⌘⌃→       | Move to the right external screen                 |
 
+## Alfred, karabier, etc
+| Shortcut  | Comment                                                     |
+| --------- | ----------------------------------------------------------- |
+| ⌥r        | Right click                                                 |
+| ⌘⌘        | clipboard history                                           |
+| ✱         | Escape                                                      |
+| ✱hjkl     | Vim-like moves                                              |
+| ✱uiop     | PgUp, home, end, PgDn                                       |
+| ✱nm,.     | Dlt word head, Dlt char head, Dlt char after, Dlt char head |
+
+More about awsome Hyper [here](https://github.com/Vonng/Capslock)
+
 ## xcode
-| Shortcut  | Comment                                           |
-| --------- | ------------------------------------------------- |
-| ⌘⌥←       | TAB: Move to the left tab                         |
-| ⌘⌥→       | TAB: Move to the right tab                        |
-| ⌥↓        | ROW: Move down                                    |
-| ⌥↑        | ROW: Move up                                      |
-| ⇧⌥↓       | ROW: Duplicate                                    |
-| ⌘⌥⌃↑      | SELECT:                                           |
+Look at [xcode-cheatsheet-for-mac](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
+
+## Tmux
+Use always [default settings](https://tmuxcheatsheet.com/). It would be easier for you when you work in a team and share same servers and settings.

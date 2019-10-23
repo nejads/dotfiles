@@ -40,7 +40,7 @@ main() {
     # Restore application settings by mackup
     mackup_restore
     # Load launchd jobs
-    load_jobs
+    load_cron_jobs
 }
 
 DOTFILES_REPO=~/dotfiles
@@ -344,7 +344,7 @@ function mackup_restore() {
     run "Mackup restore" "mackup restore --force"
 }
 
-function load_jobs() {
+function load_cron_jobs() {
     run "Mackup backup job" "launchctl load ~/Library/LaunchAgents/se.soroush.mackupcron.plist"
     run "Pinger backup job" "launchctl load ~/Library/LaunchAgents/se.soroush.pinger.plist"
 }

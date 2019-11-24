@@ -116,6 +116,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Webstorm
+.idea
+
 ### Vim ###
 # swap
 [._]*.s[a-v][a-z]

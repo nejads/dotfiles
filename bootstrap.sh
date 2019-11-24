@@ -132,7 +132,7 @@ function install_oh_my_zsh() {
 }
 
 function install_pip_packages() {
-    pip_packages=(powerline-status requests tmuxp virtualenv mypy)
+    pip_packages=($(cat  install/pipfile | tr "\n" " "))
     info "Installing pip packages \"${pip_packages[*]}\""
 
     pip3_list_outcome=$(pip3 list)
@@ -142,7 +142,7 @@ function install_pip_packages() {
             grep --ignore-case "$package_to_install" &> /dev/null; then
             substep "\"${package_to_install}\" already exists"
         else
-            if pip3 install "$package_to_install"; then
+            if pip3 install "$package_to_install" &> /dev/null; then
                 substep "Package \"${package_to_install}\" installation succeeded"
             else
                 error "Package \"${package_to_install}\" installation failed"
@@ -155,10 +155,10 @@ function install_pip_packages() {
 }
 
 function install_npm_packages() {
-    npm_packages=($(cat  npm/npmfile | tr "\n" " "))
+    npm_packages=($(cat  install/npmfile | tr "\n" " "))
     info "Installing npm packages \"${npm_packages[*]}\""
 
-    npm_list_outcome=$(npm global list)
+    npm_list_outcome=$(npm list -g)
     for package_to_install in "${npm_packages[@]}"
     do
         if echo "$npm_list_outcome" | \

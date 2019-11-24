@@ -15,8 +15,8 @@ main() {
     install_oh_my_zsh
     # Installing pip packages so that setup_symlinks can setup the symlinks
     install_pip_packages
-    # Installing yarn packages
-    install_yarn_packages
+    # Installing npm packages
+    install_npm_packages
     # Setting up symlinks so that setup_vim can install all plugins
     setup_symlinks
     # Setting up Vim
@@ -154,18 +154,18 @@ function install_pip_packages() {
     success "pip packages successfully installed"
 }
 
-function install_yarn_packages() {
-    yarn_packages=(prettier typescript json vmd create-react-app gatsby-cli netlify-cli)
-    info "Installing yarn packages \"${yarn_packages[*]}\""
+function install_npm_packages() {
+    npm_packages=($(cat  npm/npmfile | tr "\n" " "))
+    info "Installing npm packages \"${npm_packages[*]}\""
 
-    yarn_list_outcome=$(yarn global list)
-    for package_to_install in "${yarn_packages[@]}"
+    npm_list_outcome=$(npm global list)
+    for package_to_install in "${npm_packages[@]}"
     do
-        if echo "$yarn_list_outcome" | \
+        if echo "$npm_list_outcome" | \
             grep --ignore-case "$package_to_install" &> /dev/null; then
             substep "\"${package_to_install}\" already exists"
         else
-            if yarn global add "$package_to_install"; then
+            if npm install -g "$package_to_install" &> /dev/null; then
                 substep "Package \"${package_to_install}\" installation succeeded"
             else
                 error "Package \"${package_to_install}\" installation failed"
@@ -174,7 +174,7 @@ function install_yarn_packages() {
         fi
     done
 
-    success "yarn packages successfully installed"
+    success "npm packages successfully installed"
 }
 
 function setup_symlinks() {

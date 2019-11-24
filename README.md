@@ -15,7 +15,7 @@ Some application settings are backuped with [Mackup](https://github.com/lra/mack
 [Hammerspoon](https://www.hammerspoon.org) and [MiroWindowManager](https://github.com/miromannino/miro-windows-manager) for window resize and movements.
 
 ### Todo
-* activemq
+Add Ubuntu and WSL dotfiles
 
 ### Inspiration and credits:
 * [Sam's dotfiles](https://github.com/sam-hosseini/dotfiles)

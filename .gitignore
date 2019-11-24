@@ -1,4 +1,5 @@
 brew/Brewfile
+brew/Brewfile.lock.json
 macOS/.env
 macOS/todays_picture_*.jpg
 karabiner/automatic_backups

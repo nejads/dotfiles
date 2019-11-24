@@ -12,6 +12,7 @@ tap "homebrew/cask-versions"
 ############################################################################
 # brew
 ############################################################################
+brew "apache-activemq"
 brew "autoconf"
 brew "automake"
 brew "awscli"
@@ -42,7 +43,6 @@ brew "python@2"
 brew "reattach-to-user-namespace" # for tmux commands to work
 brew "ruby" # for Vim command-t plugin to work
 brew "screen"
-brew "serverless"
 brew "svtplay-dl"
 brew "tldr"
 brew "tmux"
@@ -84,6 +84,7 @@ cask "typora"
 cask "vagrant"
 cask "visual-studio-code"
 cask "vlc"
+cask "webstorm"
 cask "wireshark"
 
 ############################################################################

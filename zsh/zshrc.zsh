@@ -94,12 +94,26 @@ alias gcommit="git add . && git commit"
 alias gp='git push'
 alias wip="commit wip"
 alias resolve="git add . && git commit --no-edit"
-alias glog="git log --oneline --decorate --color"
+alias glog="git log --oneline --decorate --color --graph"
 alias gnuke="git clean -df && git reset --hard"
+alias gprev="git checkout -"
+
 # Remove local branches that does not have remote any longer.
 alias gbpurge="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs -n 1 git branch -d"
 
-function go {
+# useful for daily stand-up
+function git-standup() {
+    AUTHOR=${AUTHOR:="`git config user.name`"}
+
+    since=yesterday
+    if [[ $(date +%u) == 1 ]] ; then
+        since="2 days ago"
+    fi
+
+    git log --all --since "$since" --oneline --author="$AUTHOR"
+}
+
+function go() {
   if [ -z "$1" ]; then
     git checkout master
   else

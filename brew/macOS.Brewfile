@@ -39,7 +39,6 @@ brew "oath-toolkit"
 brew "pipenv"
 brew "postgresql", restart_service: :changed
 brew "python"
-brew "python@2"
 brew "reattach-to-user-namespace" # for tmux commands to work
 brew "ruby" # for Vim command-t plugin to work
 brew "screen"

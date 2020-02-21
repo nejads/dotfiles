@@ -1,4 +1,4 @@
-export ZSH=/Users/soroush/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Path to your dotfiles.
 export DOTFILES=$HOME/dotfiles
@@ -32,7 +32,7 @@ alias reloaddns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 alias ll="/usr/local/opt/coreutils/libexec/gnubin/ls -ahlF --color --group-directories-first"
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias shrug="echo '¯\_(ツ)_/¯' | pbcopy"
-alias turtle_wallet='cd /Users/soroush/Coin/turtlecoin/build/src && ./zedwallet --wallet-file MyTurtleWallet.wallet --remote-daemon 192.168.1.100:11898'
+# alias turtle_wallet='cd /Users/soroush/Coin/turtlecoin/build/src && ./zedwallet --wallet-file MyTurtleWallet.wallet --remote-daemon 192.168.1.100:11898'
 alias totp="sh ~/dotfiles/scripts/totp.sh"
 alias totp-add-token="sh ~/dotfiles/scripts/totp-add-token.sh"
 alias zbundle="antibody bundle < $DOTFILES/zsh_plugins.txt > $DOTFILES/zsh_plugins.sh"

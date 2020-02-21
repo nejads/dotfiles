@@ -61,10 +61,10 @@ function ask_for_sudo() {
 
 function install_homebrew() {
     info "Installing Homebrew"
-    if hash brew 2>/dev/null; then
+    if hash brew &>/dev/null; then
         success "Homebrew already exists"
     else
-        url=https://raw.githubusercontent.com/sam-hosseini/dotfiles/master/installers/homebrew_installer
+        url=https://raw.githubusercontent.com/Homebrew/install/master/install
         if /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
             success "Homebrew installation succeeded"
         else
@@ -195,7 +195,7 @@ function setup_symlinks() {
     symlink "hammerspoon" ${DOTFILES_REPO}/hammerspoon ~/.hammerspoon
     symlink "vscode" "${ICLOUD_REPO}"/vscode ~/.vscode
     symlink "totp-secrets" "${ICLOUD_REPO}"/Secrets/otpkeys.des3 ~/.otpkeys.des3
-    sudo_symlink "touch id in terminal" ${DOTFILES_REPO}/macOS/sudo /etc/pam.d/sudo
+    # sudo_symlink "touch id in terminal" ${DOTFILES_REPO}/macOS/sudo /etc/pam.d/sudo
 
     success "Symlinks successfully setup"
 }
@@ -447,7 +447,7 @@ function run() {
     command_name=$1
     command=$2
     if eval $command; then
-        success "${command_name} succeeded"
+        substep "${command_name} succeeded"
     else
         error "${command_name} failed"
         exit 1

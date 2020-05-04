@@ -7,4 +7,5 @@ netlify-cli
 prettier
 serverless
 serverless-offline
+sls-dev-tools
 typescript

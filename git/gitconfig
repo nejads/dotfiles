@@ -50,4 +50,11 @@
 	autocrlf = input  # bit.ly/2RLLxed
 [user]
 	name = Soroush Nejad
-	email = sardabir@gmail.com
+	email =
+[credential]
+	helper = osxkeychain
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

@@ -17,6 +17,8 @@ main() {
     install_pip_packages
     # Installing npm packages
     install_npm_packages
+    # Installing gem packages
+    install_gem_packages
     # Setting up symlinks so that setup_vim can install all plugins
     setup_symlinks
     # Setting up Vim
@@ -175,6 +177,29 @@ function install_npm_packages() {
     done
 
     success "npm packages successfully installed"
+}
+
+function install_gem_packages() {
+    gem_packages=($(cat  install/gemfile | tr "\n" " "))
+    info "Installing gem packages \"${gem_packages[*]}\""
+
+    gem_list_outcome=$(gem list)
+    for package_to_install in "${gem_packages[@]}"
+    do
+        if echo "$gem_list_outcome" | \
+            grep --ignore-case "$package_to_install" &> /dev/null; then
+            substep "\"${package_to_install}\" already exists"
+        else
+            if sudo gem install "$package_to_install" &> /dev/null; then
+                substep "Package \"${package_to_install}\" installation succeeded"
+            else
+                error "Package \"${package_to_install}\" installation failed"
+                exit 1
+            fi
+        fi
+    done
+
+    success "gem packages successfully installed"
 }
 
 function setup_symlinks() {

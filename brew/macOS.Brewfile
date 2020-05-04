@@ -44,8 +44,7 @@ brew "postgresql", restart_service: :changed
 brew "python"
 brew "reattach-to-user-namespace" # for tmux commands to work
 brew "ruby" # for Vim command-t plugin to work
-brew "ruby brew-gem"
-brew "gem install cfn-nag"
+brew "brew-gem"
 brew "screen"
 brew "speedtest"
 brew "svtplay-dl"

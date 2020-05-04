@@ -7,7 +7,7 @@ ZSH_THEME="robbyrussell"
 
 ZSH_CUSTOM=$DOTFILES
 
-plugins=(git)
+plugins=(git jsontools aws)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -58,7 +58,7 @@ alias mci='mvn clean install'
 # Java aliases
 export JAVA_HOME=$(/usr/libexec/java_home)
 alias java_versions='/usr/libexec/java_home -V'
-alias 8='export JAVA_HOME=`/usr/libexec/java_home -v 1.8`'
+alias 8='export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home'
 alias 11='export JAVA_HOME=`/usr/libexec/java_home -v 11`'
 
 # JS
@@ -80,6 +80,12 @@ alias vrebuild="vagrant destroy --force && vagrant up"
 #alias dpurgeimages="docker rmi $(docker images -q)"
 #dbuild() { docker build -t=$1 .; }
 #dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
+
+# AWS
+alias iot="export AWS_PROFILE=iot"
+alias nonprod="export AWS_PROFILE=nonprod"
+alias preprod="export AWS_PROFILE=preprod"
+alias kits="export AWS_PROFILE=kits"
 
 # Git
 alias gb="git branch"

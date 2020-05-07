@@ -95,7 +95,7 @@ function clone_dotfiles_repo() {
 }
 
 function install_homebrew_formulae() {
-    BREW_FILE_PATH="${DOTFILES_REPO}/brew/macOS.Brewfile"
+    BREW_FILE_PATH="${DOTFILES_REPO}/install/macOS.Brewfile"
     info "Installing packages within ${BREW_FILE_PATH}"
     if brew bundle check --file="$BREW_FILE_PATH" &> /dev/null; then
         success "Brewfile's dependencies are already satisfied "

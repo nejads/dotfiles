@@ -133,7 +133,7 @@ Session.vim
 tags
 
 node_modules
-brew/macOS.Brewfile.lock.json
+install/macOS.Brewfile.lock.json
 package-lock.json
 
 # End of https://www.gitignore.io/api/git,vim,macos,linux,emacs

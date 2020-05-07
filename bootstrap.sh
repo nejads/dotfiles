@@ -111,7 +111,7 @@ function install_homebrew_formulae() {
 
 function change_default_shell_to_zsh() {
     user=$(whoami)
-    if sudo chsh -s /bin/zsh "$user"; then
+    if sudo chsh -s /bin/zsh "$user" &> /dev/null; then
         success "Zsh shell successfully set for \"${user}\""
     else
         error "Please try setting Zsh shell again"
@@ -204,7 +204,7 @@ function install_gem_packages() {
 
 function setup_symlinks() {
     APPLICATION_SUPPORT=~/Library/Application\ Support
-    POWERLINE_ROOT_REPO=/usr/local/lib/python3.7/site-packages
+    POWERLINE_ROOT_REPO=/usr/local/lib/python3.8/site-packages
 
     info "Setting up symlinks"
     symlink "git" ${DOTFILES_REPO}/git/gitconfig ~/.gitconfig
@@ -325,13 +325,9 @@ function update_hosts_file() {
 function setup_macOS_defaults() {
     info "Updating macOS defaults"
 
-    current_dir=$(pwd)
-    cd ${DOTFILES_REPO}/macOS
-    if bash defaults.sh; then
-        cd $current_dir
+    if bash ${DOTFILES_REPO}/macOS/defaults.sh; then
         success "macOS defaults updated successfully"
     else
-        cd $current_dir
         error "macOS defaults update failed"
         exit 1
     fi
@@ -471,7 +467,7 @@ function install_from_zip() {
 function run() {
     command_name=$1
     command=$2
-    if eval $command; then
+    if eval $command &> /dev/null; then
         substep "${command_name} succeeded"
     else
         error "${command_name} failed"

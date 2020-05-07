@@ -13,6 +13,7 @@ tap "teamookla/speedtest"
 ############################################################################
 # brew
 ############################################################################
+brew "ack"
 brew "apache-activemq"
 brew "autoconf"
 brew "automake"
@@ -42,6 +43,7 @@ brew "oath-toolkit"
 brew "pipenv"
 brew "postgresql", restart_service: :changed
 brew "python"
+brew "python@3.8"
 brew "reattach-to-user-namespace" # for tmux commands to work
 brew "ruby" # for Vim command-t plugin to work
 brew "brew-gem"

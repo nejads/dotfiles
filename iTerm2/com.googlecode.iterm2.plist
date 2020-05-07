@@ -192,7 +192,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1680 1050 0 0 1680 1050 </string>
+	<string>0 0 2560 1417 0 0 2560 1417 </string>
 	<key>NeverWarnAboutPossibleOverrides</key>
 	<true/>
 	<key>NeverWarnAboutPossibleOverrides_selection</key>
@@ -1429,7 +1429,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>DE1E9681-A8F1-4B01-8DB4-6CCC57ED6345</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>25</integer>
+	<integer>26</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>604061830.91210997</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -2194,7 +2194,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-04-22T07:03:23Z</date>
+	<date>2020-05-06T19:24:30Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SoundForEsc</key>
@@ -2202,7 +2202,7 @@
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.43587489983974359</real>
 	<key>TabStyleWithAutomaticOption</key>
-	<integer>0</integer>
+	<integer>4</integer>
 	<key>TimeBetweenTips</key>
 	<real>604800</real>
 	<key>VisualIndicatorForEsc</key>

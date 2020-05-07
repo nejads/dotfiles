@@ -25,6 +25,8 @@ main() {
     setup_vim
     # Setting up tmux
     setup_tmux
+    # install all powerline fonts
+    install_powerline_fonts
     # Update /etc/hosts
     update_hosts_file
     # Setting up macOS defaults
@@ -280,6 +282,26 @@ function setup_tmux() {
         exit 1
     fi
     success "tmux successfully setup"
+}
+
+function install_powerline_fonts() {
+    info "Installing powerline fonts"
+    font_url=https://github.com/powerline/fonts.git
+    target_folder=/tmp/fonts
+    if git clone "$font_url" "$target_folder" --depth=1 &> /dev/null; then
+        substep "Powerline fonts repository cloned into ${target_folder}"
+        if sh "$target_folder"/install.sh &> /dev/null; then
+            success "Powerline fonts installations succeeded"
+            rm -rf "$target_folder"
+        else
+            error "Powerline fonts installations failed"
+            rm -rf "$target_folder"
+            exit 1
+        fi
+    else
+        error "Powerline fonts repository cloning failed"
+        exit 1
+    fi
 }
 
 function update_hosts_file() {

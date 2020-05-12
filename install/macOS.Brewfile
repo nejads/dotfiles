@@ -18,6 +18,7 @@ brew "apache-activemq"
 brew "autoconf"
 brew "automake"
 brew "awscli"
+brew "bat"
 brew "cmake"
 brew "cowsay"
 brew "coreutils" # for awesome commands like timeout

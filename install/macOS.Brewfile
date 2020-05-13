@@ -65,6 +65,7 @@ brew "zsh"
 # cask
 ############################################################################
 cask "alfred"
+cask "aws-vault"
 cask "beamer"
 cask "cyberduck"
 cask "docker"

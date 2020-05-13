@@ -21,6 +21,9 @@ export LC_ALL=en_US.UTF-8
 # Enale cmd+back to delete a row
 bindkey "^X\\x7f" backward-kill-line
 
+#Aws vault
+export AWS_VAULT_KEYCHAIN_NAME=login
+export AWS_VAULT_BACKEND=keychain
 
 #############################
 # aliases
@@ -82,10 +85,10 @@ alias vrebuild="vagrant destroy --force && vagrant up"
 #dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
 # AWS
-alias iot="export AWS_PROFILE=iot"
-alias nonprod="export AWS_PROFILE=nonprod"
-alias preprod="export AWS_PROFILE=preprod"
-alias kits="export AWS_PROFILE=kits"
+alias iot='unset AWS_VAULT && aws-vault exec iot --'
+alias preprod='unset AWS_VAULT && aws-vault exec preprod --'
+alias sonic-profile='unset AWS_VAULT && aws-vault exec sonic --'
+alias kits="unset AWS_VAULT && export AWS_PROFILE=kits"
 
 # Git
 alias gb="git branch"

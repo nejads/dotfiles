@@ -106,6 +106,7 @@ alias resolve="git add . && git commit --no-edit"
 alias glog="git log --oneline --decorate --color --graph"
 alias gnuke="git clean -df && git reset --hard"
 alias gprev="git checkout -"
+alias gpa="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{}ull origin master \;"
 
 # Remove local branches that does not have remote any longer.
 alias gbpurge="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs -n 1 git branch -d"
@@ -159,3 +160,7 @@ function myip() {
     echo "Your public ip: "
     curl ipinfo.io
 }
+
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship

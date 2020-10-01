@@ -41,6 +41,8 @@ main() {
     install_keka
     # Install ePubee
     install_epubee
+    #Install vimac
+    install_vimac
     # Restore application settings by mackup
     mackup_restore
     # Load launchd jobs
@@ -99,7 +101,7 @@ function clone_dotfiles_repo() {
 function install_homebrew_formulae() {
     BREW_FILE_PATH="${DOTFILES_REPO}/install/macOS.Brewfile"
     info "Installing packages within ${BREW_FILE_PATH}"
-    if brew bundle check --file="$BREW_FILE_PATH" &> /dev/null; then
+    if brew bundle check --file="$BREW_FILE_PATH"; then
         success "Brewfile's dependencies are already satisfied "
     else
         if brew bundle --file="$BREW_FILE_PATH"; then
@@ -380,6 +382,10 @@ function install_keka() {
 
 function install_epubee() {
     install_from_zip "ePUBeeDRMRemoval" "http://download.epubee.com/epubee_v3.1.5.2.zip"
+}
+
+function install_vimac() {
+    install_from_zip "Vimac" "https://github.com/dexterleng/vimac-releases/blob/master/vimac-v0.3.7.zip?raw=true"
 }
 
 function mackup_restore() {

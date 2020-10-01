@@ -1,0 +1,25 @@
+[default]
+source_profile=XXXXX
+
+[profile XXXXX]
+region=eu-west-1
+mfa_serial=MFA_SERIAL
+credential_process=aws-vault exec XXXXX --json --prompt=osascript
+
+[profile iot]
+region=eu-west-1
+output=json
+role_arn=ROLE_ARN
+source_profile=XXXXX
+
+[profile nonprod]
+region=eu-west-1
+output=json
+role_arn=ROLE_ARN
+source_profile=XXXXX
+
+[profile preprod]
+region=eu-west-1
+output=json
+role_arn=ROLE_ARN
+source_profile=XXXXX

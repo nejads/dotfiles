@@ -16,3 +16,9 @@ export PATH="/usr/local/sbin:$PATH"
 
 # the symlinked brew Ruby executable
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+# ruby gems
+export PATH="~/.gem/ruby/2.7.0/bin:$PATH"
+
+# node global packages
+export PATH="/usr/local/lib/node_modules/bin/:$PATH"

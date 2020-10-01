@@ -1,3 +1,4 @@
+aws-cdk
 create-react-app
 fsevents
 gatsby-cli
@@ -8,4 +9,6 @@ prettier
 serverless
 serverless-offline
 sls-dev-tools
+spaceship-prompt
+surge
 typescript

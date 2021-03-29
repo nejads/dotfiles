@@ -5,13 +5,13 @@ main() {
     ask_for_sudo
     # Installing Homebrew, the basis of anything and everything
     install_homebrew
-    # Upgrade existing homebrew packages
-    upgrade_homebrew_formulae
     # Cloning Dotfiles repository for install_homebrew_formulae to have access to Brewfile
     clone_dotfiles_repo
     # Installing all packages in Dotfiles repository's Brewfile
     install_homebrew_formulae
-    # Change default shcell to zsh
+    # Upgrade existing homebrew packages
+    upgrade_homebrew_formulae
+    # Change default shell to zsh
     change_default_shell_to_zsh
     # install oh-my-zsh
     install_oh_my_zsh

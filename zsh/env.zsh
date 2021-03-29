@@ -22,3 +22,10 @@ export PATH="~/.gem/ruby/2.7.0/bin:$PATH"
 
 # node global packages
 export PATH="/usr/local/lib/node_modules/bin/:$PATH"
+
+# Sonic
+PYTHON_LOCAL_BIN=${HOME}/.local/bin
+export PATH=${PYTHON_LOCAL_BIN}:${PATH}
+
+# Rust
+# export PATH="${HOME}/.cargo/bin"

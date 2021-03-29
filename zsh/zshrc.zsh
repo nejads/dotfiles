@@ -85,9 +85,6 @@ alias vrebuild="vagrant destroy --force && vagrant up"
 #dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
 # AWS
-alias iot='unset AWS_VAULT && aws-vault exec iot --'
-alias preprod='unset AWS_VAULT && aws-vault exec preprod --'
-alias sonic-profile='unset AWS_VAULT && aws-vault exec sonic --'
 alias kits="unset AWS_VAULT && export AWS_PROFILE=kits"
 
 # Git
@@ -107,6 +104,7 @@ alias glog="git log --oneline --decorate --color --graph"
 alias gnuke="git clean -df && git reset --hard"
 alias gprev="git checkout -"
 alias gpa="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{}ull origin master \;"
+alias gplrq="gh pr create --fill"
 
 # Remove local branches that does not have remote any longer.
 alias gbpurge="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs -n 1 git branch -d"
@@ -123,7 +121,7 @@ function git-standup() {
     git log --all --since "$since" --oneline --author="$AUTHOR"
 }
 
-function go() {
+function gm() {
   if [ -z "$1" ]; then
     git checkout master
   else
@@ -133,6 +131,8 @@ function go() {
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
+# Python
+alias python=/usr/local/bin/python3
 # Pip update
 alias pupdate='pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U'
 

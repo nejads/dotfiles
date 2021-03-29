@@ -5,6 +5,8 @@ main() {
     ask_for_sudo
     # Installing Homebrew, the basis of anything and everything
     install_homebrew
+    # Upgrade existing homebrew packages
+    upgrade_homebrew_formulae
     # Cloning Dotfiles repository for install_homebrew_formulae to have access to Brewfile
     clone_dotfiles_repo
     # Installing all packages in Dotfiles repository's Brewfile
@@ -69,6 +71,8 @@ function install_homebrew() {
     info "Installing Homebrew"
     if hash brew &>/dev/null; then
         success "Homebrew already exists"
+        brew update
+        success "Homebrew update succeeded"
     else
         url=https://raw.githubusercontent.com/Homebrew/install/master/install
         if /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
@@ -111,6 +115,14 @@ function install_homebrew_formulae() {
             exit 1
         fi
     fi
+}
+
+function upgrade_homebrew_formulae() {
+  if brew upgrade; then
+    success "Brew formulae upgraded successfully."
+  else
+    error "Brew formulae upgrade faild."
+  fi
 }
 
 function change_default_shell_to_zsh() {

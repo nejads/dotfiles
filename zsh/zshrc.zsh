@@ -88,23 +88,22 @@ alias vrebuild="vagrant destroy --force && vagrant up"
 alias kits="unset AWS_VAULT && export AWS_PROFILE=kits"
 
 # Git
-alias gb="git branch"
-alias gba='git branch -a'
-alias gs='git status'
-alias gd='git diff'
+alias commit="git add . && git commit -m"
 alias ga='git add'
 alias gaa='git add .'
+alias gb="git branch"
+alias gba='git branch -a'
+alias gd='git diff'
 alias gl='git pull'
-alias commit="git add . && git commit -m"
-alias gcommit="git add . && git commit"
-alias gp='git push'
-alias wip="commit wip"
-alias resolve="git add . && git commit --no-edit"
 alias glog="git log --oneline --decorate --color --graph"
 alias gnuke="git clean -df && git reset --hard"
-alias gprev="git checkout -"
+alias gp='git push'
 alias gpa="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{}ull origin master \;"
 alias gplrq="gh pr create --fill"
+alias gprev="git checkout -"
+alias gs='git status'
+alias resolve="git add . && git commit --no-edit"
+alias wip="commit wip"
 
 # Remove local branches that does not have remote any longer.
 alias gbpurge="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs -n 1 git branch -d"

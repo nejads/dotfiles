@@ -5,8 +5,6 @@
 | Shortcut  | Application                 | Comment                             |
 | --------- | ----------                  | --------------------------          |
 | ⌘[        | Finder 	                  | Moves back to the previous location |
-| ⇧⌘å       | LassPass                    | Search in lasspass                  |
-| ⇧⌘ä       | LassPass                    | Open vault                          |
 | ⇧⌘c       | iTerm2                      | Copy mode to use Vim-like shortcuts |
 | ⌘⌫        | iTerm2                      | Delete back to start                |
 

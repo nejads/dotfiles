@@ -35,8 +35,6 @@ main() {
     setup_macOS_defaults
     # Updating login items
     update_login_items
-    # Install Cryptomator
-    install_cryptomator
     # Install Keybase
     install_keybase
     # Install Keka
@@ -378,10 +376,6 @@ function update_login_items() {
         error "Login items update failed"
         exit 1
     fi
-}
-
-function install_cryptomator() {
-    install_application "Cryptomator" "https://dl.bintray.com/cryptomator/cryptomator/1.4.15/Cryptomator-1.4.15.dmg"
 }
 
 function install_keybase() {

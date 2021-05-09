@@ -27,5 +27,10 @@ export PATH="/usr/local/lib/node_modules/bin/:$PATH"
 PYTHON_LOCAL_BIN=${HOME}/.local/bin
 export PATH=${PYTHON_LOCAL_BIN}:${PATH}
 
+# Java
+export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+export JAVA_15_HOME=$(/usr/libexec/java_home -v15)
+
 # Rust
 # export PATH="${HOME}/.cargo/bin"

@@ -59,10 +59,18 @@ alias pcheck="egrep 'listen|port' /usr/local/var/postgres/postgresql.conf"
 alias mci='mvn clean install'
 
 # Java aliases
-export JAVA_HOME=$(/usr/libexec/java_home)
 alias java_versions='/usr/libexec/java_home -V'
-alias 8='export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home'
-alias 11='export JAVA_HOME=`/usr/libexec/java_home -v 11`'
+alias 8='jdk 1.8'
+jdk() {
+    if [ -z "$1" ]; then
+      java -version
+    else
+      version=$1
+      unset JAVA_HOME;
+      export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+      java -version
+    fi
+}
 
 # JS
 alias nfresh="rm -rf node_modules/ package-lock.json && npm install"

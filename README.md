@@ -1,4 +1,4 @@
-# Soroush's dotfiles
+# Sorosh's dotfiles
 This repository includes my configuration files, settings and shows how I setup and maintain my Mac.
 
 > [TL;DR: Invest time learning to configure your machine and automate processes, you'll get that time back ten fold.](https://code.tutsplus.com/tutorials/setting-up-a-mac-dev-machine-from-zero-to-hero-with-dotfiles--net-35449)

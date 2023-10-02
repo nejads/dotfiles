@@ -91,6 +91,8 @@ function configure_finder() {
     defaults write com.apple.finder FXPreferredViewStyle -string clmv
     # Disable the warning before emptying the Trash
     defaults write com.apple.finder WarnOnEmptyTrash -bool false
+    # Prefer open in tabs
+    defaults write AppleWindowTabbingMode -string always
 }
 
 ################################

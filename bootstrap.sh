@@ -15,6 +15,8 @@ main() {
     change_default_shell_to_zsh
     # install oh-my-zsh
     install_oh_my_zsh
+    # Install node
+    install_node
     # Installing pip packages so that setup_symlinks can setup the symlinks
     install_pip_packages
     # Installing npm packages
@@ -36,7 +38,7 @@ main() {
     # Updating login items
     update_login_items
     # Install Keybase
-    install_keybase
+    # install_keybase
     # Install Keka
     install_keka
     # Install ePubee
@@ -67,7 +69,7 @@ function ask_for_sudo() {
 
 function install_homebrew() {
     info "Installing Homebrew"
-    if hash brew &>/dev/null; then
+    if hash brew; then
         success "Homebrew already exists"
         brew update
         success "Homebrew update succeeded"
@@ -145,6 +147,33 @@ function install_oh_my_zsh() {
             exit 1
         fi
     fi
+}
+
+function install_node() {
+    info "creating nvm folder in home"
+    mkdir -p ~/.nvm
+    success "nvm folder created"
+    info "installing node"
+    export NVM_DIR=~/.nvm
+    substep "Exported nvm folder"
+    source $(brew --prefix nvm)/nvm.sh
+    substep "sourced nvm script"
+    if nvm install node 14 &> /dev/null; then
+        substep "The version 14 of node has installed"
+    else
+        error "Could not install node version 14."
+    fi
+    if nvm install node 16 &> /dev/null; then
+        substep "The version 16 of node has installed"
+    else
+        error "Could not install node version 16."
+    fi
+    if nvm install node &> /dev/null; then
+        substep "The latest version of node has installed"
+    else
+        error "Could not install node."
+    fi
+    success "Three versions of Node has installed."
 }
 
 function install_pip_packages() {
@@ -256,7 +285,7 @@ function setup_vim() {
         fi
     fi
     substep "Installing all plugins"
-    if vim +PluginInstall +qall 2> /dev/null; then
+    if vim +PluginInstall +qall; then
         substep "Plugins installations succeeded"
     else
         error "Plugins installations failed"

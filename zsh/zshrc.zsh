@@ -134,7 +134,7 @@ function gitPush() {
   fi
 }
 function gpfr() {
-    #slack_hook_url="https://hooks.slack.com/services/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"
+    #slack_hook_url="https://hooks.slack.com/"
     git pull --rebase
     if [[ $? == 0 ]]; then
       BRANCH="$(git rev-parse --abbrev-ref HEAD)"

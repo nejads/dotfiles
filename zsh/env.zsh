@@ -37,6 +37,4 @@ export JAVA_15_HOME=$(/usr/libexec/java_home -v15)
 
 # Volvo certs
 export NODE_EXTRA_CA_CERTS=/Users/sorosh/workspace/vgcs/other/common-certs/volvo_certs.crt
-export http_proxy="http://httppxgot-gssd.srv.volvo.com:8080"
-export https_proxy="http://httppxgot-gssd.srv.volvo.com:8080"
-export no_proxy="localhost,127.0.0.1/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.awscn.local,.volvo.com,.volvo.net,.vgthosting.net,.vpce.amazonaws.com, *.eu-west-1.vpce.amazonaws.com, .vg-cs.net"
+export AWS_CA_BUNDLE=/Users/sorosh/workspace/vgcs/other/common-certs/volvo_certs.crt

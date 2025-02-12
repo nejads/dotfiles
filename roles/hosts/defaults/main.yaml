@@ -8,4 +8,6 @@ ignored_hosts:
 
 disabled_hosts:
   - bbc.com
+  - svt.se
+  - omni.se
   - update.googleapis.com

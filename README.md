@@ -6,6 +6,7 @@ This repository includes my configuration files, settings and shows how I setup 
 
 ### Command to install all packages on a new Macos machine
 
+Sign in to iCloud and sync the settings folder, then
 Running setup.sh install following:
 
 - Install Homebrew from [brew.sh](https://brew.sh)
@@ -32,6 +33,7 @@ ansible-playbook playbooks/bootstrap.yaml --tags zsh
 ### Inspiration and credits:
 
 - [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)
+- [Sam Hossini dotfiles](https://github.com/sam-hosseini/dotfiles/)
 
 ## Manual Setup
 

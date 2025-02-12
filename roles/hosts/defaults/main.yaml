@@ -1,0 +1,11 @@
+curated_hosts_url: https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-social/hosts
+
+ignored_hosts:
+  - linkedin
+  - redd.it
+  - reddit
+  - whatsapp
+
+disabled_hosts:
+  - bbc.com
+  - update.googleapis.com

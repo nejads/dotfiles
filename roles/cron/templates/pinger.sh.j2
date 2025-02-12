@@ -1,0 +1,20 @@
+#!/bin/bash
+# pinger.sh
+
+{% for url in websites %}
+# URL to ping
+URL="{{ url }}"
+
+# Run curl to ping the website
+curl --silent --head --fail "$URL" > /dev/null
+
+# Check the exit status
+if [ $? -eq 0 ]; then
+    echo "$(date): Website $URL is up" >> /tmp/pinger.log
+else
+    echo "$(date): Website $URL is down" >> /tmp/pinger.log
+    # Send a macOS notification using osascript
+    osascript -e "display notification \"Website $URL is down!\" with title \"Website Monitor\""
+fi
+
+{% endfor %}

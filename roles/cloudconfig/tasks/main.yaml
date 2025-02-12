@@ -1,0 +1,35 @@
+- name: Ensure .aws directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME  }}/{{ item.path }}"
+    state: directory
+    mode: "0755"
+    force: no
+  loop: "{{ config_folders}}"
+  vars:
+    config_folders:
+      - path: ".m2"
+      - path: ".pip"
+
+- name: Link configurations to icloud settings folder
+  ansible.builtin.file:
+    src: "{{SETTING_FOLDER}}/{{ item.src }}"
+    path: "{{ ansible_env.HOME  }}/{{ item.path }}"
+    state: link
+  loop: "{{ config_links }}"
+  vars:
+    config_links:
+      # aws config
+      - src: ".aws"
+        path: ".aws"
+      # ssh config
+      - src: ".ssh"
+        path: ".ssh"
+      # maven settings
+      - src: ".m2/settings.xml"
+        path: ".m2/settings.xml"
+      # pip config
+      - src: ".pip/pip.conf"
+        path: ".pip/pip.conf"
+      # npm config
+      - src: "npm/.npmrc"
+        path: ".npmrc"

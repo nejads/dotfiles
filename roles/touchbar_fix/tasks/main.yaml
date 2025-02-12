@@ -1,0 +1,33 @@
+- name: Ensure keyboard backlight settings are configured
+  osx_defaults:
+    domain: com.apple.keyboard
+    key: KeyboardBacklightIdleTimeOut
+    type: integer
+    value: 60
+  become: yes
+  become_user: "{{ ansible_user_id }}"
+
+- name: Create AppleScript from template
+  template:
+    src: "{{ script_template_path }}"
+    dest: "/tmp/touchbar_fix.scpt"
+    mode: "0644"
+  vars:
+    sudo_password: "{{ ansible_become_password }}"
+
+- name: Export script as application
+  command: >
+    osacompile -o "{{ touchbar_app_path }}" /tmp/touchbar_fix.scpt
+  args:
+    creates: "{{ touchbar_app_path }}"
+
+- name: Create Info.plist from template
+  copy:
+    src: "files/Info.plist"
+    dest: "{{ touchbar_app_path }}/Contents/Info.plist"
+    mode: "0644"
+
+- name: Add application to login items
+  command: >
+    osascript -e 'tell application "System Events" to make login item at end with properties {path:"{{ touchbar_app_path }}", hidden:false}'
+  changed_when: false

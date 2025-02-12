@@ -1,8 +1,0 @@
-cfn_flip
-cfn-lint
-mypy
-powerline-status
-requests
-shodan
-tmuxp
-virtualenv

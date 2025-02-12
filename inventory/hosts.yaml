@@ -1,0 +1,7 @@
+---
+localmachines:
+  hosts:
+    macos:
+      ansible_connection: local
+      ansible_pipelining: true
+      ansible_python_interpreter: /usr/bin/python3

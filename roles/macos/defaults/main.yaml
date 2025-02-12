@@ -1,0 +1,10 @@
+login_items:
+  - Alfred 5
+  - Docker
+  - Dropbox
+  - Google Chrome
+  - Hammerspoon
+  - iTerm
+
+# some of the settings are only applied to my personal Mac
+work_mac_serial: C02ZC4FWLVDQ

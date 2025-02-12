@@ -1,0 +1,56 @@
+- name: Setup tmux config
+  ansible.builtin.file:
+    src: "{{ ROLES_FOLDER }}/tmux/files/tmux.conf"
+    path: ~/.tmux.conf
+    state: link
+
+- name: Ensure tmux plugins directory exists
+  file:
+    path: "{{ tmux_plugin_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Check if TPM is already installed
+  stat:
+    path: "{{ tmux_plugin_dir }}/tpm"
+  register: tpm_stat
+
+- name: Update existing TPM installation
+  block:
+    - name: Pull latest TPM changes
+      git:
+        repo: "{{ tpm_repo }}"
+        dest: "{{ tmux_plugin_dir }}/tpm"
+        update: yes
+      when: tpm_stat.stat.exists
+  rescue:
+    - name: Handle TPM update failure
+      fail:
+        msg: "Failed to update TPM repository"
+
+- name: Install TPM if not present
+  block:
+    - name: Clone TPM repository
+      git:
+        repo: "{{ tpm_repo }}"
+        dest: "{{ tmux_plugin_dir }}/tpm"
+      when: not tpm_stat.stat.exists
+  rescue:
+    - name: Handle TPM installation failure
+      fail:
+        msg: "Failed to clone TPM repository"
+
+- name: Source tmux configuration
+  shell: tmux source-file {{ tmux_conf_path }}
+  args:
+    executable: /bin/zsh
+  ignore_errors: yes
+  changed_when: false
+
+- name: Install tmux plugins
+  shell: "{{ tmux_plugin_dir }}/tpm/bin/install_plugins"
+  args:
+    executable: /bin/zsh
+  register: plugin_install
+  changed_when: plugin_install.rc == 0
+  failed_when: plugin_install.rc != 0

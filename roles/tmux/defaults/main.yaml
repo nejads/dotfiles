@@ -1,0 +1,3 @@
+tmux_plugin_dir: "{{ ansible_env.HOME }}/.tmux/plugins"
+tmux_conf_path: "{{ ansible_env.HOME }}/.tmux.conf"
+tpm_repo: "https://github.com/tmux-plugins/tpm"

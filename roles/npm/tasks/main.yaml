@@ -1,0 +1,21 @@
+- name: Get list of installed global npm packages
+  shell: |
+    export NVM_DIR={{ nvm_dir }}
+    source $(brew --prefix nvm)/nvm.sh
+    npm list -g --depth=0
+  args:
+    executable: /bin/zsh
+  register: installed_npm_packages
+  changed_when: false
+
+- name: Install npm packages globally
+  shell: |
+    export NVM_DIR={{ nvm_dir }}
+    source $(brew --prefix nvm)/nvm.sh
+    npm install -g {{ item }}
+  args:
+    executable: /bin/zsh
+  with_items: "{{ npm_packages }}"
+  when: "item not in installed_npm_packages.stdout"
+  register: npm_install_result
+  failed_when: "npm_install_result.rc != 0"

@@ -1,0 +1,42 @@
+- name: Setup finder preferences
+  changed_when: false
+  ansible.builtin.shell:
+    cmd: |
+      {% for item in preferences %}
+      defaults write com.apple.finder {{ item.key }} -{{ item.type }} {{ item.value }} {% if not loop.last %} && {% endif %}
+      {% endfor %}
+  vars:
+    preferences:
+      # Open to ~
+      - { key: NewWindowTarget, type: string, value: PfLo }
+      - { key: NewWindowTargetPath, type: string, value: "file://${HOME}/" }
+
+      # Allow quitting via ⌘ + q; doing so will also hide desktop icons
+      - { key: QuitMenuItem, type: bool, value: true }
+
+      # Disable window animations
+      - { key: DisableAllAnimations, type: bool, value: true }
+
+      # Enable status bar
+      - { key: ShowStatusBar, type: bool, value: true }
+
+      # Enable path bar
+      - { key: ShowPathbar, type: bool, value: true }
+
+      # Display full POSIX path as Finder window title
+      - { key: _FXShowPosixPathInTitle, type: bool, value: true }
+
+      # Keep folders on top when sorting by name
+      - { key: _FXSortFoldersFirst, type: bool, value: true }
+
+      # Use "Columns" view
+      - { key: FXPreferredViewStyle, type: string, value: clmv }
+
+      # search the current folder by default
+      - { key: FXDefaultSearchScope, type: string, value: SCcf }
+
+      # Disable trash emptying warning
+      - { key: WarnOnEmptyTrash, type: bool, value: false }
+
+      # Disable file extension changing warning
+      - { key: FXEnableExtensionChangeWarning, type: bool, value: false }

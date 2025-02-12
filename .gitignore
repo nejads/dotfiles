@@ -6,6 +6,15 @@ karabiner/automatic_backups
 
 # Created by https://www.gitignore.io/api/git,vim,macos,linux,emacs
 
+### Ansible ###
+*.retry
+
+### Host curated file ###
+curated_hosts*
+
+### VSCode ###
+.vscode/
+
 ### Emacs ###
 # -*- mode: gitignore; -*-
 *~

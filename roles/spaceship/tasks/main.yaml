@@ -1,0 +1,11 @@
+- name: Ensure spaceship config directory exists
+  file:
+    path: "{{ spaceship_config_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Setup spaceship config
+  ansible.builtin.file:
+    src: "{{ ROLES_FOLDER }}/spaceship/files/spaceship.zsh"
+    path: "{{ spaceship_config_dir }}/spaceship.zsh"
+    state: link

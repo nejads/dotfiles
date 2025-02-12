@@ -1,0 +1,34 @@
+- name: Ensure zsh is installed using Homebrew
+  homebrew:
+    name: zsh
+    state: present
+
+- name: Check if Oh-My-Zsh is already installed
+  ansible.builtin.stat:
+    path: "{{ oh_my_zsh_install_dir }}/.oh-my-zsh"
+  register: oh_my_zsh_status
+
+- name: Install Oh-My-Zsh
+  ansible.builtin.shell: |
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  args:
+    chdir: "{{ oh_my_zsh_install_dir }}"
+  when: not oh_my_zsh_status.stat.exists
+
+- name: Change default shell to zsh
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    shell: /bin/zsh
+  become: yes
+
+- name: Setup zsh environment
+  ansible.builtin.file:
+    src: "{{ ROLES_FOLDER }}/zsh/files/env.zsh"
+    path: ~/.zshenv
+    state: link
+
+- name: Setup zshrc
+  ansible.builtin.file:
+    src: "{{ ROLES_FOLDER }}/zsh/files/zshrc.zsh"
+    path: ~/.zshrc
+    state: link

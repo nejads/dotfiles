@@ -1,0 +1,57 @@
+---
+- name: Set up local workstation
+  hosts: macos
+  vars:
+    USERNAME: "{{ lookup('env', 'USER') }}"
+    ROLES_FOLDER: "/Users/{{USERNAME}}/dotfiles/roles"
+    SETTING_FOLDER: /Users/{{USERNAME}}/Library/Mobile Documents/com~apple~CloudDocs/settings
+  vars_prompt:
+    - name: ansible_become_password
+      prompt: "Please enter ansible_become_password"
+      private: true
+  roles:
+    - role: "{{ROLES_FOLDER}}/homebrew"
+      tags: ["homebrew"]
+      when: ansible_distribution == 'MacOSX'
+
+    - role: "{{ROLES_FOLDER}}/zsh"
+      tags: ["zsh"]
+
+    - role: "{{ROLES_FOLDER}}/spaceship"
+      tags: ["spaceship"]
+
+    - role: "{{ROLES_FOLDER}}/iterm"
+      tags: ["iterm"]
+
+    - role: "{{ROLES_FOLDER}}/macos"
+      tags: ["macos"]
+
+    - role: "{{ROLES_FOLDER}}/hosts"
+      tags: ["hosts"]
+
+    - role: "{{ROLES_FOLDER}}/node"
+      tags: ["node"]
+
+    - role: "{{ROLES_FOLDER}}/npm"
+      tags: ["npm"]
+
+    - role: "{{ROLES_FOLDER}}/git"
+      tags: ["git"]
+
+    - role: "{{ROLES_FOLDER}}/tmux"
+      tags: ["tmux"]
+
+    - role: "{{ROLES_FOLDER}}/hammerspoon"
+      tags: ["hammerspoon"]
+
+    - role: "{{ROLES_FOLDER}}/vscode"
+      tags: ["vscode"]
+
+    - role: "{{ROLES_FOLDER}}/cloudconfig"
+      tags: ["cloudconfig"]
+
+    - role: "{{ROLES_FOLDER}}/touchbar_fix"
+      tags: ["touchbar_fix"]
+
+    - role: "{{ROLES_FOLDER}}/cron"
+      tags: ["cron"]

@@ -1,0 +1,168 @@
+{
+  "files.associations": {
+    "pom.xml": "pomfile"
+  },
+  "[javascript]": {
+    "editor.codeActionsOnSave": [
+      "source.fixAll.eslint",
+      "source.formatDocument"
+    ],
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.wordWrap": "off"
+  },
+  "[python]": {
+    "editor.codeActionsOnSave": [
+      "source.organizeImports",
+      "source.formatDocument"
+    ],
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnSave": true
+  },
+  "[pomfile]": {
+    "editor.formatOnSave": false
+  },
+  "diffEditor.renderSideBySide": false,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.accessibilitySupport": "off",
+  "editor.cursorSurroundingLines": 15,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 13,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.renderFinalNewline": "off",
+  "editor.renderWhitespace": "none",
+  "editor.scrollBeyondLastLine": false,
+  "editor.snippetSuggestions": "top",
+  "editor.suggest.preview": true,
+  "editor.suggest.showMethods": true,
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 100,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/*.js": { "when": "$(basename).ts" },
+    "**/*.js.map": true,
+    "**/*.d.ts": { "when": "$(basename).ts" }
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "git.autofetch": true,
+  "git.inputValidationSubjectLength": 72,
+  "json.schemas": [],
+  "path-autocomplete.pathMappings": {
+    "/": "/"
+  },
+  "path-autocomplete.triggerOutsideStrings": true,
+  "prettier.singleQuote": false,
+  "python.formatting.provider": "autopep8",
+  "python.jediEnabled": false,
+  "python.languageServer": "Default",
+  "python.pythonPath": "/usr/local/opt/python@3/bin/python3",
+  "python.showStartPage": false,
+  "redhat.telemetry.enabled": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1",
+    "CW_NEW_SESSION": "1"
+  },
+  "terminal.integrated.fontSize": 11,
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "window.newWindowDimensions": "inherit",
+  "workbench.colorCustomizations": {
+    "tree.indentGuidesStroke": "#f0ab60",
+    "peekViewEditor.background": "#00000060",
+    "peekViewResult.background": "#000000a9",
+    "peekView.border": "#000000",
+    "peekViewEditor.matchHighlightBackground": "#745401",
+    "peekViewResult.matchHighlightBackground": "#745401",
+    "peekViewEditorStickyScroll.background": "#1d6104",
+    "peekViewResult.selectionBackground": "#74530189"
+  },
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "workbench.enableExperiments": false,
+  "workbench.preferredHighContrastColorTheme": "Dracula",
+  "workbench.preferredHighContrastLightColorTheme": "Dracula",
+  "workbench.preferredLightColorTheme": "Dracula",
+  "workbench.startupEditor": "none",
+  "workbench.statusBar.visible": false,
+  "workbench.tips.enabled": false,
+  "workbench.tree.indent": 16,
+  "workbench.tree.renderIndentGuides": "always",
+  "yaml.customTags": [
+    "!And",
+    "!And sequence",
+    "!If",
+    "!If sequence",
+    "!Not",
+    "!Not sequence",
+    "!Equals",
+    "!Equals sequence",
+    "!Or",
+    "!Or sequence",
+    "!FindInMap",
+    "!FindInMap sequence",
+    "!Base64",
+    "!Join",
+    "!Join sequence",
+    "!Cidr",
+    "!Ref",
+    "!Sub",
+    "!Sub sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!ImportValue sequence",
+    "!Select",
+    "!Select sequence",
+    "!Split",
+    "!Split sequence"
+  ],
+  "java.configuration.maven.userSettings": "~/.m2/settings.xml",
+  "gitlens.remotes": [
+    {
+      "domain": "git.vgt.volvo.com",
+      "type": "Gerrit"
+    }
+  ],
+  "[xml]": {
+    "editor.defaultFormatter": "rogalmic.vscode-xml-complete"
+  },
+  "jest.runMode": {
+    "type": "on-demand",
+    "deferred": true
+  },
+  "github.copilot.advanced": {
+    "debug.useNodeFetcher": true,
+    "authProvider": "github"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.minimap.enabled": false,
+  "workbench.activityBar.location": "hidden",
+  "amazonQ.telemetry": false,
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "prettier.quoteProps": "preserve",
+  "github.copilot.chat.testGeneration.instructions": [],
+  "workbench.iconTheme": "vscode-jetbrains-icon-theme",
+  "workbench.colorTheme": "Darcula Theme from IntelliJ",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
+}

@@ -1,0 +1,4 @@
+---
+# Default variables for Oh-My-Zsh installation
+oh_my_zsh_install_dir: "{{ ansible_env.HOME }}"
+oh_my_zsh_set_default: true

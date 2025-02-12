@@ -1,0 +1,25 @@
+- name: Setup chime sound only if mac is not work laptop
+  changed_when: false
+  become: true
+  ansible.builtin.shell:
+    cmd: |
+      {% for item in preferences %}
+      defaults write {{ item.domain }} {{ item.key }} "{{ item.value }}"  {% if not loop.last %} && {% endif %}
+      {% endfor %}
+  vars:
+    preferences:
+      # Disable macOS startup chime sound
+      - {
+          domain: com.apple.loginwindow,
+          key: LoginHook,
+          is_hook: true,
+          value: "/usr/local/bin/disable_startup_sound.sh",
+        }
+
+      # Disable macOS logout chime sound
+      - {
+          domain: com.apple.loginwindow,
+          key: LogoutHook,
+          is_hook: true,
+          value: "/usr/local/bin/disable_logout_sound.sh",
+        }

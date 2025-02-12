@@ -1,0 +1,33 @@
+- name: Check if curated_hosts exists
+  register: curated_hosts
+  ansible.builtin.stat:
+    path: "{{ ROLES_FOLDER }}/hosts/files/curated_hosts"
+
+- name: Check if curated_hosts is outdated
+  register: curated_hosts_is_outdated
+  ansible.builtin.find:
+    paths: "{{ ROLES_FOLDER }}/hosts/files/"
+    patterns: curated_hosts
+    age: 2w
+
+- name: Download curated_hosts
+  when: not curated_hosts.stat.exists or curated_hosts_is_outdated.matched == 1
+  register: curated_hosts_downloaded
+  ansible.builtin.get_url:
+    url: "{{ curated_hosts_url }}"
+    dest: "{{ ROLES_FOLDER }}/hosts/files/curated_hosts"
+
+- name: Remove ignored_hosts from curated_hosts
+  when: curated_hosts_downloaded.changed
+  ansible.builtin.shell: |
+    grep -E -v '{{ ignored_hosts | join('\\|') }}' \
+    "{{ ROLES_FOLDER }}/hosts/files/curated_hosts" > \
+    "{{ ROLES_FOLDER }}/hosts/files/curated_hosts_updated"
+  args:
+    executable: /bin/bash
+
+- name: Install hosts template
+  become: yes
+  ansible.builtin.template:
+    src: "hosts.j2"
+    dest: /private/etc/hosts

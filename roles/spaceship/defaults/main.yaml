@@ -1,0 +1,1 @@
+spaceship_config_dir: "{{ ansible_env.HOME }}/.config"

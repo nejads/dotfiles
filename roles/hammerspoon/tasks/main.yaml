@@ -1,0 +1,5 @@
+- name: Setup git config environment
+  ansible.builtin.file:
+    src: "{{ ROLES_FOLDER }}/hammerspoon/files/"
+    path: ~/.hammerspoon
+    state: link

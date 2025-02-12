@@ -1,0 +1,15 @@
+- name: Upload the dynamic pinger script using template
+  template:
+    src: pinger.sh.j2
+    dest: /usr/local/bin/pinger.sh
+    mode: "0755"
+  become: yes
+
+- name: Create cron job to ping websites every 15 minutes
+  cron:
+    name: "Ping websites every 15 minutes"
+    minute: "*/15"
+    job: "/usr/local/bin/pinger.sh"
+    user: root
+    state: present
+  become: yes

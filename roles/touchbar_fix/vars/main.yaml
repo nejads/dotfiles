@@ -1,0 +1,2 @@
+touchbar_app_path: "/Applications/{{ touchbar_fix_app_name }}.app"
+script_template_path: "touchbar_fix.scpt.j2"

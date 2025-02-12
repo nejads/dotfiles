@@ -33,7 +33,7 @@ ansible-playbook playbooks/bootstrap.yaml --tags zsh
 ### Inspiration and credits:
 
 - [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)
-- [Sam Hossini dotfiles](https://github.com/sam-hosseini/dotfiles/)
+- [Sam Hosseini dotfiles](https://github.com/sam-hosseini/dotfiles/)
 
 ## Manual Setup
 

@@ -37,7 +37,7 @@ export AWS_REGION=eu-west-1
 
 #AWS default node version
 source ~/.nvm/nvm.sh
-#echo " * $(nvm use 18.16.0)"
+echo " * $(nvm use 20)"
 
 # Disable the use of a pager
 export AWS_PAGER=""
@@ -214,12 +214,17 @@ function eessh_by_id() {
     echo "Couldnt find instance id"
   else
     echo "Connecting to instance with instance id: $instance_id"
-    vpce=https://vpce-0a3315ed8d354c9c3-isa9qun7.ssm.eu-west-1.vpce.amazonaws.com
-    if [[ "$AWS_REGION" == "us-east-1" ]]; then
-      echo "the region is us-east-1, changing the vpce to us-east-1 vpce..."
-      vpce=https://vpce-05bb753ebd972227e-l8t95svv.ssm.us-east-1.vpce.amazonaws.com/
+    if [[ "$AWS_REGION" == "ap-northeast-1" ]]; then
+      echo "the region is ap-northeast-1, doesnt need vpce endpoint..."
+      aws ssm start-session --target $instance_id
+    else
+      vpce=https://vpce-0a3315ed8d354c9c3-isa9qun7.ssm.eu-west-1.vpce.amazonaws.com
+      if [[ "$AWS_REGION" == "us-east-1" ]]; then
+        echo "the region is us-east-1, changing the vpce to us-east-1 vpce..."
+        vpce=https://vpce-05bb753ebd972227e-l8t95svv.ssm.us-east-1.vpce.amazonaws.com/
+      fi
+      aws ssm start-session --target $instance_id --endpoint-url $vpce
     fi
-    aws ssm start-session --target $instance_id --endpoint-url $vpce
   fi
 }
 
@@ -367,3 +372,12 @@ function overstart {
   java -DZONE=de -Dhttp.nonProxyHosts="*.aws.vgthosting.net" -Dconfigendpoints=https://1obxl8dgf7.execute-api.eu-west-1.amazonaws.com/deprod/config/ -Dconfigrolearns=arn:aws:iam::488300216743:role/CentralConfigGet -DVGTZONE=de -DVGTSOLUTION=de -DVGTENVIRONMENT=prod -Xms64m -Xmx512m -DVGTCOMPSHORTNAME=overseer -DVGTSITE=eu-west-1 -DVGTLOGDIR=web/config/logs/overseer -Dlog4j.configurationFile=web/config/log4j2.xml -Dhttp.proxyHost=httppxgot-gssd.srv.volvo.com -Dhttp.proxyPort=8080 -Dhttps.proxyHost=httppxgot-gssd.srv.volvo.com -Dhttps.proxyPort=8080 -Djavax.net.ssl.trustStore=changeit -jar ~/workspace/vgcs/build-engineering/overseer/web/target/overseer-web-0-SNAPSHOT.jar
 }
 export NVM_DIR=~/.nvm
+
+# pnpm
+export PNPM_HOME="/Users/sorosh/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+export NVM_DIR=/Users/sorosh/.nvm

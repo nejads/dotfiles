@@ -15,7 +15,7 @@
   vars:
     sudo_password: "{{ ansible_become_password }}"
 
-- name: Export script as application
+- name: Compile Script to Application
   command: >
     osacompile -o "{{ touchbar_app_path }}" /tmp/touchbar_fix.scpt
   args:

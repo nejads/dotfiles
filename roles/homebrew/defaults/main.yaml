@@ -70,6 +70,7 @@ brew_packages:
   - wget
   - yarn
   - yq
+  - yt-dlp
   - zsh
   - zsh-completions
   - zsh-syntax-highlighting
@@ -79,9 +80,9 @@ cask_packages:
   - aws-vault
   - beamer
   - bitwarden
-  - corretto8
-  - corretto11
-  - corretto17
+  - corretto@8
+  - corretto@11
+  - corretto@17
   - corretto
   - cryptomator
   - cyberduck

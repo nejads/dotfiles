@@ -1,5 +1,5 @@
 wifiwatcher = hs.wifi.watcher.new(function ()
-    homeSSID = "Saturn-5G"
+    homeSSID = "Jupiter"
     currentSSID = hs.wifi.currentNetwork()
     if currentSSID==homeSSID then
         hs.audiodevice.defaultOutputDevice():setVolume(25)

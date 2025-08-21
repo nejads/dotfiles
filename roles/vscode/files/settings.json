@@ -64,7 +64,7 @@
     "/": "/"
   },
   "path-autocomplete.triggerOutsideStrings": true,
-  "prettier.singleQuote": false,
+  "prettier.singleQuote": true,
   "python.formatting.provider": "autopep8",
   "python.jediEnabled": false,
   "python.languageServer": "Default",
@@ -164,5 +164,6 @@
   "workbench.colorTheme": "Darcula Theme from IntelliJ",
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  },
+  "docker.extension.enableComposeLanguageServer": false
 }

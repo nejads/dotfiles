@@ -43,6 +43,8 @@ brew_packages:
   - lolcat
   - magic-wormhole
   - maven
+  - m-cli
+  - neovim
   - nginx
   - nmap
   - nvm
@@ -52,7 +54,9 @@ brew_packages:
   - postgresql
   - python
   - python@3.11
+  - reattach-to-user-namespace
   - rename
+  - ripgrep # used by nvchad
   - ruby
   - brew-gem
   - screen
@@ -90,6 +94,7 @@ cask_packages:
   - drawio
   - dropbox
   - firefox
+  - font-jetbrains-mono-nerd-font
   - fork
   - hammerspoon
   - homerow

@@ -37,7 +37,6 @@ export AWS_REGION=eu-west-1
 
 #AWS default node version
 source ~/.nvm/nvm.sh
-echo " * $(nvm use 20)"
 
 # Disable the use of a pager
 export AWS_PAGER=""
@@ -46,6 +45,8 @@ export AWS_PAGER=""
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
+# needed for SAM --use-container finds the docker
+#ln -s "$HOME/.docker/run/docker.sock" /var/run/docker.sock
 #############################
 # aliases
 #############################
@@ -134,23 +135,33 @@ alias gpa="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/
 alias gplrq="gh pr create --fill"
 alias gprev="git checkout -"
 alias gs='git status'
-function gitPush() {
-  git pull --rebase
-  if [[ $? == 0 ]]; then
-    git push origin HEAD:refs/for/master
-  fi
-}
 function gpfr() {
     #slack_hook_url="https://hooks.slack.com/"
     git pull --rebase
     if [[ $? == 0 ]]; then
-      BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-      if [ "$BRANCH" = "master" ]; then
+      CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+      if [ "$CURRENT_BRANCH" = "master" ]; then
           git push origin HEAD:refs/for/master
       else
           git push origin HEAD:refs/for/main
       fi
     fi
+}
+
+function gob() {
+  if [ -z "$1" ]; then
+    DEFAULT_BRANCH="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
+    git checkout $DEFAULT_BRANCH && git pull --rebase && git fetch --prune
+  else
+    branches=$(git branch)
+    if [[ $branches =~ $1 ]]; then
+      echo "Branch $1 already exists"
+      git checkout $1
+    else
+      echo "Branch $1 does not exist, creating it"
+      git pull --rebase && git checkout -b $1
+    fi
+  fi
 }
 
 function grevert() {
@@ -166,7 +177,7 @@ function grevert() {
   fi
 }
 # Remove local branches that does not have remote any longer.
-alias gbpurge="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs -n 1 git branch -d"
+alias gbpurge="git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 
 # AWS VALT
 alias aw="aws-vault"
@@ -176,6 +187,38 @@ alias awe="aw exec"
 function awc() {
   unset AWS_VAULT
   aw clear
+}
+
+# AWS CLI
+function aws_pr() {
+  if [ -z "$1" ]; then
+    echo "Please provide the message of the PR"
+  else
+    pull_request_id=$(aws codecommit create-pull-request \
+      --title "$1" \
+      --description "$1" \
+      --targets repositoryName=$(basename "$PWD"),sourceReference=$(git rev-parse --abbrev-ref HEAD),destinationReference=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@') \
+      --query 'pullRequest.pullRequestId' \
+      --output text)
+
+    echo "Pull Request ID: $pull_request_id"
+  fi
+}
+
+function aws_merge () {
+  if [ -z "$1" ]; then
+    echo "Please provide the pull request ID"
+  else
+    aws codecommit merge-pull-request-by-fast-forward \
+      --pull-request-id "$1" \
+      --repository-name $(basename "$PWD")
+    aws codecommit delete-branch \
+      --repository-name $(basename "$PWD") \
+      --branch-name $(git rev-parse --abbrev-ref HEAD)
+    go
+    gbpurge
+    echo "Merged pull request ID: $1"
+  fi
 }
 
 # setup profile for AWS toolkit in IntelliJ
@@ -283,14 +326,6 @@ function git-standup() {
     git log --all --since "$since" --oneline --author="$AUTHOR"
 }
 
-function gm() {
-  if [ -z "$1" ]; then
-    git checkout master
-  else
-    git checkout $1
-  fi
-}
-
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 # SSH
@@ -336,6 +371,11 @@ function site() {
     open http://$1
 }
 
+function reset_hosts() {
+    sudo cp ~/dotfiles/roles/hosts/files/base_hosts /private/etc/hosts
+    echo "Hosts file has been reset to default."
+}
+
 function myip() {
     echo 'Your local ip: '
     echo '{'
@@ -343,10 +383,6 @@ function myip() {
     echo '}'
     echo "Your public ip: "
     curl ipinfo.io
-}
-
-function unblockads() {
-  sudo cp /etc/hosts.default /etc/hosts
 }
 
 function blockads() {
@@ -381,3 +417,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 export NVM_DIR=/Users/sorosh/.nvm
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

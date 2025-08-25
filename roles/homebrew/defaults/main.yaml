@@ -1,8 +1,6 @@
 ---
 brew_taps:
   - aws/tap
-  - homebrew/bundle
-  - homebrew/services
   - teamookla/speedtest
 
 brew_packages:
@@ -51,7 +49,7 @@ brew_packages:
   - openssh
   - oath-toolkit
   - pipenv
-  - postgresql
+  - postgresql@14
   - python
   - python@3.11
   - reattach-to-user-namespace
@@ -68,7 +66,7 @@ brew_packages:
   - tmux
   - tree
   - trivy
-  - twine-pypi
+  - twine
   - vim
   - virtualenv
   - wget
@@ -107,7 +105,6 @@ cask_packages:
   - netnewswire
   - nordvpn
   - numi
-  - osxfuse
   - postico
   - postman
   - spotify

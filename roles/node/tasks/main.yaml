@@ -16,21 +16,6 @@
     line: "source $(brew --prefix nvm)/nvm.sh"
     create: yes
 
-- name: Install Node.js version 14
-  shell: |
-    export NVM_DIR={{ ansible_env.HOME }}/.nvm
-    source $(brew --prefix nvm)/nvm.sh
-    nvm install 14
-  args:
-    executable: /bin/zsh
-  register: node14_install
-  ignore_errors: true
-
-- name: Check Node.js 14 installation
-  fail:
-    msg: "Could not install node version 14"
-  when: node14_install.rc != 0
-
 - name: Install Node.js version 16
   shell: |
     export NVM_DIR={{ ansible_env.HOME }}/.nvm

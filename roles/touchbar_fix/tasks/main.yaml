@@ -5,29 +5,34 @@
     type: integer
     value: 60
   become: yes
-  become_user: "{{ ansible_user_id }}"
+  become_user: '{{ ansible_user_id }}'
+  when: mac_serial.stdout == personal_mac_serial
 
 - name: Create AppleScript from template
   template:
-    src: "{{ script_template_path }}"
-    dest: "/tmp/touchbar_fix.scpt"
-    mode: "0644"
+    src: '{{ script_template_path }}'
+    dest: '/tmp/touchbar_fix.scpt'
+    mode: '0644'
   vars:
-    sudo_password: "{{ ansible_become_password }}"
+    sudo_password: '{{ ansible_become_password }}'
+  when: mac_serial.stdout == personal_mac_serial
 
 - name: Compile Script to Application
   command: >
     osacompile -o "{{ touchbar_app_path }}" /tmp/touchbar_fix.scpt
   args:
-    creates: "{{ touchbar_app_path }}"
+    creates: '{{ touchbar_app_path }}'
+  when: mac_serial.stdout == personal_mac_serial
 
 - name: Create Info.plist from template
   copy:
-    src: "files/Info.plist"
-    dest: "{{ touchbar_app_path }}/Contents/Info.plist"
-    mode: "0644"
+    src: 'files/Info.plist'
+    dest: '{{ touchbar_app_path }}/Contents/Info.plist'
+    mode: '0644'
+  when: mac_serial.stdout == personal_mac_serial
 
 - name: Add application to login items
   command: >
     osascript -e 'tell application "System Events" to make login item at end with properties {path:"{{ touchbar_app_path }}", hidden:false}'
   changed_when: false
+  when: mac_serial.stdout == personal_mac_serial

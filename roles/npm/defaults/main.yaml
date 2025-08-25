@@ -1,7 +1,6 @@
-nvm_dir: "{{ ansible_env.HOME }}/.nvm"
+nvm_dir: '{{ ansible_env.HOME }}/.nvm'
 npm_packages:
   - json
   - prettier
-  - spaceship-prompt
   - surge
   - typescript

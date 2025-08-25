@@ -9,19 +9,24 @@ export PATH="/usr/bin:$PATH"
 export PATH="/usr/sbin:$PATH"
 
 # brew symlinks most executables it installs
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
 # brew symlinks some of its executables
 export PATH="/usr/local/sbin:$PATH"
 
 # the symlinked brew Ruby executable
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # ruby gems
 export PATH="~/.gem/ruby/2.7.0/bin:$PATH"
 
 # node global packages
 export PATH="/usr/local/lib/node_modules/bin/:$PATH"
+
+# GNU coreutils
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
 
 # Sonarqube Scanner
 export PATH="~/sonar-scanner/bin/:$PATH"

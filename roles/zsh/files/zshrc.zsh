@@ -3,9 +3,7 @@ export ZSH=~/.oh-my-zsh
 # Path to your dotfiles.
 export DOTFILES=$HOME/dotfiles
 
-ZSH_THEME="robbyrussell"
-
-ZSH_CUSTOM=$DOTFILES
+ZSH_THEME="spaceship"
 
 plugins=(aws docker fzf git github jsontools node npm python ssh-agent)
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
@@ -29,11 +27,9 @@ export AWS_VAULT_BACKEND=keychain
 
 #Java default version
 export JAVA_HOME=$(/usr/libexec/java_home -v 17);
-#echo -e " * Java version: $(java --version | grep '^openjdk') \U2615"
 
 #AWS default region
 export AWS_REGION=eu-west-1
-#echo " * AWS region: $(echo $AWS_REGION)"
 
 #AWS default node version
 source ~/.nvm/nvm.sh
@@ -54,10 +50,9 @@ source $(brew --prefix nvm)/nvm.sh
 alias c="clear"
 alias reload="source $HOME/.zshrc"
 alias reloaddns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
-alias ll="/usr/local/opt/coreutils/libexec/gnubin/ls -ahlF --color --group-directories-first"
+alias ll="/opt/homebrew/opt/coreutils/libexec/gnubin/ls -ahlF --color --group-directories-first"
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias shrug="echo '¯\_(ツ)_/¯' | pbcopy"
-# alias turtle_wallet='cd /Users/soroush/Coin/turtlecoin/build/src && ./zedwallet --wallet-file MyTurtleWallet.wallet --remote-daemon 192.168.1.100:11898'
 alias totp="sh ~/dotfiles/scripts/totp.sh"
 alias totp-add-token="sh ~/dotfiles/scripts/totp-add-token.sh"
 alias zbundle="antibody bundle < $DOTFILES/zsh_plugins.txt > $DOTFILES/zsh_plugins.sh"
@@ -397,10 +392,6 @@ function yaml2json() {
   yq e -j $1
 }
 
-# Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
-prompt spaceship
-
 function overstart {
   configbestbeforeseconds=120
   configendpoints=https://1obxl8dgf7.execute-api.eu-west-1.amazonaws.com/deprod/config/
@@ -410,13 +401,14 @@ function overstart {
 export NVM_DIR=~/.nvm
 
 # pnpm
-export PNPM_HOME="/Users/sorosh/Library/pnpm"
+export PNPM_HOME="~/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-export NVM_DIR=/Users/sorosh/.nvm
+export NVM_DIR=~/.nvm
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+export NVM_DIR=/Users/galaxy/.nvm

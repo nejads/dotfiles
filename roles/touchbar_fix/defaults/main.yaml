@@ -1,2 +1,4 @@
-touchbar_fix_app_name: "TouchBarDeflicker"
-touchbar_idle_threshold: "7.4E+10"
+touchbar_fix_app_name: 'TouchBarDeflicker'
+touchbar_idle_threshold: '7.4E+10'
+# some of the settings are only applied to my personal Mac
+personal_mac_serial: C02ZC4FWLVDQ

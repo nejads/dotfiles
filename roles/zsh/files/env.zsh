@@ -3,17 +3,18 @@ export EDITOR='vim'
 ####################
 # Path
 ####################
-export PATH="/bin:$PATH"
-export PATH="/sbin:$PATH"
-export PATH="/usr/bin:$PATH"
-export PATH="/usr/sbin:$PATH"
-
 # brew symlinks most executables it installs
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
 # brew symlinks some of its executables
 export PATH="/usr/local/sbin:$PATH"
+
+# executables
+export PATH="/bin:$PATH"
+export PATH="/sbin:$PATH"
+export PATH="/usr/bin:$PATH"
+export PATH="/usr/sbin:$PATH"
 
 # the symlinked brew Ruby executable
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"

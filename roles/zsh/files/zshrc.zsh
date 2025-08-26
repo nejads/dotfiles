@@ -238,7 +238,7 @@ function aws_temp_profile() {
 
 # trigger build for current path
 function trigger() {
-  TRIGGER_URL="https://pipelines.sharedservices.prod.euw1.vg-cs.net/api/initializer/trigger"
+  TRIGGER_URL="https://CHANGE_IT/api/initializer/trigger"
   REPO_NAME=$(git remote -v | awk -F/ '/origin.*\(fetch\)/ {gsub(/ \(fetch\)/, ""); path=$(NF-2) "/" $(NF-1) "/" $NF; gsub(/^[ \t]+|[ \t]+$/, "", path); print path}')
   if [ ! -z $REPO_NAME ]; then
     curl --location $TRIGGER_URL --header 'Content-Type: application/json' --data "{\"repository\": \"$REPO_NAME\"}"
@@ -337,7 +337,7 @@ function work-git() {
 }
 
 # Python
-alias python=/usr/local/bin/python3
+alias python=/opt/homebrew/bin/python3
 # Pip update
 alias pupdate='pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U'
 
@@ -412,3 +412,5 @@ export NVM_DIR=~/.nvm
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 export NVM_DIR=/Users/galaxy/.nvm
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"

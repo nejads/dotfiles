@@ -1,8 +1,8 @@
 ---
-- name: "[homebrew] Configure Homebrew taps"
-  loop: "{{ brew_taps }}"
+- name: '[homebrew] Configure Homebrew taps'
+  loop: '{{ brew_taps }}'
   homebrew_tap:
-    name: "{{ item }}"
+    name: '{{ item }}'
 - name: Get installed homebrew formulae
   register: installed_brew_packages
   changed_when: false
@@ -10,12 +10,12 @@
     cmd: brew list --formulae
 
 - name: Install homebrew formulae
-  loop: "{{ brew_packages }}"
+  loop: '{{ brew_packages }}'
   when: item.split('/')[-1] not in installed_brew_packages.stdout_lines
   register: result
   until: result is succeeded
   community.general.homebrew:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
 
 - name: Get high level homebrew formulae
@@ -25,12 +25,12 @@
     cmd: brew leaves
 
 - name: Delete adhoc homebrew formulae
-  loop: "{{ high_level_brew_packages.stdout_lines }}"
+  loop: '{{ high_level_brew_packages.stdout_lines }}'
   when: item.split('/')[-1] not in (brew_packages | map('split', '/') | map('last'))
   register: result
   until: result is succeeded
   community.general.homebrew:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: absent
 
 - name: Get installed homebrew casks
@@ -40,20 +40,26 @@
     cmd: brew list --casks
 
 - name: Install homebrew casks
-  loop: "{{ cask_packages }}"
+  loop: '{{ cask_packages }}'
   when: item.split('/')[-1] not in installed_cask_packages.stdout_lines
   register: result
   until: result is succeeded
   community.general.homebrew_cask:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
     install_options: no-quarantine
-    sudo_password: "{{ ansible_become_password }}"
+    sudo_password: '{{ ansible_become_password }}'
 
 - name: Delete adhoc homebrew casks
-  loop: "{{ installed_cask_packages.stdout_lines }}"
+  loop: '{{ installed_cask_packages.stdout_lines }}'
   when: item.split('/')[-1] not in (cask_packages | map('split', '/') | map('last'))
   community.general.homebrew_cask:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: absent
-    sudo_password: "{{ ansible_become_password }}"
+    sudo_password: '{{ ansible_become_password }}'
+
+- name: Python installed by brew is Python3
+  ansible.builtin.file:
+    src: '/opt/homebrew/bin/python3'
+    path: '/opt/homebrew/bin/python'
+    state: link

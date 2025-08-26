@@ -1,6 +1,5 @@
 ---
 brew_taps:
-  - aws/tap
   - teamookla/speedtest
 
 brew_packages:
@@ -62,7 +61,6 @@ brew_packages:
   - speedtest
   - svtplay-dl
   - the_silver_searcher
-  - tldr
   - tmux
   - tree
   - trivy

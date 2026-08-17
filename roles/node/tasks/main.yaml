@@ -1,47 +1,53 @@
+---
 - name: Create NVM directory
   file:
-    path: "{{ ansible_facts['env']['HOME'] }}/.nvm"
+    path: "{{ nvm_dir }}"
     state: directory
     mode: '0755'
 
-- name: Set NVM environment variable in zshrc
-  lineinfile:
-    path: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
-    line: "export NVM_DIR={{ ansible_facts['env']['HOME'] }}/.nvm"
-    create: yes
+- name: Check if NVM is installed
+  ansible.builtin.stat:
+    path: "{{ nvm_dir }}/nvm.sh"
+  register: nvm_installed
 
-- name: Source NVM script in zshrc
-  lineinfile:
-    path: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
-    line: 'source $(brew --prefix nvm)/nvm.sh'
-    create: yes
-
-- name: Install Node.js version 16
-  shell: |
-    export NVM_DIR={{ ansible_facts['env']['HOME'] }}/.nvm
-    source $(brew --prefix nvm)/nvm.sh
-    nvm install 16
+- name: Install NVM
+  ansible.builtin.shell: |
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
   args:
-    executable: /bin/zsh
-  register: node16_install
+    creates: "{{ nvm_dir }}/nvm.sh"
+  environment:
+    NVM_DIR: "{{ nvm_dir }}"
+  when: not nvm_installed.stat.exists
+
+- name: Install Node.js LTS
+  ansible.builtin.shell: |
+    export NVM_DIR="{{ nvm_dir }}"
+    source "$NVM_DIR/nvm.sh"
+    nvm install --lts
+  args:
+    executable: /bin/bash
+  register: node_lts_install
   ignore_errors: true
 
-- name: Check Node.js 16 installation
+- name: Check Node.js LTS installation
   fail:
-    msg: 'Could not install node version 16'
-  when: node16_install.rc != 0
+    msg: 'Could not install Node.js LTS'
+  when: node_lts_install.rc != 0
 
 - name: Install latest Node.js version
-  shell: |
-    export NVM_DIR={{ ansible_facts['env']['HOME'] }}/.nvm
-    source $(brew --prefix nvm)/nvm.sh
+  ansible.builtin.shell: |
+    export NVM_DIR="{{ nvm_dir }}"
+    source "$NVM_DIR/nvm.sh"
     nvm install node
   args:
-    executable: /bin/zsh
+    executable: /bin/bash
   register: node_latest_install
   ignore_errors: true
 
-- name: Check latest Node.js installation
-  fail:
-    msg: 'Could not install latest node version'
-  when: node_latest_install.rc != 0
+- name: Set LTS as default
+  ansible.builtin.shell: |
+    export NVM_DIR="{{ nvm_dir }}"
+    source "$NVM_DIR/nvm.sh"
+    nvm alias default lts/*
+  args:
+    executable: /bin/bash

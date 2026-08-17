@@ -1,1 +1,2 @@
+---
 nvm_dir: "{{ ansible_facts['env']['HOME'] }}/.nvm"

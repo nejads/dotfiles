@@ -1,0 +1,59 @@
+---
+apt_packages:
+  - bat
+  - build-essential
+  - cmake
+  - cowsay
+  - curl
+  - fd-find
+  - ffmpeg
+  - flac
+  - fzf
+  - gcc
+  - git
+  - git-lfs
+  - gnupg
+  - grep
+  - guake
+  - htop
+  - httpie
+  - jq
+  - maven
+  - neovim
+  - nginx
+  - nmap
+  - openssh-client
+  - openssh-server
+  - pipenv
+  - python3
+  - python3-pip
+  - python3-venv
+  - rename
+  - ripgrep
+  - ruby
+  - screen
+  - tldr
+  - tmux
+  - tree
+  - unzip
+  - vim
+  - virtualenv
+  - wget
+  - xclip
+  - yarn
+  - yq
+  - zsh
+  - zsh-syntax-highlighting
+
+snap_packages:
+  - docker
+  - trivy
+
+snap_classic_packages:
+  - code
+  - intellij-idea-ultimate
+
+pip_packages:
+  - mypy
+  - powerline-status
+  - virtualenv

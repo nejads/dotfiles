@@ -1,0 +1,101 @@
+---
+- name: Update apt cache
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install apt packages
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ apt_packages }}"
+    state: present
+
+- name: Install snap packages
+  become: yes
+  community.general.snap:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ snap_packages }}"
+
+- name: Install snap classic packages
+  become: yes
+  community.general.snap:
+    name: "{{ item }}"
+    classic: yes
+    state: present
+  loop: "{{ snap_classic_packages }}"
+
+- name: Install pip packages
+  ansible.builtin.pip:
+    name: "{{ pip_packages }}"
+    extra_args: --user
+  environment:
+    PIP_BREAK_SYSTEM_PACKAGES: "1"
+
+- name: Ensure diff-so-fancy is installed
+  become: yes
+  ansible.builtin.shell: |
+    if ! command -v diff-so-fancy &>/dev/null; then
+      curl -o /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+      chmod +x /usr/local/bin/diff-so-fancy
+    fi
+  args:
+    creates: /usr/local/bin/diff-so-fancy
+
+- name: Install GitHub CLI
+  become: yes
+  ansible.builtin.shell: |
+    if ! command -v gh &>/dev/null; then
+      curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+      sudo apt update
+      sudo apt install -y gh
+    fi
+  args:
+    creates: /usr/bin/gh
+
+- name: Install AWS CLI v2
+  become: yes
+  ansible.builtin.shell: |
+    if ! command -v aws &>/dev/null; then
+      cd /tmp
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip -o awscliv2.zip
+      ./aws/install
+      rm -rf aws awscliv2.zip
+    fi
+  args:
+    creates: /usr/local/bin/aws
+
+- name: Install AWS SAM CLI
+  become: yes
+  ansible.builtin.shell: |
+    if ! command -v sam &>/dev/null; then
+      cd /tmp
+      curl -Lo aws-sam-cli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+      unzip -o aws-sam-cli.zip -d sam-installation
+      ./sam-installation/install
+      rm -rf sam-installation aws-sam-cli.zip
+    fi
+  args:
+    creates: /usr/local/bin/sam
+
+- name: Add Amazon Corretto repository key
+  become: yes
+  ansible.builtin.shell: |
+    if [ ! -f /usr/share/keyrings/corretto-keyring.gpg ]; then
+      curl -fsSL https://apt.corretto.aws/corretto.key | gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg
+      echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | tee /etc/apt/sources.list.d/corretto.list
+      apt update
+    fi
+  args:
+    creates: /usr/share/keyrings/corretto-keyring.gpg
+
+- name: Install Amazon Corretto JDKs
+  become: yes
+  ansible.builtin.apt:
+    name:
+      - java-21-amazon-corretto-jdk
+      - java-17-amazon-corretto-jdk
+    state: present

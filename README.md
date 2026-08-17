@@ -1,43 +1,65 @@
-# Sorosh's dotfiles
+# Dotfiles (Ubuntu 24)
 
-This repository includes my configuration files, settings and shows how I setup and maintain my Mac.
+Ansible-managed dotfiles for Ubuntu 24.04 LTS workstation setup.
 
-> [TL;DR: Invest time learning to configure your machine and automate processes, you'll get that time back ten fold.](https://code.tutsplus.com/tutorials/setting-up-a-mac-dev-machine-from-zero-to-hero-with-dotfiles--net-35449)
+## Quick Start
 
-### Command to install all packages on a new Macos machine
+```bash
+# Clone and run setup
+curl -fsSL https://raw.githubusercontent.com/nejads/dotfiles/ubuntu/setup.sh | bash
 
-Sign in to iCloud and sync the settings folder, then
-Running setup.sh install following:
-
-- Install Homebrew from [brew.sh](https://brew.sh)
-- Clone dotfiles repository from [github](https://github.com/nejads/dotfiles)
-- Install the following formulae:
-  ```
-  brew install ansible python3
-  ```
-
-### Run all the roles
-
-After setup, run all playbooks
-
-```
-ansible-playbook playbooks/bootstrap.yaml
+# Then run the playbook
+cd ~/dotfiles
+ansible-playbook -K playbooks/bootstrap.yaml
 ```
 
-### Run specific roles by tag
+## What's Included
 
+| Role | Purpose |
+|------|---------|
+| `apt` | System packages via apt, snap, and manual installs (AWS CLI, SAM, gh) |
+| `zsh` | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting |
+| `spaceship` | Spaceship prompt theme |
+| `node` | NVM + Node.js (LTS + latest) |
+| `npm` | Global npm packages (json, prettier, surge, typescript) |
+| `git` | Git config, aliases, diff-so-fancy |
+| `tmux` | Tmux + TPM + Catppuccin theme + vim-tmux-navigator |
+| `vscode` | VS Code settings + extensions |
+| `hosts` | Ad-blocking hosts file |
+| `cron` | Scheduled pinger script |
+
+## Run Specific Roles
+
+```bash
+# Only zsh and git
+ansible-playbook -K playbooks/bootstrap.yaml --tags zsh,git
+
+# Only tmux
+ansible-playbook -K playbooks/bootstrap.yaml --tags tmux
 ```
-ansible-playbook playbooks/bootstrap.yaml --tags zsh
-```
 
-### Inspiration and credits:
+## Removed (macOS-only)
 
-- [Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)
-- [Sam Hosseini dotfiles](https://github.com/sam-hosseini/dotfiles/)
+These roles from the `main` branch are not applicable to Ubuntu:
+- `homebrew` → replaced by `apt`
+- `iterm` → use any Linux terminal (Alacritty, Kitty, etc.)
+- `macos` → system preferences, not applicable
+- `hammerspoon` → use a Linux tiling WM or window manager
+- `touchbar_fix` → not applicable
+- `cloudconfig` → iCloud-linked configs, handle manually on Linux
 
-## Manual Setup
+## Key Differences from macOS Branch
 
-### Alfred
+- **Package manager**: apt/snap instead of Homebrew
+- **Clipboard**: `xclip` instead of `pbcopy`/`pbpaste`
+- **Git credential**: `store` instead of `osxkeychain`
+- **VS Code config path**: `~/.config/Code/User/` instead of `~/Library/Application Support/Code/User/`
+- **Hosts file**: `/etc/hosts` instead of `/private/etc/hosts`
+- **NVM**: Installed directly via curl (not via brew)
+- **Tmux**: No `reattach-to-user-namespace` needed
+- **Java**: Amazon Corretto in `/usr/lib/jvm/` instead of `/usr/libexec/java_home`
 
-You can find Alfred setting in icloud under directory ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/. There is a file with the name Alfred.alfredpreferences.
-Import this file into Alfred, more details can be found at https://www.alfredapp.com/help/advanced/sync/
+## Prerequisites
+
+- Ubuntu 24.04 LTS
+- `curl` and `git` (setup.sh installs everything else)

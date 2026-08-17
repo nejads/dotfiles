@@ -1,5 +1,7 @@
-- name: Ensure zsh is installed using Homebrew
-  homebrew:
+---
+- name: Ensure zsh is installed
+  become: yes
+  ansible.builtin.apt:
     name: zsh
     state: present
 
@@ -16,10 +18,17 @@
   when: not oh_my_zsh_status.stat.exists
 
 - name: Change default shell to zsh
+  become: yes
   ansible.builtin.user:
     name: "{{ ansible_facts['env']['USER'] }}"
-    shell: /bin/zsh
-  become: yes
+    shell: /usr/bin/zsh
+
+- name: Install zsh-completions plugin
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-completions.git
+    dest: "{{ oh_my_zsh_install_dir }}/.oh-my-zsh/custom/plugins/zsh-completions"
+    depth: 1
+    update: yes
 
 - name: Setup zsh environment
   ansible.builtin.file:

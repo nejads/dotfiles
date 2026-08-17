@@ -1,68 +1,46 @@
 #!/bin/bash
-# setup.sh
+# setup.sh - Ubuntu 24 dotfiles bootstrap
 
-# Function to install Homebrew if not already installed
-install_homebrew() {
-  echo "Checking if Homebrew is installed..."
+set -e
 
-  # Check if Homebrew is already installed
-  if command -v brew &>/dev/null; then
-    echo "Homebrew is already installed."
+install_dependencies() {
+  echo "Installing system dependencies..."
+  sudo apt update
+  sudo apt install -y software-properties-common git python3 python3-pip python3-venv
+}
+
+install_ansible() {
+  echo "Checking if Ansible is installed..."
+  if command -v ansible &>/dev/null; then
+    echo "Ansible is already installed."
   else
-    echo "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "Installing Ansible..."
+    sudo apt-add-repository --yes --update ppa:ansible/ansible
+    sudo apt install -y ansible
   fi
 }
 
-# Function to clone or pull the dotfiles repository
 manage_dotfiles() {
   echo "Managing dotfiles repository..."
-
-  # Define the target directory for the dotfiles
   DOTFILES_DIR="$HOME/dotfiles"
-
-  # Check if the dotfiles repo already exists
   if [ -d "$DOTFILES_DIR" ]; then
     echo "Dotfiles repository exists. Pulling latest changes..."
     cd "$DOTFILES_DIR" || exit
-    git pull origin main
+    git pull origin ubuntu
   else
     echo "Dotfiles repository not found. Cloning..."
-    git clone https://github.com/nejads/dotfiles.git "$DOTFILES_DIR"
+    git clone -b ubuntu https://github.com/nejads/dotfiles.git "$DOTFILES_DIR"
   fi
 }
 
-# Function to install formulae if not already installed
-install_formulae() {
-  echo "Checking if required formulae are installed..."
-
-  # Check if ansible is installed
-  if ! command -v ansible &>/dev/null; then
-    echo "Ansible is not installed. Installing..."
-    brew install ansible
-  else
-    echo "Ansible is already installed."
-  fi
-
-  # Check if python3 is installed
-  if ! command -v python3 &>/dev/null; then
-    echo "Python3 is not installed. Installing..."
-    brew install python3
-  else
-    echo "Python3 is already installed."
-  fi
-}
-
-# Main script execution
-echo "Starting setup..."
-
-# Install Homebrew (only if not already installed)
-install_homebrew
-
-# Clone or update the dotfiles repository
+echo "Starting Ubuntu dotfiles setup..."
+install_dependencies
+install_ansible
 manage_dotfiles
 
-# Install the required formulae (if not already installed)
-install_formulae
-
-echo "Setup completed!"
+echo ""
+echo "Setup complete! Run the playbook with:"
+echo "  cd ~/dotfiles && ansible-playbook -K playbooks/bootstrap.yaml"
+echo ""
+echo "Or run specific roles with tags:"
+echo "  ansible-playbook -K playbooks/bootstrap.yaml --tags zsh,git,tmux"

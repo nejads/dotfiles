@@ -1,3 +1,4 @@
+---
 - name: Ensure spaceship config directory exists
   ansible.builtin.file:
     path: '{{ zsh_custom_dir }}/themes'
@@ -9,6 +10,7 @@
     repo: '{{ spaceship_repo_url }}'
     dest: '{{ zsh_custom_dir }}/themes/spaceship-prompt'
     depth: 1
+    update: yes
 
 - name: Setup spaceship
   ansible.builtin.file:

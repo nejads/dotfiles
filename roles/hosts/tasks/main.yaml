@@ -1,3 +1,4 @@
+---
 - name: Check if curated_hosts exists
   register: curated_hosts
   ansible.builtin.stat:
@@ -30,4 +31,4 @@
   become: yes
   ansible.builtin.template:
     src: "hosts.j2"
-    dest: /private/etc/hosts
+    dest: /etc/hosts

@@ -1,0 +1,32 @@
+---
+- name: Ensure vim is installed
+  become: yes
+  ansible.builtin.apt:
+    name: vim
+    state: present
+
+- name: Check if Vundle is already installed
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['env']['HOME'] }}/.vim/bundle/Vundle.vim"
+  register: vundle_status
+
+- name: Clone Vundle
+  ansible.builtin.git:
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: "{{ ansible_facts['env']['HOME'] }}/.vim/bundle/Vundle.vim"
+    depth: 1
+  when: not vundle_status.stat.exists
+
+- name: Setup vimrc
+  ansible.builtin.file:
+    src: "{{ ROLES_FOLDER }}/vim/files/vimrc"
+    path: ~/.vimrc
+    state: link
+    force: true
+
+- name: Install Vim plugins
+  ansible.builtin.shell: vim +PluginInstall +qall
+  args:
+    executable: /bin/bash
+  changed_when: false
+  ignore_errors: true

@@ -1,6 +1,7 @@
-nvm_dir: '{{ ansible_facts["env"]["HOME"] }}/.nvm'
+---
+nvm_dir: "{{ ansible_facts['env']['HOME'] }}/.nvm"
 npm_packages:
   - json
   - prettier
-  - surge
   - typescript
+  - tldr

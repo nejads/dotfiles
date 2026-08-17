@@ -1,0 +1,186 @@
+" Inspired by
+" https://github.com/romainl/idiomatic-vimrc/blob/master/idiomatic-vimrc.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vundle initialization
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible " use Vim settings, rather than Vi settings
+set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle
+set shell=/bin/bash " set shell to bash explicitly due to fish incompatibility
+let mapleader = "\<Space>" " remap <leader> to <space>
+filetype off
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins list
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'jiangmiao/auto-pairs' " Insert brackets, parens or quotes in pair
+Plugin 'rafi/awesome-vim-colorschemes' " Collection of color schemes
+Plugin 'airblade/vim-gitgutter' " Showing git diff in the 'gutter' (sign column)
+Plugin 'wincent/terminus' " Enhanced terminal integration
+Plugin 'scrooloose/nerdtree' " File tree explorer
+Plugin 'Yggdroot/indentLine' " Display indention levels with thin vertical lines
+Plugin 'ntpeters/vim-better-whitespace' " Whitespace highlighting and cleaning
+Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux panes and vim splits
+Plugin 'scrooloose/nerdcommenter' " Comment functions
+Plugin 'pangloss/vim-javascript' " Javascript indentation and syntax support
+Plugin 'leafgarland/typescript-vim' " Typescript syntax support
+Plugin 'mxw/vim-jsx' " Syntax highlighting and indenting for JSX
+Plugin 'hashivim/vim-terraform' " Syntax highlighting for Terraform files
+Plugin 'gabrielelana/vim-markdown' " Syntax highlighting for markdown files
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vundle finalisation
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call vundle#end()
+filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" ================ vim-markdown configuration ========================
+let g:markdown_enable_spell_checking = 1
+
+" ================ Terminus configuration ========================
+let g:TerminusMouse = 0
+let g:TerminusFocusReporting = 1
+let g:TerminusBracketedPaste = 0
+
+" ================ vim-better-whitespace configuration =========================
+let g:better_whitespace_enabled = 1
+let g:strip_whitespace_on_save = 1
+let g:strip_whitespace_confirm = 0
+let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help']
+
+" =========== vim-tmux-navigator configuration ====================
+let g:tmux_navigator_disable_when_zoomed = 1
+let g:tmux_navigator_no_mappings = 1
+
+execute "set <M-h>=\eh"
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+execute "set <M-l>=\el"
+
+nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+
+" ================ GitGutter configuration ========================
+let g:gitgutter_map_keys = 0
+
+" ================ NERDTree configuration =========================
+let NERDTreeQuitOnOpen = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeShowHidden = 1
+let NERDTreeIgnore = ['\.swp$', '\.DS_Store$', '\.git$', '\.node_modules$']
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 &&
+            \ exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" map <leader>o to toggle NERDTree
+function CustomNerdToggle()
+    if &filetype == 'nerdtree'
+        :NERDTreeToggle
+    else
+        :NERDTreeFind
+    endif
+endfunction
+nnoremap <leader>o :call CustomNerdToggle() <CR> :<backspace>
+
+" clear search pattern
+nnoremap <leader><space> :noh<CR>:<backspace>
+
+" remove until end of line
+nnoremap de d$
+
+" splits
+nnoremap <leader>\ :vs<CR>
+nnoremap <leader>- :split<CR>
+
+" resize panes
+nnoremap <leader>= <C-W>=
+nnoremap <leader>j <C-W>5+
+nnoremap <leader>k <C-W>5-
+nnoremap <leader>l <C-W>5>
+nnoremap <leader>h <C-W>5<
+
+" save with enter
+nnoremap <CR> :write<CR>
+
+" reload .vimrc
+nnoremap <leader>R :source ~/.vimrc<cr>:noh<CR>:echo "vim reloaded!"<cr>
+
+" quit with <leader>q
+nnoremap <leader>q :q<cr>
+
+" tab navigation
+nnoremap H gT
+nnoremap L gt
+
+" go to end of line
+nnoremap e $
+nnoremap 0 ^
+
+" paste mode
+set pastetoggle=<leader>p
+
+" semicolon to colon
+nnoremap ; :
+vnoremap ; :
+
+" exit INSERT mode with jj
+inoremap jj <ESC>
+
+" sort in visual mode
+vnoremap s :sort<CR> :<backspace>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set backspace=indent,eol,start
+set clipboard=unnamedplus " use system clipboard on Linux
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set nobackup
+set noshowmode
+set noswapfile
+set nowrap
+set number
+set scrolloff=15
+set showcmd
+set showtabline=1
+set smartcase
+set updatetime=300
+set visualbell
+set wildmenu
+set wildmode=list:longest,full
+set writebackup
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Indentation
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+silent! colorscheme dracula
+
+augroup configgroup
+    autocmd!
+    autocmd FileType javascript setlocal ts=2 sts=2
+    autocmd BufEnter Makefile setlocal noexpandtab
+augroup END

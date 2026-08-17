@@ -1,6 +1,6 @@
 - name: Ensure .aws directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME  }}/{{ item.path }}"
+    path: "{{ ansible_facts['env']['HOME']  }}/{{ item.path }}"
     state: directory
     mode: "0755"
     force: no
@@ -13,8 +13,9 @@
 - name: Link configurations to icloud settings folder
   ansible.builtin.file:
     src: "{{SETTING_FOLDER}}/{{ item.src }}"
-    path: "{{ ansible_env.HOME  }}/{{ item.path }}"
+    path: "{{ ansible_facts['env']['HOME']  }}/{{ item.path }}"
     state: link
+    force: true
   loop: "{{ config_links }}"
   vars:
     config_links:

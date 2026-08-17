@@ -1,24 +1,24 @@
 - name: Create NVM directory
   file:
-    path: "{{ ansible_env.HOME }}/.nvm"
+    path: "{{ ansible_facts['env']['HOME'] }}/.nvm"
     state: directory
-    mode: "0755"
+    mode: '0755'
 
 - name: Set NVM environment variable in zshrc
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    line: "export NVM_DIR={{ ansible_env.HOME }}/.nvm"
+    path: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
+    line: "export NVM_DIR={{ ansible_facts['env']['HOME'] }}/.nvm"
     create: yes
 
 - name: Source NVM script in zshrc
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    line: "source $(brew --prefix nvm)/nvm.sh"
+    path: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
+    line: 'source $(brew --prefix nvm)/nvm.sh'
     create: yes
 
 - name: Install Node.js version 16
   shell: |
-    export NVM_DIR={{ ansible_env.HOME }}/.nvm
+    export NVM_DIR={{ ansible_facts['env']['HOME'] }}/.nvm
     source $(brew --prefix nvm)/nvm.sh
     nvm install 16
   args:
@@ -28,12 +28,12 @@
 
 - name: Check Node.js 16 installation
   fail:
-    msg: "Could not install node version 16"
+    msg: 'Could not install node version 16'
   when: node16_install.rc != 0
 
 - name: Install latest Node.js version
   shell: |
-    export NVM_DIR={{ ansible_env.HOME }}/.nvm
+    export NVM_DIR={{ ansible_facts['env']['HOME'] }}/.nvm
     source $(brew --prefix nvm)/nvm.sh
     nvm install node
   args:
@@ -43,5 +43,5 @@
 
 - name: Check latest Node.js installation
   fail:
-    msg: "Could not install latest node version"
+    msg: 'Could not install latest node version'
   when: node_latest_install.rc != 0

@@ -17,7 +17,7 @@
 
 - name: Change default shell to zsh
   ansible.builtin.user:
-    name: "{{ ansible_env.USER }}"
+    name: "{{ ansible_facts['env']['USER'] }}"
     shell: /bin/zsh
   become: yes
 
@@ -32,3 +32,4 @@
     src: "{{ ROLES_FOLDER }}/zsh/files/zshrc.zsh"
     path: ~/.zshrc
     state: link
+    force: true

@@ -42,7 +42,6 @@ export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
 export JAVA_15_HOME=$(/usr/libexec/java_home -v15)
 
 # homebrew
-export HOMEBREW_CASK_OPTS="--no-quarantine"
 export HOMEBREW_NO_ANALYTICS=true
 export HOMEBREW_NO_AUTO_UPDATE=true
 export HOMEBREW_NO_INSTALL_CLEANUP=true

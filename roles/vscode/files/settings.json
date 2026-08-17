@@ -1,27 +1,27 @@
 {
   "files.associations": {
-    "pom.xml": "pomfile"
+    "pom.xml": "pomfile",
   },
   "[javascript]": {
     "editor.codeActionsOnSave": [
       "source.fixAll.eslint",
-      "source.formatDocument"
+      "source.formatDocument",
     ],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[markdown]": {
-    "editor.wordWrap": "off"
+    "editor.wordWrap": "off",
   },
   "[python]": {
     "editor.codeActionsOnSave": [
       "source.organizeImports",
-      "source.formatDocument"
+      "source.formatDocument",
     ],
     "editor.defaultFormatter": "ms-python.python",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "[pomfile]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
   },
   "diffEditor.renderSideBySide": false,
   "editor.acceptSuggestionOnEnter": "on",
@@ -52,7 +52,7 @@
     "**/.settings": true,
     "**/*.js": { "when": "$(basename).ts" },
     "**/*.js.map": true,
-    "**/*.d.ts": { "when": "$(basename).ts" }
+    "**/*.d.ts": { "when": "$(basename).ts" },
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
@@ -61,7 +61,7 @@
   "git.inputValidationSubjectLength": 72,
   "json.schemas": [],
   "path-autocomplete.pathMappings": {
-    "/": "/"
+    "/": "/",
   },
   "path-autocomplete.triggerOutsideStrings": true,
   "prettier.singleQuote": true,
@@ -76,7 +76,7 @@
   "telemetry.enableTelemetry": false,
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1",
-    "CW_NEW_SESSION": "1"
+    "CW_NEW_SESSION": "1",
   },
   "terminal.integrated.fontSize": 11,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
@@ -89,10 +89,10 @@
     "peekViewEditor.matchHighlightBackground": "#745401",
     "peekViewResult.matchHighlightBackground": "#745401",
     "peekViewEditorStickyScroll.background": "#1d6104",
-    "peekViewResult.selectionBackground": "#74530189"
+    "peekViewResult.selectionBackground": "#74530189",
   },
   "workbench.editorAssociations": {
-    "*.ipynb": "jupyter-notebook"
+    "*.ipynb": "jupyter-notebook",
   },
   "workbench.enableExperiments": false,
   "workbench.preferredHighContrastColorTheme": "Dracula",
@@ -130,25 +130,25 @@
     "!Select",
     "!Select sequence",
     "!Split",
-    "!Split sequence"
+    "!Split sequence",
   ],
   "java.configuration.maven.userSettings": "~/.m2/settings.xml",
   "gitlens.remotes": [
     {
       "domain": "git.vgt.volvo.com",
-      "type": "Gerrit"
-    }
+      "type": "Gerrit",
+    },
   ],
   "[xml]": {
-    "editor.defaultFormatter": "rogalmic.vscode-xml-complete"
+    "editor.defaultFormatter": "rogalmic.vscode-xml-complete",
   },
   "jest.runMode": {
     "type": "on-demand",
-    "deferred": true
+    "deferred": true,
   },
   "github.copilot.advanced": {
     "debug.useNodeFetcher": true,
-    "authProvider": "github"
+    "authProvider": "github",
   },
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -156,14 +156,16 @@
   "workbench.activityBar.location": "hidden",
   "amazonQ.telemetry": false,
   "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "redhat.vscode-yaml",
   },
   "prettier.quoteProps": "preserve",
   "github.copilot.chat.testGeneration.instructions": [],
   "workbench.iconTheme": "vscode-jetbrains-icon-theme",
   "workbench.colorTheme": "Darcula Theme from IntelliJ",
   "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "vscode.json-language-features",
   },
-  "docker.extension.enableComposeLanguageServer": false
+  "docker.extension.enableComposeLanguageServer": false,
+  "aws.cloudformation.telemetry.enabled": true,
+  "chat.titleBar.signIn.enabled": false,
 }

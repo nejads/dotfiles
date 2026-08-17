@@ -86,7 +86,6 @@ cask_packages:
   - corretto
   - cryptomator
   - cyberduck
-  - docker
   - drawio
   - dropbox
   - firefox
@@ -103,6 +102,7 @@ cask_packages:
   - netnewswire
   - nordvpn
   - numi
+  - orbstack
   - postico
   - postman
   - spotify

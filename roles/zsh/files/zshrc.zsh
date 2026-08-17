@@ -414,3 +414,4 @@ export NVM_DIR=~/.nvm
 export NVM_DIR=/Users/galaxy/.nvm
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export NVM_DIR=/Users/soroshnejad/.nvm

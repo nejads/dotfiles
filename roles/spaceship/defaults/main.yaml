@@ -1,2 +1,2 @@
-zsh_custom_dir: '{{ ansible_env.HOME }}/.oh-my-zsh/custom'
+zsh_custom_dir: '{{ ansible_facts["env"]["HOME"] }}/.oh-my-zsh/custom'
 spaceship_repo_url: 'https://github.com/spaceship-prompt/spaceship-prompt.git'

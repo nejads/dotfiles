@@ -47,7 +47,6 @@
   community.general.homebrew_cask:
     name: '{{ item }}'
     state: present
-    install_options: no-quarantine
     sudo_password: '{{ ansible_become_password }}'
 
 - name: Delete adhoc homebrew casks
@@ -63,3 +62,10 @@
     src: '/opt/homebrew/bin/python3'
     path: '/opt/homebrew/bin/python'
     state: link
+
+- name: Remove quarantine flag from all applications
+  become: yes
+  failed_when: false
+  changed_when: false
+  ansible.builtin.command:
+    cmd: xattr -rd com.apple.quarantine /Applications/

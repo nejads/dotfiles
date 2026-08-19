@@ -15,18 +15,18 @@ ansible-playbook -K playbooks/bootstrap.yaml
 
 ## What's Included
 
-| Role | Purpose |
-|------|---------|
-| `apt` | System packages via apt, snap, and manual installs (AWS CLI, SAM, gh) |
-| `zsh` | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting |
-| `spaceship` | Spaceship prompt theme |
-| `node` | NVM + Node.js (LTS + latest) |
-| `npm` | Global npm packages (json, prettier, surge, typescript) |
-| `git` | Git config, aliases, diff-so-fancy |
-| `tmux` | Tmux + TPM + Catppuccin theme + vim-tmux-navigator |
-| `vscode` | VS Code settings + extensions |
-| `hosts` | Ad-blocking hosts file |
-| `cron` | Scheduled pinger script |
+| Role        | Purpose                                                               |
+| ----------- | --------------------------------------------------------------------- |
+| `apt`       | System packages via apt, snap, and manual installs (AWS CLI, SAM, gh) |
+| `zsh`       | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting               |
+| `spaceship` | Spaceship prompt theme                                                |
+| `node`      | NVM + Node.js (LTS + latest)                                          |
+| `npm`       | Global npm packages (json, prettier, surge, typescript)               |
+| `git`       | Git config, aliases, diff-so-fancy                                    |
+| `tmux`      | Tmux + TPM + Catppuccin theme + vim-tmux-navigator                    |
+| `vscode`    | VS Code settings + extensions                                         |
+| `hosts`     | Ad-blocking hosts file                                                |
+| `cron`      | Scheduled pinger script                                               |
 
 ## Run Specific Roles
 
@@ -41,6 +41,7 @@ ansible-playbook -K playbooks/bootstrap.yaml --tags tmux
 ## Removed (macOS-only)
 
 These roles from the `main` branch are not applicable to Ubuntu:
+
 - `homebrew` → replaced by `apt`
 - `iterm` → use any Linux terminal (Alacritty, Kitty, etc.)
 - `macos` → system preferences, not applicable
@@ -63,3 +64,17 @@ These roles from the `main` branch are not applicable to Ubuntu:
 
 - Ubuntu 24.04 LTS
 - `curl` and `git` (setup.sh installs everything else)
+
+## TODO
+
+- name: Download Jetbrains mono font
+
+- name: change font to it
+
+#https://askubuntu.com/questions/521201/make-the-ctrl-and-super-cmd-keys-behave-like-on-os-x #https://gist.github.com/kurozael/8a975b5c8a84966dfbfa67d7187d12cf #https://askubuntu.com/questions/131899/how-do-i-switch-the-command-key-and-control-key-on-a-macbook-pro
+
+- name: Make the CTRL and Super/CMD keys behave like on OS X
+
+- name: window management, resize, move between screeen, so on with keyboard shortcuts
+
+- name: clipboard history

@@ -4,10 +4,6 @@
   vars:
     USERNAME: "{{ lookup('env', 'USER') }}"
     ROLES_FOLDER: "/home/{{ USERNAME }}/dotfiles/roles"
-  vars_prompt:
-    - name: ansible_become_password
-      prompt: "Please enter sudo password"
-      private: true
   roles:
     - role: "{{ ROLES_FOLDER }}/apt"
       tags: ["apt"]

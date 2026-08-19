@@ -17,11 +17,25 @@
     chdir: "{{ oh_my_zsh_install_dir }}"
   when: not oh_my_zsh_status.stat.exists
 
-- name: Change default shell to zsh
-  become: yes
-  ansible.builtin.user:
-    name: "{{ ansible_facts['env']['USER'] }}"
-    shell: /usr/bin/zsh
+# Doesnt work if the user managed by AD
+#- name: Change default shell to zsh
+#  become: yes
+#  ansible.builtin.user:
+#    name: "{{ ansible_facts['env']['USER'] }}"
+#    shell: /usr/bin/zsh
+# Instead run exec zsh from bash
+
+- name: Exec zsh from bashrc
+  ansible.builtin.blockinfile:
+    path: "/home/{{ USERNAME }}/.bashrc"
+    create: yes
+    owner: "{{ USERNAME }}"
+    mode: "0644"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - exec zsh"
+    block: |
+      if [ -t 1 ] && command -v zsh >/dev/null && [ -z "$ZSH_VERSION" ]; then
+        exec zsh -l
+      fi
 
 - name: Install zsh-completions plugin
   ansible.builtin.git:

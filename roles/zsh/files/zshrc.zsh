@@ -37,6 +37,7 @@ alias c="clear"
 alias reload="source $HOME/.zshrc"
 alias ll="ls -ahlF --color --group-directories-first"
 alias shrug="echo '¯\_(ツ)_/¯' | xclip -selection clipboard"
+alias bat="batcat"
 
 # Pipe public key to clipboard
 alias copyssh="cat ~/.ssh/id_rsa.pub | xclip -selection clipboard && echo '=> Public key copied to clipboard.'"

@@ -1,4 +1,12 @@
 ---
+- name: Add apt repositories
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: "{{ apt_repos }}"
+
 - name: Update apt cache
   become: yes
   ansible.builtin.apt:
@@ -11,13 +19,6 @@
     name: "{{ apt_packages }}"
     state: present
 
-- name: Install snap packages
-  become: yes
-  community.general.snap:
-    name: "{{ item }}"
-    state: present
-  loop: "{{ snap_packages }}"
-
 - name: Install snap classic packages
   become: yes
   community.general.snap:
@@ -26,22 +27,20 @@
     state: present
   loop: "{{ snap_classic_packages }}"
 
+- name: Setup intelliJ commandline launcher
+  become: yes
+  ansible.builtin.file:
+    src: "/snap/intellij-idea-ultimate/current/bin/idea.sh"
+    path: /usr/local/bin/idea
+    state: link
+    force: true
+
 - name: Install pip packages
   ansible.builtin.pip:
     name: "{{ pip_packages }}"
     extra_args: --user
   environment:
     PIP_BREAK_SYSTEM_PACKAGES: "1"
-
-- name: Ensure diff-so-fancy is installed
-  become: yes
-  ansible.builtin.shell: |
-    if ! command -v diff-so-fancy &>/dev/null; then
-      curl -o /usr/local/bin/diff-so-fancy https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-      chmod +x /usr/local/bin/diff-so-fancy
-    fi
-  args:
-    creates: /usr/local/bin/diff-so-fancy
 
 - name: Install GitHub CLI
   become: yes
@@ -96,6 +95,36 @@
   become: yes
   ansible.builtin.apt:
     name:
+      - java-25-amazon-corretto-jdk
       - java-21-amazon-corretto-jdk
       - java-17-amazon-corretto-jdk
+    state: present
+
+- name: Ensure prerequisites for deb822_repository
+  become: yes
+  ansible.builtin.apt:
+    name: python3-debian
+    state: present
+
+- name: Add Albert launcher repository
+  become: yes
+  ansible.builtin.deb822_repository:
+    name: home-manuelschneid3r-albert
+    types: [deb]
+    uris: "http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_{{ ansible_distribution_version }}/"
+    suites: /
+    signed_by: "http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_{{ ansible_distribution_version }}/Release.key"
+    state: present
+  register: albert_repo
+
+- name: Update apt cache after adding Albert repo
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+  when: albert_repo is changed
+
+- name: Install Albert
+  become: yes
+  ansible.builtin.apt:
+    name: albert
     state: present

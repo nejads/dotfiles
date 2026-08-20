@@ -1,6 +1,7 @@
 ---
 nvm_dir: "{{ ansible_facts['env']['HOME'] }}/.nvm"
 npm_packages:
+  - "@ast-grep/cli"
   - json
   - prettier
   - typescript

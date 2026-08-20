@@ -1,10 +1,13 @@
 ---
 apt_repos:
   - ppa:aos1/diff-so-fancy
+  - ppa:hluk/copyq
+
 apt_packages:
   - bat
   - build-essential
   - cmake
+  - copyq
   - cowsay
   - curl
   - diff-so-fancy
@@ -36,6 +39,7 @@ apt_packages:
   - ripgrep
   - ruby
   - screen
+  - silversearcher-ag
   - tldr
   - tmux
   - tree
@@ -48,6 +52,9 @@ apt_packages:
   - yq
   - zsh
   - zsh-syntax-highlighting
+
+snap_packages:
+  - obsidian
 
 snap_classic_packages:
   - code

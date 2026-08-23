@@ -1,20 +1,20 @@
 ---
 - name: Ensure spaceship config directory exists
   ansible.builtin.file:
-    path: '{{ zsh_custom_dir }}/themes'
+    path: "{{ zsh_custom_dir }}/themes"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Clone spaceship theme
-  git:
-    repo: '{{ spaceship_repo_url }}'
-    dest: '{{ zsh_custom_dir }}/themes/spaceship-prompt'
+  ansible.builtin.git:
+    repo: "{{ spaceship_repo_url }}"
+    dest: "{{ zsh_custom_dir }}/themes/spaceship-prompt"
     depth: 1
     update: yes
 
 - name: Setup spaceship
   ansible.builtin.file:
-    src: '{{ zsh_custom_dir }}/themes/spaceship-prompt/spaceship.zsh-theme'
-    path: '{{ zsh_custom_dir }}/themes/spaceship.zsh-theme'
+    src: "{{ zsh_custom_dir }}/themes/spaceship-prompt/spaceship.zsh-theme"
+    path: "{{ zsh_custom_dir }}/themes/spaceship.zsh-theme"
     state: link
     force: yes

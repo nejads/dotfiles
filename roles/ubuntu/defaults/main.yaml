@@ -1,0 +1,11 @@
+---
+# ─── Font ───────────────────────────────────────────────────────────────────────
+nerd_fonts_version: "v3.4.0"
+font_family: "JetBrainsMono Nerd Font Mono"
+font_size: 12
+font_dir: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono"
+
+# ─── Keyboard ───────────────────────────────────────────────────────────────────
+# Swap Left Ctrl with Left Super, and Right Ctrl with Right Super
+# This makes the physical Super/Cmd key act as Ctrl (macOS muscle memory)
+xkb_options: "['ctrl:swap_lwin_lctl', 'ctrl:swap_rwin_rctl']"

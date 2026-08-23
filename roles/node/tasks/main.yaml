@@ -1,9 +1,9 @@
 ---
 - name: Create NVM directory
-  file:
+  ansible.builtin.file:
     path: "{{ nvm_dir }}"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Check if NVM is installed
   ansible.builtin.stat:
@@ -15,6 +15,7 @@
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
   args:
     creates: "{{ nvm_dir }}/nvm.sh"
+    executable: /bin/bash
   environment:
     NVM_DIR: "{{ nvm_dir }}"
   when: not nvm_installed.stat.exists
@@ -30,8 +31,8 @@
   ignore_errors: true
 
 - name: Check Node.js LTS installation
-  fail:
-    msg: 'Could not install Node.js LTS'
+  ansible.builtin.fail:
+    msg: "Could not install Node.js LTS"
   when: node_lts_install.rc != 0
 
 - name: Install latest Node.js version
@@ -51,3 +52,4 @@
     nvm alias default lts/*
   args:
     executable: /bin/bash
+  changed_when: false

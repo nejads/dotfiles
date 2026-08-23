@@ -26,7 +26,7 @@ ansible-playbook -K playbooks/bootstrap.yaml
 | `tmux`      | Tmux + TPM + Catppuccin theme + vim-tmux-navigator                    |
 | `vscode`    | VS Code settings + extensions                                         |
 | `hosts`     | Ad-blocking hosts file                                                |
-| `cron`      | Scheduled pinger script                                               |
+| `ubuntu`    | GNOME desktop setup (font, keybindings, hyperkey, hints, clipboard)   |
 
 ## Run Specific Roles
 
@@ -65,24 +65,13 @@ These roles from the `main` branch are not applicable to Ubuntu:
 - Ubuntu 24.04 LTS
 - `curl` and `git` (setup.sh installs everything else)
 
-## TODO
+## Ubuntu Role Details
 
-- name: Download Jetbrains mono font
+The `ubuntu` role configures the GNOME desktop environment:
 
-- name: change font to it
-
-#https://askubuntu.com/questions/521201/make-the-ctrl-and-super-cmd-keys-behave-like-on-os-x #https://gist.github.com/kurozael/8a975b5c8a84966dfbfa67d7187d12cf #https://askubuntu.com/questions/131899/how-do-i-switch-the-command-key-and-control-key-on-a-macbook-pro
-
-- name: Make the CTRL and Super/CMD keys behave like on OS X
-
-- name: window management, resize, move between screeen, so on with keyboard shortcuts
-
-- name: clipboard history
-
-- fix deprecated in Ansible
-
-- ansible it
-  https://github.com/AlfredoSequeida/hints
-
-- hyperkey
-  https://gist.github.com/nat-418/135a62fb9f37cc87cd70af1ab72e276a
+- **JetBrains Mono Nerd Font** — Downloaded from GitHub, set as system monospace + terminal font
+- **CTRL/Super key swap** — macOS-like behavior via xkb-options (works on X11 and Wayland)
+- **Window management shortcuts** — Tile left/right, maximize, move between monitors/workspaces, resize/move modes
+- **Clipboard history** — CopyQ with autostart and `Super+V` shortcut
+- **Hints** — Vimium-like keyboard navigation for the desktop (`Super+;`)
+- **Hyperkey** — CapsLock = Escape (tap) / Ctrl+Alt+Shift+Super (hold) via keyd

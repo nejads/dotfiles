@@ -35,5 +35,5 @@
     - role: "{{ ROLES_FOLDER }}/vscode"
       tags: ["vscode"]
 
-    - role: "{{ ROLES_FOLDER }}/cron"
-      tags: ["cron"]
+    - role: "{{ ROLES_FOLDER }}/ubuntu"
+      tags: ["ubuntu"]

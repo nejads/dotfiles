@@ -1,0 +1,348 @@
+---
+# ─── JetBrains Mono Nerd Font ──────────────────────────────────────────────────
+- name: Create font directory
+  ansible.builtin.file:
+    path: "{{ font_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Check if JetBrains Mono is already installed
+  ansible.builtin.find:
+    paths: "{{ font_dir }}"
+    patterns: "*.ttf"
+  register: font_files
+
+- name: Download JetBrains Mono Nerd Font
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ nerd_fonts_version }}/JetBrainsMono.tar.xz"
+    dest: "/tmp/JetBrainsMono.tar.xz"
+    mode: "0644"
+  when: font_files.matched == 0
+
+- name: Extract font files
+  ansible.builtin.unarchive:
+    src: "/tmp/JetBrainsMono.tar.xz"
+    dest: "{{ font_dir }}"
+    remote_src: true
+  when: font_files.matched == 0
+
+- name: Remove non-font files from font directory
+  ansible.builtin.shell: find {{ font_dir }} -type f ! -name '*.ttf' -delete
+  args:
+    executable: /bin/bash
+  changed_when: false
+  when: font_files.matched == 0
+
+- name: Rebuild font cache
+  ansible.builtin.command: fc-cache -fv
+  changed_when: false
+  when: font_files.matched == 0
+
+- name: Clean up font archive
+  ansible.builtin.file:
+    path: "/tmp/JetBrainsMono.tar.xz"
+    state: absent
+
+- name: Set system monospace font to JetBrains Mono
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/monospace-font-name"
+    value: "'{{ font_family }} {{ font_size }}'"
+    state: present
+
+- name: Get default GNOME Terminal profile ID
+  ansible.builtin.command: gsettings get org.gnome.Terminal.ProfilesList default
+  register: terminal_profile_id
+  changed_when: false
+  failed_when: false
+
+- name: Set GNOME Terminal font
+  when: terminal_profile_id.rc == 0
+  block:
+    - name: Parse terminal profile ID
+      ansible.builtin.set_fact:
+        profile_id: "{{ terminal_profile_id.stdout | replace(\"'\", '') }}"
+
+    - name: Disable use-system-font for terminal
+      community.general.dconf:
+        key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_id }}/use-system-font"
+        value: "false"
+        state: present
+
+    - name: Set terminal font to JetBrains Mono
+      community.general.dconf:
+        key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_id }}/font"
+        value: "'{{ font_family }} {{ font_size }}'"
+        state: present
+
+# ─── Swap CTRL and Super Keys (macOS-like) ──────────────────────────────────────
+- name: Swap Ctrl and Super keys for macOS-like behavior
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/xkb-options"
+    value: "{{ xkb_options }}"
+    state: present
+
+# ─── Window Management Keyboard Shortcuts ───────────────────────────────────────
+- name: Set tile window left shortcut
+  community.general.dconf:
+    key: "/org/gnome/mutter/keybindings/toggle-tiled-left"
+    value: "['<Super>Left']"
+    state: present
+
+- name: Set tile window right shortcut
+  community.general.dconf:
+    key: "/org/gnome/mutter/keybindings/toggle-tiled-right"
+    value: "['<Super>Right']"
+    state: present
+
+- name: Set maximize window shortcut
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/maximize"
+    value: "['<Super>Up']"
+    state: present
+
+- name: Set unmaximize window shortcut
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/unmaximize"
+    value: "['<Super>Down']"
+    state: present
+
+- name: Set move window to left monitor
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-left"
+    value: "['<Super><Shift>Left']"
+    state: present
+
+- name: Set move window to right monitor
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-right"
+    value: "['<Super><Shift>Right']"
+    state: present
+
+- name: Set move window to workspace up
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-up"
+    value: "['<Ctrl><Shift><Alt>Up']"
+    state: present
+
+- name: Set move window to workspace down
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-down"
+    value: "['<Ctrl><Shift><Alt>Down']"
+    state: present
+
+- name: Set switch to workspace up
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-up"
+    value: "['<Ctrl><Alt>Up']"
+    state: present
+
+- name: Set switch to workspace down
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-down"
+    value: "['<Ctrl><Alt>Down']"
+    state: present
+
+- name: Set begin-resize shortcut
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/begin-resize"
+    value: "['<Super>r']"
+    state: present
+
+- name: Set begin-move shortcut
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/begin-move"
+    value: "['<Super>m']"
+    state: present
+
+# ─── Clipboard History (CopyQ) ──────────────────────────────────────────────────
+- name: Ensure CopyQ autostart directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/autostart"
+    state: directory
+    mode: "0755"
+
+- name: Enable CopyQ autostart
+  ansible.builtin.copy:
+    dest: "{{ ansible_env.HOME }}/.config/autostart/copyq.desktop"
+    mode: "0644"
+    content: |
+      [Desktop Entry]
+      Name=CopyQ
+      Comment=Clipboard Manager
+      Exec=copyq
+      Icon=copyq
+      Terminal=false
+      Type=Application
+      Categories=Utility;
+      X-GNOME-Autostart-enabled=true
+
+- name: Set CopyQ toggle shortcut via GNOME custom keybinding
+  block:
+    - name: Define custom keybinding path for CopyQ
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+        value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
+        state: present
+
+    - name: Set CopyQ shortcut name
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+        value: "'CopyQ Toggle'"
+        state: present
+
+    - name: Set CopyQ shortcut command
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+        value: "'copyq toggle'"
+        state: present
+
+    - name: Set CopyQ shortcut binding
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+        value: "'<Super>v'"
+        state: present
+
+    - name: Set Hints shortcut name
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name"
+        value: "'Hints'"
+        state: present
+
+    - name: Set Hints shortcut command
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command"
+        value: "'hints'"
+        state: present
+
+    - name: Set Hints shortcut binding
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding"
+        value: "'<Super>semicolon'"
+        state: present
+
+# ─── Hints (Vimium for Linux desktop) ───────────────────────────────────────────
+- name: Install Hints system dependencies
+  become: true
+  ansible.builtin.apt:
+    name:
+      - libgirepository1.0-dev
+      - gcc
+      - libcairo2-dev
+      - pkg-config
+      - python3-dev
+      - gir1.2-gtk-4.0
+      - cmake
+      - libdbus-1-dev
+      - libgtk-layer-shell0
+      - grim
+    state: present
+
+- name: Check if hints is already installed
+  ansible.builtin.shell: which hints
+  register: hints_installed
+  changed_when: false
+  failed_when: false
+
+- name: Install hints via install script
+  ansible.builtin.shell: |
+    curl -fsSL https://raw.githubusercontent.com/AlfredoSequeida/hints/main/install.sh | bash
+  args:
+    executable: /bin/bash
+  when: hints_installed.rc != 0
+
+- name: Run hints setup
+  become: true
+  ansible.builtin.shell: |
+    env XDG_SESSION_TYPE={{ ansible_env.XDG_SESSION_TYPE | default('x11') }} \
+    env XDG_CURRENT_DESKTOP={{ ansible_env.XDG_CURRENT_DESKTOP | default('GNOME') }} \
+    $(whereis hints | awk '{print $2}') --setup
+  args:
+    executable: /bin/bash
+  when: hints_installed.rc != 0
+
+# ─── Hyperkey (keyd) ────────────────────────────────────────────────────────────
+- name: Check if keyd is already installed
+  ansible.builtin.shell: which keyd
+  register: keyd_installed
+  changed_when: false
+  failed_when: false
+
+- name: Install keyd from source
+  when: keyd_installed.rc != 0
+  block:
+    - name: Install keyd build dependencies
+      become: true
+      ansible.builtin.apt:
+        name:
+          - git
+          - build-essential
+        state: present
+
+    - name: Clone keyd repository
+      ansible.builtin.git:
+        repo: https://github.com/rvaiya/keyd.git
+        dest: /tmp/keyd
+        version: v2.5.0
+        force: true
+
+    - name: Build keyd
+      ansible.builtin.command:
+        cmd: make
+        chdir: /tmp/keyd
+      changed_when: true
+
+    - name: Install keyd
+      become: true
+      ansible.builtin.command:
+        cmd: make install
+        chdir: /tmp/keyd
+      changed_when: true
+
+    - name: Clean up keyd build directory
+      ansible.builtin.file:
+        path: /tmp/keyd
+        state: absent
+
+- name: Ensure keyd config directory exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/keyd
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: Deploy keyd hyperkey configuration
+  become: true
+  ansible.builtin.copy:
+    src: keyd.conf
+    dest: /etc/keyd/default.conf
+    mode: "0644"
+    owner: root
+    group: root
+  notify: Reload keyd
+
+- name: Create libinput quirks directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/libinput
+    state: directory
+    mode: "0755"
+
+- name: Fix trackpad disable-while-typing with keyd virtual device
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/libinput/local-overrides.quirks
+    mode: "0644"
+    content: |
+      [Serial Keyboards]
+      MatchUdevType=keyboard
+      MatchName=keyd*keyboard
+      AttrKeyboardIntegration=internal
+
+- name: Enable and start keyd service
+  become: true
+  ansible.builtin.systemd:
+    name: keyd
+    enabled: true
+    state: started

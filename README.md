@@ -78,3 +78,11 @@ These roles from the `main` branch are not applicable to Ubuntu:
 - name: window management, resize, move between screeen, so on with keyboard shortcuts
 
 - name: clipboard history
+
+- fix deprecated in Ansible
+
+- ansible it
+  https://github.com/AlfredoSequeida/hints
+
+- hyperkey
+  https://gist.github.com/nat-418/135a62fb9f37cc87cd70af1ab72e276a

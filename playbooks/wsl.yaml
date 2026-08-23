@@ -1,0 +1,42 @@
+---
+- name: Set up WSL Ubuntu workstation
+  hosts: wsl
+  vars:
+    USERNAME: "{{ lookup('env', 'USER') }}"
+    ROLES_FOLDER: "/home/{{ USERNAME }}/dotfiles/roles"
+  roles:
+    - role: "{{ ROLES_FOLDER }}/apt"
+      tags: ["apt"]
+
+    - role: "{{ ROLES_FOLDER }}/pip"
+      tags: ["pip"]
+
+    - role: "{{ ROLES_FOLDER }}/shell_packages"
+      tags: ["shell_packages"]
+
+    - role: "{{ ROLES_FOLDER }}/java"
+      tags: ["java"]
+
+    - role: "{{ ROLES_FOLDER }}/zsh"
+      tags: ["zsh"]
+
+    - role: "{{ ROLES_FOLDER }}/spaceship"
+      tags: ["spaceship"]
+
+    - role: "{{ ROLES_FOLDER }}/hosts"
+      tags: ["hosts"]
+
+    - role: "{{ ROLES_FOLDER }}/node"
+      tags: ["node"]
+
+    - role: "{{ ROLES_FOLDER }}/npm"
+      tags: ["npm"]
+
+    - role: "{{ ROLES_FOLDER }}/git"
+      tags: ["git"]
+
+    - role: "{{ ROLES_FOLDER }}/tmux"
+      tags: ["tmux"]
+
+    - role: "{{ ROLES_FOLDER }}/vim"
+      tags: ["vim"]

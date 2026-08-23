@@ -67,8 +67,16 @@ These roles from the `main` branch are not applicable to Ubuntu:
 
 ## Prerequisites
 
-- Ubuntu 24.04 LTS
+- Ubuntu 24.04 LTS (desktop or WSL)
 - `curl` and `git` (setup.sh installs everything else)
+
+## WSL Usage
+
+For Windows Subsystem for Linux, use the WSL-specific playbook which excludes GUI roles (ubuntu, albert, snap, vscode):
+
+```bash
+ansible-playbook -K playbooks/wsl.yaml
+```
 
 ## Ubuntu Role Details
 

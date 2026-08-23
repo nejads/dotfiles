@@ -8,8 +8,6 @@ vscode_extensions:
   - esbenp.prettier-vscode
   - firsttris.vscode-jest-runner
   - formulahendry.code-runner
-  - github.copilot
-  - github.copilot-chat
   - hariscodes.vscode-dynamodb
   - k--kato.intellij-idea-keybindings
   - leo-ls.fiori-xml-lint

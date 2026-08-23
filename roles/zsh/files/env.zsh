@@ -47,7 +47,5 @@ export HOMEBREW_NO_AUTO_UPDATE=true
 export HOMEBREW_NO_INSTALL_CLEANUP=true
 export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=true
 
-# Volvo certs
-export NODE_EXTRA_CA_CERTS=~/workspace/vgcs/other/common-certs/volvo_certs.crt
-#export AWS_CA_BUNDLE=~/workspace/vgcs/other/common-certs/volvo_certs.crt
+# certs
 export AWS_CA_BUNDLE=~/.aws/aws-cert.pem

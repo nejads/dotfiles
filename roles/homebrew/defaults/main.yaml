@@ -102,6 +102,7 @@ cask_packages:
   - netnewswire
   - nordvpn
   - numi
+  - obsidian
   - orbstack
   - postico
   - postman

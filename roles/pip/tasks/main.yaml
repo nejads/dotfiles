@@ -1,0 +1,8 @@
+---
+- name: Install pip packages
+  ansible.builtin.pip:
+    name: "{{ pip_packages }}"
+    extra_args: --user
+    executable: pip3
+  environment:
+    PIP_BREAK_SYSTEM_PACKAGES: "1"

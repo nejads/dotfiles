@@ -8,6 +8,21 @@
     - role: "{{ ROLES_FOLDER }}/apt"
       tags: ["apt"]
 
+    - role: "{{ ROLES_FOLDER }}/snap"
+      tags: ["snap"]
+
+    - role: "{{ ROLES_FOLDER }}/pip"
+      tags: ["pip"]
+
+    - role: "{{ ROLES_FOLDER }}/shell_packages"
+      tags: ["shell_packages"]
+
+    - role: "{{ ROLES_FOLDER }}/java"
+      tags: ["java"]
+
+    - role: "{{ ROLES_FOLDER }}/albert"
+      tags: ["albert"]
+
     - role: "{{ ROLES_FOLDER }}/zsh"
       tags: ["zsh"]
 

@@ -15,18 +15,23 @@ ansible-playbook -K playbooks/bootstrap.yaml
 
 ## What's Included
 
-| Role        | Purpose                                                               |
-| ----------- | --------------------------------------------------------------------- |
-| `apt`       | System packages via apt, snap, and manual installs (AWS CLI, SAM, gh) |
-| `zsh`       | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting               |
-| `spaceship` | Spaceship prompt theme                                                |
-| `node`      | NVM + Node.js (LTS + latest)                                          |
-| `npm`       | Global npm packages (json, prettier, surge, typescript)               |
-| `git`       | Git config, aliases, diff-so-fancy                                    |
-| `tmux`      | Tmux + TPM + Catppuccin theme + vim-tmux-navigator                    |
-| `vscode`    | VS Code settings + extensions                                         |
-| `hosts`     | Ad-blocking hosts file                                                |
-| `ubuntu`    | GNOME desktop setup (font, keybindings, hyperkey, hints, clipboard)   |
+| Role              | Purpose                                                             |
+| ----------------- | ------------------------------------------------------------------- |
+| `apt`             | Apt repositories + apt packages                                     |
+| `snap`            | Snap packages + IntelliJ launcher                                   |
+| `pip`             | Python pip packages                                                 |
+| `shell_packages`  | CLI tools installed via shell (GitHub CLI, AWS CLI, SAM CLI)        |
+| `java`            | Amazon Corretto JDKs                                                |
+| `albert`          | Albert launcher (custom repo + install)                             |
+| `zsh`             | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting             |
+| `spaceship`       | Spaceship prompt theme                                              |
+| `node`            | NVM + Node.js (LTS + latest)                                        |
+| `npm`             | Global npm packages (json, prettier, typescript)                    |
+| `git`             | Git config, aliases, diff-so-fancy                                  |
+| `tmux`            | Tmux + TPM + Catppuccin theme + vim-tmux-navigator                  |
+| `vscode`          | VS Code settings + extensions                                       |
+| `hosts`           | Ad-blocking hosts file                                              |
+| `ubuntu`          | GNOME desktop setup (font, keybindings, hyperkey, hints, clipboard) |
 
 ## Run Specific Roles
 

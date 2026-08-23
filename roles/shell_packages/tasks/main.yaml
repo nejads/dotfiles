@@ -1,0 +1,10 @@
+---
+- name: "Install {{ item.name }}"
+  become: true
+  ansible.builtin.shell: "{{ item.script }}"
+  args:
+    creates: "{{ item.binary }}"
+    executable: /bin/bash
+  loop: "{{ shell_packages }}"
+  loop_control:
+    label: "{{ item.name }}"

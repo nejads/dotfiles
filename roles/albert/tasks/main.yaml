@@ -1,0 +1,29 @@
+---
+- name: Ensure prerequisites for deb822_repository
+  become: true
+  ansible.builtin.apt:
+    name: python3-debian
+    state: present
+
+- name: Add Albert launcher repository
+  become: true
+  ansible.builtin.deb822_repository:
+    name: home-manuelschneid3r-albert
+    types: [deb]
+    uris: "{{ albert_repo_url }}"
+    suites: /
+    signed_by: "{{ albert_repo_key }}"
+    state: present
+  register: albert_repo
+
+- name: Update apt cache after adding Albert repo
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+  when: albert_repo is changed
+
+- name: Install Albert
+  become: true
+  ansible.builtin.apt:
+    name: albert
+    state: present

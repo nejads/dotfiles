@@ -1,0 +1,5 @@
+---
+corretto_jdk_versions:
+  - java-25-amazon-corretto-jdk
+  - java-21-amazon-corretto-jdk
+  - java-17-amazon-corretto-jdk

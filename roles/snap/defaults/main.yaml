@@ -1,0 +1,9 @@
+---
+snap_packages:
+  - mailspring
+  - obsidian
+  - ticktick
+
+snap_classic_packages:
+  - code
+  - intellij-idea-ultimate

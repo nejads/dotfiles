@@ -1,0 +1,3 @@
+---
+albert_repo_url: "http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_{{ ansible_distribution_version }}/"
+albert_repo_key: "http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_{{ ansible_distribution_version }}/Release.key"

@@ -88,3 +88,19 @@ The `ubuntu` role configures the GNOME desktop environment:
 - **Clipboard history** — CopyQ with autostart and `Super+V` shortcut
 - **Hints** — Vimium-like keyboard navigation for the desktop (`Super+;`)
 - **Hyperkey** — CapsLock = Escape (tap) / Ctrl+Alt+Shift+Super (hold) via keyd
+
+### Window Management Shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `Super+Left` | Tile window to left half |
+| `Super+Right` | Tile window to right half |
+| `Super+Up` | Maximize window |
+| `Super+Down` | Unmaximize (restore) |
+| `Super+Shift+Left/Right` | Move window to left/right monitor |
+| `Ctrl+Shift+Alt+Up/Down` | Move window to workspace above/below |
+| `Ctrl+Alt+Up/Down` | Switch to workspace above/below |
+| `Super+R` | Enter resize mode (arrow keys to resize, Enter to confirm) |
+| `Super+M` | Enter move mode (arrow keys to move, Enter to confirm) |
+| `Super+V` | Toggle CopyQ clipboard history |
+| `Super+;` | Hints (Vimium-like keyboard navigation) |

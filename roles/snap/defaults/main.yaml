@@ -1,5 +1,6 @@
 ---
 snap_packages:
+  - keep-presence
   - mailspring
   - obsidian
   - ticktick

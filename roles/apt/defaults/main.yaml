@@ -25,7 +25,6 @@ apt_packages:
   - htop
   - httpie
   - jq
-  - keep-presence
   - maven
   - neovim
   - nginx

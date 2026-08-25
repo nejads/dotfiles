@@ -1,0 +1,17 @@
+---
+sdkman_dir: "{{ ansible_env.HOME }}/.sdkman"
+
+# Candidates to install via SDKMAN
+# Format: candidate:version (use "latest" for the latest stable version)
+sdkman_packages:
+  - candidate: java
+    version: 25-amzn
+  - candidate: java
+    version: 21-amzn
+  - candidate: java
+    version: 17-amzn
+  - candidate: maven
+    version: latest
+
+# Default Java version
+sdkman_java_default: 21-amzn

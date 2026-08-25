@@ -21,7 +21,8 @@ ansible-playbook -K playbooks/bootstrap.yaml
 | `snap`           | Snap packages + IntelliJ launcher                                   |
 | `pip`            | Python pip packages                                                 |
 | `shell_packages` | CLI tools installed via shell (GitHub CLI, AWS CLI, SAM CLI)        |
-| `java`           | Amazon Corretto JDKs                                                |
+| `docker`         | Docker Engine + Compose + user group setup                          |
+| `sdkman`         | SDKMAN + Java (Corretto) + Maven                                   |
 | `albert`         | Albert launcher (custom repo + install)                             |
 | `zsh`            | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting             |
 | `spaceship`      | Spaceship prompt theme                                              |
@@ -104,15 +105,3 @@ The `ubuntu` role configures the GNOME desktop environment:
 | `Super+M`                | Enter move mode (arrow keys to move, Enter to confirm)     |
 | `Super+V`                | Toggle CopyQ clipboard history                             |
 | `Super+;`                | Hints (Vimium-like keyboard navigation)                    |
-
-### TODO
-
-- Setup docker https://docs.docker.com/engine/install/linux-postinstall/
-- install sdkman, remove default maven, install latest maven by sdkman
-  sudo apt purge maven -y
-  sudo apt autoremove -y
-  curl -s "https://get.sdkman.io" | zsh
-  source "$HOME/.sdkman/bin/sdkman-init.sh"
-  sdk install maven
-
-- install corretoos using sdk as well

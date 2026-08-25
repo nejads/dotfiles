@@ -17,8 +17,11 @@
     - role: "{{ ROLES_FOLDER }}/shell_packages"
       tags: ["shell_packages"]
 
-    - role: "{{ ROLES_FOLDER }}/java"
-      tags: ["java"]
+    - role: "{{ ROLES_FOLDER }}/docker"
+      tags: ["docker"]
+
+    - role: "{{ ROLES_FOLDER }}/sdkman"
+      tags: ["sdkman"]
 
     - role: "{{ ROLES_FOLDER }}/albert"
       tags: ["albert"]

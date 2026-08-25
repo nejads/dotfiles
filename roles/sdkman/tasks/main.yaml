@@ -1,0 +1,36 @@
+---
+- name: Check if SDKMAN is installed
+  ansible.builtin.stat:
+    path: "{{ sdkman_dir }}/bin/sdkman-init.sh"
+  register: sdkman_installed
+
+- name: Install SDKMAN
+  ansible.builtin.shell: |
+    curl -s "https://get.sdkman.io" | bash
+  args:
+    executable: /bin/bash
+  environment:
+    SDKMAN_DIR: "{{ sdkman_dir }}"
+  when: not sdkman_installed.stat.exists
+
+- name: Install SDKMAN packages
+  ansible.builtin.shell: |
+    source "{{ sdkman_dir }}/bin/sdkman-init.sh"
+    if ! sdk list {{ item.candidate }} | grep -q "{{ item.version }}.*installed"; then
+      sdk install {{ item.candidate }} {{ item.version }}
+    fi
+  args:
+    executable: /bin/bash
+  loop: "{{ sdkman_packages }}"
+  loop_control:
+    label: "{{ item.candidate }}:{{ item.version }}"
+  register: sdk_install
+  changed_when: "'Done installing' in sdk_install.stdout"
+
+- name: Set default Java version
+  ansible.builtin.shell: |
+    source "{{ sdkman_dir }}/bin/sdkman-init.sh"
+    sdk default java {{ sdkman_java_default }}
+  args:
+    executable: /bin/bash
+  changed_when: false

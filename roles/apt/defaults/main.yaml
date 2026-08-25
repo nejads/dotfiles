@@ -2,10 +2,10 @@
 apt_repos:
   - name: diff-so-fancy
     uri: https://ppa.launchpadcontent.net/aos1/diff-so-fancy/ubuntu
-    key: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xE437E0D40E6CBCE8B7FCA422ACA06DEB1FC4E1A4
+    key_id: 4466B73F97EF279EC64D8A169E8A0C808486162E
   - name: copyq
     uri: https://ppa.launchpadcontent.net/hluk/copyq/ubuntu
-    key: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x98B2B859B6B27B071E87A9FB2DD11FBAB4BE9B6F
+    key_id: 407DCF2158B84056D11BBC944F0B2F06AA07D22F
 
 apt_packages:
   - bat

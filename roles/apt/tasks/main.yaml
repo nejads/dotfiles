@@ -1,9 +1,30 @@
 ---
-- name: Ensure python3-debian is installed (required for deb822_repository)
+- name: Ensure prerequisites are installed
   become: true
   ansible.builtin.apt:
-    name: python3-debian
+    name:
+      - python3-debian
+      - gpg
     state: present
+
+- name: Ensure keyrings directory exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Download PPA signing keys
+  become: true
+  ansible.builtin.shell: |
+    curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x{{ item.key_id }}" | \
+      gpg --dearmor -o /etc/apt/keyrings/{{ item.name }}.gpg
+  args:
+    creates: "/etc/apt/keyrings/{{ item.name }}.gpg"
+    executable: /bin/bash
+  loop: "{{ apt_repos }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: Add PPA repositories
   become: true
@@ -11,14 +32,13 @@
     name: "{{ item.name }}"
     types: [deb]
     uris: "{{ item.uri }}"
-    suites: "{{ ansible_distribution_release }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
     components: [main]
-    signed_by: "{{ item.key }}"
+    signed_by: "/etc/apt/keyrings/{{ item.name }}.gpg"
     state: present
   loop: "{{ apt_repos }}"
   loop_control:
     label: "{{ item.name }}"
-  register: repos_added
 
 - name: Update apt cache
   become: true

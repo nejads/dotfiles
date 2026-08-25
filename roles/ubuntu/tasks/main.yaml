@@ -157,13 +157,13 @@
 # ─── Clipboard History (CopyQ) ──────────────────────────────────────────────────
 - name: Ensure CopyQ autostart directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/autostart"
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/autostart"
     state: directory
     mode: "0755"
 
 - name: Enable CopyQ autostart
   ansible.builtin.copy:
-    dest: "{{ ansible_env.HOME }}/.config/autostart/copyq.desktop"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/autostart/copyq.desktop"
     mode: "0644"
     content: |
       [Desktop Entry]
@@ -253,8 +253,8 @@
 - name: Run hints setup
   become: true
   ansible.builtin.shell: |
-    env XDG_SESSION_TYPE={{ ansible_env.XDG_SESSION_TYPE | default('x11') }} \
-    env XDG_CURRENT_DESKTOP={{ ansible_env.XDG_CURRENT_DESKTOP | default('GNOME') }} \
+    env XDG_SESSION_TYPE={{ ansible_facts['env']['XDG_SESSION_TYPE'] | default('x11') }} \
+    env XDG_CURRENT_DESKTOP={{ ansible_facts['env']['XDG_CURRENT_DESKTOP'] | default('GNOME') }} \
     $(whereis hints | awk '{print $2}') --setup
   args:
     executable: /bin/bash

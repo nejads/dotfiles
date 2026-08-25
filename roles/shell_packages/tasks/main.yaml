@@ -1,5 +1,5 @@
 ---
-- name: "Install {{ item.name }}"
+- name: Install shell packages
   become: true
   ansible.builtin.shell: "{{ item.script }}"
   args:

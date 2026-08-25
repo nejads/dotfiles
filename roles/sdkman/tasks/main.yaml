@@ -13,24 +13,50 @@
     SDKMAN_DIR: "{{ sdkman_dir }}"
   when: not sdkman_installed.stat.exists
 
-- name: Install SDKMAN packages
+- name: Install Java versions via SDKMAN
   ansible.builtin.shell: |
     source "{{ sdkman_dir }}/bin/sdkman-init.sh"
-    if ! sdk list {{ item.candidate }} | grep -q "{{ item.version }}.*installed"; then
-      sdk install {{ item.candidate }} {{ item.version }}
+    # Find the latest available version matching the prefix
+    VERSION=$(sdk list java | grep -oP '\s\K[\d.]+-{{ item.split("-")[1] }}' | grep '^{{ item.split("-")[0] }}\.' | head -1)
+    if [ -z "$VERSION" ]; then
+      # Try exact match (e.g. 25-amzn might be listed as 25-amzn without dot)
+      VERSION=$(sdk list java | grep -oP '\s\K{{ item }}[\w.]*' | head -1)
+    fi
+    if [ -z "$VERSION" ]; then
+      echo "ERROR: No version found matching {{ item }}"
+      exit 1
+    fi
+    if sdk list java | grep -q "$VERSION.*installed"; then
+      echo "Already installed: $VERSION"
+    else
+      sdk install java "$VERSION"
     fi
   args:
     executable: /bin/bash
-  loop: "{{ sdkman_packages }}"
-  loop_control:
-    label: "{{ item.candidate }}:{{ item.version }}"
-  register: sdk_install
-  changed_when: "'Done installing' in sdk_install.stdout"
+  loop: "{{ sdkman_java_versions }}"
+  register: java_install
+  changed_when: "'Done installing' in java_install.stdout"
+
+- name: Install Maven via SDKMAN
+  ansible.builtin.shell: |
+    source "{{ sdkman_dir }}/bin/sdkman-init.sh"
+    if sdk current maven 2>/dev/null | grep -q "maven"; then
+      echo "Maven already installed"
+    else
+      sdk install maven
+    fi
+  args:
+    executable: /bin/bash
+  register: maven_install
+  changed_when: "'Done installing' in maven_install.stdout"
 
 - name: Set default Java version
   ansible.builtin.shell: |
     source "{{ sdkman_dir }}/bin/sdkman-init.sh"
-    sdk default java {{ sdkman_java_default }}
+    VERSION=$(sdk list java | grep -oP '\s\K[\d.]+-{{ sdkman_java_default.split("-")[1] }}' | grep '^{{ sdkman_java_default.split("-")[0] }}\.' | head -1)
+    if [ -n "$VERSION" ]; then
+      sdk default java "$VERSION"
+    fi
   args:
     executable: /bin/bash
   changed_when: false

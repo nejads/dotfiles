@@ -3,7 +3,7 @@
 nerd_fonts_version: "v3.4.0"
 font_family: "JetBrainsMono Nerd Font Mono"
 font_size: 12
-font_dir: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono"
+font_dir: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/JetBrainsMono"
 
 # ─── Keyboard ───────────────────────────────────────────────────────────────────
 # Swap Left Ctrl with Left Super, and Right Ctrl with Right Super

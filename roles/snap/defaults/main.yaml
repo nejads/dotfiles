@@ -3,6 +3,7 @@ snap_packages:
   - keep-presence
   - mailspring
   - obsidian
+  - postman
   - ticktick
 
 snap_classic_packages:

@@ -15,23 +15,23 @@ ansible-playbook -K playbooks/bootstrap.yaml
 
 ## What's Included
 
-| Role              | Purpose                                                             |
-| ----------------- | ------------------------------------------------------------------- |
-| `apt`             | Apt repositories + apt packages                                     |
-| `snap`            | Snap packages + IntelliJ launcher                                   |
-| `pip`             | Python pip packages                                                 |
-| `shell_packages`  | CLI tools installed via shell (GitHub CLI, AWS CLI, SAM CLI)        |
-| `java`            | Amazon Corretto JDKs                                                |
-| `albert`          | Albert launcher (custom repo + install)                             |
-| `zsh`             | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting             |
-| `spaceship`       | Spaceship prompt theme                                              |
-| `node`            | NVM + Node.js (LTS + latest)                                        |
-| `npm`             | Global npm packages (json, prettier, typescript)                    |
-| `git`             | Git config, aliases, diff-so-fancy                                  |
-| `tmux`            | Tmux + TPM + Catppuccin theme + vim-tmux-navigator                  |
-| `vscode`          | VS Code settings + extensions                                       |
-| `hosts`           | Ad-blocking hosts file                                              |
-| `ubuntu`          | GNOME desktop setup (font, keybindings, hyperkey, hints, clipboard) |
+| Role             | Purpose                                                             |
+| ---------------- | ------------------------------------------------------------------- |
+| `apt`            | Apt repositories + apt packages                                     |
+| `snap`           | Snap packages + IntelliJ launcher                                   |
+| `pip`            | Python pip packages                                                 |
+| `shell_packages` | CLI tools installed via shell (GitHub CLI, AWS CLI, SAM CLI)        |
+| `java`           | Amazon Corretto JDKs                                                |
+| `albert`         | Albert launcher (custom repo + install)                             |
+| `zsh`            | Zsh + Oh-My-Zsh + zsh-completions + syntax highlighting             |
+| `spaceship`      | Spaceship prompt theme                                              |
+| `node`           | NVM + Node.js (LTS + latest)                                        |
+| `npm`            | Global npm packages (json, prettier, typescript)                    |
+| `git`            | Git config, aliases, diff-so-fancy                                  |
+| `tmux`           | Tmux + TPM + Catppuccin theme + vim-tmux-navigator                  |
+| `vscode`         | VS Code settings + extensions                                       |
+| `hosts`          | Ad-blocking hosts file                                              |
+| `ubuntu`         | GNOME desktop setup (font, keybindings, hyperkey, hints, clipboard) |
 
 ## Run Specific Roles
 
@@ -91,16 +91,28 @@ The `ubuntu` role configures the GNOME desktop environment:
 
 ### Window Management Shortcuts
 
-| Shortcut | Action |
-| --- | --- |
-| `Super+Left` | Tile window to left half |
-| `Super+Right` | Tile window to right half |
-| `Super+Up` | Maximize window |
-| `Super+Down` | Unmaximize (restore) |
-| `Super+Shift+Left/Right` | Move window to left/right monitor |
-| `Ctrl+Shift+Alt+Up/Down` | Move window to workspace above/below |
-| `Ctrl+Alt+Up/Down` | Switch to workspace above/below |
-| `Super+R` | Enter resize mode (arrow keys to resize, Enter to confirm) |
-| `Super+M` | Enter move mode (arrow keys to move, Enter to confirm) |
-| `Super+V` | Toggle CopyQ clipboard history |
-| `Super+;` | Hints (Vimium-like keyboard navigation) |
+| Shortcut                 | Action                                                     |
+| ------------------------ | ---------------------------------------------------------- |
+| `Super+Left`             | Tile window to left half                                   |
+| `Super+Right`            | Tile window to right half                                  |
+| `Super+Up`               | Maximize window                                            |
+| `Super+Down`             | Unmaximize (restore)                                       |
+| `Super+Shift+Left/Right` | Move window to left/right monitor                          |
+| `Ctrl+Shift+Alt+Up/Down` | Move window to workspace above/below                       |
+| `Ctrl+Alt+Up/Down`       | Switch to workspace above/below                            |
+| `Super+R`                | Enter resize mode (arrow keys to resize, Enter to confirm) |
+| `Super+M`                | Enter move mode (arrow keys to move, Enter to confirm)     |
+| `Super+V`                | Toggle CopyQ clipboard history                             |
+| `Super+;`                | Hints (Vimium-like keyboard navigation)                    |
+
+### TODO
+
+- Setup docker https://docs.docker.com/engine/install/linux-postinstall/
+- install sdkman, remove default maven, install latest maven by sdkman
+  sudo apt purge maven -y
+  sudo apt autoremove -y
+  curl -s "https://get.sdkman.io" | zsh
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+  sdk install maven
+
+- install corretoos using sdk as well

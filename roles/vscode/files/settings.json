@@ -166,6 +166,7 @@
     "editor.defaultFormatter": "vscode.json-language-features",
   },
   "docker.extension.enableComposeLanguageServer": false,
-  "aws.cloudformation.telemetry.enabled": true,
+  "aws.cloudformation.telemetry.enabled": false,
   "chat.titleBar.signIn.enabled": false,
+  "window.newWindowProfile": "Default",
 }

@@ -51,8 +51,8 @@
 	autocrlf = input  # bit.ly/2RLLxed
 	compression = 0
 [user]
-	name =
-	email =
+	name = Sorosh Nejad
+	email = sorosh.nejad@wirelesscar.com
 
 [includeIf "gitdir:~/workspace/vgcs"]
     path = ~/workspace/vgcs/.gitconfig

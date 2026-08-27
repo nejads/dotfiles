@@ -83,7 +83,8 @@ cask_packages:
   - corretto@8
   - corretto@11
   - corretto@17
-  - corretto
+  - corretto@21
+  - corretto@25
   - cryptomator
   - cyberduck
   - drawio
@@ -92,6 +93,7 @@ cask_packages:
   - font-jetbrains-mono-nerd-font
   - fork
   - hammerspoon
+  - hiddenbar
   - homerow
   - hyperkey
   - intellij-idea
@@ -108,7 +110,6 @@ cask_packages:
   - postman
   - spotify
   - transmission
-  - typora
   - vagrant
   - visual-studio-code
   - vlc

@@ -14,6 +14,7 @@
       {% endfor %}
 
 - name: Setup 1.1.1.1 DNS servers
+  become: yes
   changed_when: false
   ansible.builtin.shell:
     cmd: |

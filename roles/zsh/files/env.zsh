@@ -32,10 +32,6 @@ export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
 # Sonarqube Scanner
 export PATH="~/sonar-scanner/bin/:$PATH"
 
-# Sonic
-PYTHON_LOCAL_BIN=${HOME}/.local/bin
-export PATH=${PYTHON_LOCAL_BIN}:${PATH}
-
 # Java
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
@@ -47,5 +43,5 @@ export HOMEBREW_NO_AUTO_UPDATE=true
 export HOMEBREW_NO_INSTALL_CLEANUP=true
 export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=true
 
-# certs
-export AWS_CA_BUNDLE=~/.aws/aws-cert.pem
+# Intellij
+export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"

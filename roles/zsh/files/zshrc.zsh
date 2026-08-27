@@ -41,6 +41,9 @@ export AWS_PAGER=""
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
+# use jq installed via brew
+alias jq="/opt/homebrew/bin/jq"
+
 # needed for SAM --use-container finds the docker
 #ln -s "$HOME/.docker/run/docker.sock" /var/run/docker.sock
 #############################
@@ -68,7 +71,7 @@ alias library="cd $HOME/Library"
 alias workspace="cd ~/workspace"
 alias w="cd ~/workspace"
 alias sc="less $DOTFILES/shortcuts.md"
-alias be="cd ~/workspace/vgcs/build-engineering"
+alias ww="cd ~/workspace/wirelesscar"
 
 # Postgres
 alias pstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
@@ -130,18 +133,6 @@ alias gpa="find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/
 alias gplrq="gh pr create --fill"
 alias gprev="git checkout -"
 alias gs='git status'
-function gpfr() {
-    #slack_hook_url="https://hooks.slack.com/"
-    git pull --rebase
-    if [[ $? == 0 ]]; then
-      CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-      if [ "$CURRENT_BRANCH" = "master" ]; then
-          git push origin HEAD:refs/for/master
-      else
-          git push origin HEAD:refs/for/main
-      fi
-    fi
-}
 
 function gob() {
   if [ -z "$1" ]; then
@@ -182,67 +173,6 @@ alias awe="aw exec"
 function awc() {
   unset AWS_VAULT
   aw clear
-}
-
-# AWS CLI
-function aws_pr() {
-  if [ -z "$1" ]; then
-    echo "Please provide the message of the PR"
-  else
-    pull_request_id=$(aws codecommit create-pull-request \
-      --title "$1" \
-      --description "$1" \
-      --targets repositoryName=$(basename "$PWD"),sourceReference=$(git rev-parse --abbrev-ref HEAD),destinationReference=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@') \
-      --query 'pullRequest.pullRequestId' \
-      --output text)
-
-    echo "Pull Request ID: $pull_request_id"
-  fi
-}
-
-function aws_merge () {
-  if [ -z "$1" ]; then
-    echo "Please provide the pull request ID"
-  else
-    aws codecommit merge-pull-request-by-fast-forward \
-      --pull-request-id "$1" \
-      --repository-name $(basename "$PWD")
-    aws codecommit delete-branch \
-      --repository-name $(basename "$PWD") \
-      --branch-name $(git rev-parse --abbrev-ref HEAD)
-    go
-    gbpurge
-    echo "Merged pull request ID: $1"
-  fi
-}
-
-# setup profile for AWS toolkit in IntelliJ
-function aws_temp_profile() {
-  # Check if environment variables are set
-  if [[ -z "${AWS_ACCESS_KEY_ID}" || -z "${AWS_SECRET_ACCESS_KEY}" || -z "${AWS_SESSION_TOKEN}" ]]; then
-    echo "Please set the AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_SESSION_TOKEN environment variables."
-    return 1
-  fi
-
-  # Remove existing AWS config block
-  sed -i '' '/^\[profile temp\]/,+3d' ~/.aws/config
-
-  # Append AWS config block to ~/.aws/config
-  echo "[profile temp]" >> ~/.aws/config
-  echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >> ~/.aws/config
-  echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" >> ~/.aws/config
-  echo "aws_session_token = ${AWS_SESSION_TOKEN}" >> ~/.aws/config
-
-  echo "AWS config has been updated."
-}
-
-# trigger build for current path
-function trigger() {
-  TRIGGER_URL="https://CHANGE_IT/api/initializer/trigger"
-  REPO_NAME=$(git remote -v | awk -F/ '/origin.*\(fetch\)/ {gsub(/ \(fetch\)/, ""); path=$(NF-2) "/" $(NF-1) "/" $NF; gsub(/^[ \t]+|[ \t]+$/, "", path); print path}')
-  if [ ! -z $REPO_NAME ]; then
-    curl --location $TRIGGER_URL --header 'Content-Type: application/json' --data "{\"repository\": \"$REPO_NAME\"}"
-  fi
 }
 
 # EESSH
@@ -392,12 +322,6 @@ function yaml2json() {
   yq e -j $1
 }
 
-function overstart {
-  configbestbeforeseconds=120
-  configendpoints=https://1obxl8dgf7.execute-api.eu-west-1.amazonaws.com/deprod/config/
-  configrolearns=arn:aws:iam::488300216743:role/CentralConfigGet
-  java -DZONE=de -Dhttp.nonProxyHosts="*.aws.vgthosting.net" -Dconfigendpoints=https://1obxl8dgf7.execute-api.eu-west-1.amazonaws.com/deprod/config/ -Dconfigrolearns=arn:aws:iam::488300216743:role/CentralConfigGet -DVGTZONE=de -DVGTSOLUTION=de -DVGTENVIRONMENT=prod -Xms64m -Xmx512m -DVGTCOMPSHORTNAME=overseer -DVGTSITE=eu-west-1 -DVGTLOGDIR=web/config/logs/overseer -Dlog4j.configurationFile=web/config/log4j2.xml -Dhttp.proxyHost=httppxgot-gssd.srv.volvo.com -Dhttp.proxyPort=8080 -Dhttps.proxyHost=httppxgot-gssd.srv.volvo.com -Dhttps.proxyPort=8080 -Djavax.net.ssl.trustStore=changeit -jar ~/workspace/vgcs/build-engineering/overseer/web/target/overseer-web-0-SNAPSHOT.jar
-}
 export NVM_DIR=~/.nvm
 
 # pnpm
@@ -415,3 +339,4 @@ export NVM_DIR=/Users/galaxy/.nvm
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export NVM_DIR=/Users/soroshnejad/.nvm
+export NVM_DIR=/Users/sorosh.nejad/.nvm

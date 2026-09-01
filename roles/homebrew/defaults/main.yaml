@@ -34,6 +34,7 @@ brew_packages:
   - groovy
   - hugo
   - htop
+  - incus
   - jenv
   - jq
   - localstack
@@ -45,6 +46,7 @@ brew_packages:
   - nginx
   - nmap
   - nvm
+  - ollama
   - openssh
   - oath-toolkit
   - pipenv
@@ -80,6 +82,7 @@ cask_packages:
   - aws-vault
   - beamer
   - bitwarden
+  - codex
   - corretto@8
   - corretto@11
   - corretto@17

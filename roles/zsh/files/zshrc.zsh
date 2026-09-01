@@ -44,8 +44,14 @@ source $(brew --prefix nvm)/nvm.sh
 # use jq installed via brew
 alias jq="/opt/homebrew/bin/jq"
 
+# Docker
+
+# set docker socket from default to the orbstack, so test containers can find it
+export DOCKER_HOST=unix:///Users/sorosh.nejad/.orbstack/run/docker.sock
+
 # needed for SAM --use-container finds the docker
 #ln -s "$HOME/.docker/run/docker.sock" /var/run/docker.sock
+
 #############################
 # aliases
 #############################
@@ -340,3 +346,8 @@ export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export NVM_DIR=/Users/soroshnejad/.nvm
 export NVM_DIR=/Users/sorosh.nejad/.nvm
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/sorosh.nejad/.lmstudio/bin"
+# End of LM Studio CLI section
+
